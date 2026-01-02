@@ -308,7 +308,7 @@ export const About: React.FC<AboutProps> = ({ onNavigate }) => {
                     </div>
                     <div className="space-y-2">
                       <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Professional Email</label>
-                      <input required type="email" className="w-full bg-gray-50 border-b-2 border-gray-100 p-4 text-sm text-secondary focus:border-primary focus:outline-none transition-all placeholder:text-gray-300" placeholder="principal@agency.com" />
+                      <input required type="email" className="w-full bg-gray-50 border-b-2 border-gray-100 p-4 text-sm text-secondary focus:border-primary focus:outline-none transition-all placeholder:text-gray-300" placeholder="contact@exploge.com" />
                     </div>
                   </div>
                   

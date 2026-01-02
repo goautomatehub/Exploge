@@ -32,7 +32,7 @@ export const Contact: React.FC = () => {
                 <div className="w-8 h-8 md:w-10 md:h-10 border border-white/10 flex items-center justify-center text-primary group-hover:border-primary group-hover:bg-primary/5 transition-all">
                   <Icons.Mail className="w-4 h-4 md:w-5 md:h-5" />
                 </div>
-                <span className="text-gray-300 text-sm md:text-base font-medium group-hover:text-white transition-colors">hello@exploge.io</span>
+                <span className="text-gray-300 text-sm md:text-base font-medium group-hover:text-white transition-colors">contact@exploge.com</span>
               </div>
               <div className="flex items-center gap-4 group cursor-pointer">
                 <div className="w-8 h-8 md:w-10 md:h-10 border border-white/10 flex items-center justify-center text-primary group-hover:border-primary group-hover:bg-primary/5 transition-all">
@@ -62,7 +62,7 @@ export const Contact: React.FC = () => {
                     </div>
                     <div className="space-y-2">
                       <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Your Email</label>
-                      <input required type="email" className="w-full bg-gray-50 border border-gray-100 p-3 md:p-4 text-sm text-secondary focus:border-primary focus:outline-none transition-colors placeholder:text-gray-300 rounded-md" placeholder="john@agency.com" />
+                      <input required type="email" className="w-full bg-gray-50 border border-gray-100 p-3 md:p-4 text-sm text-secondary focus:border-primary focus:outline-none transition-colors placeholder:text-gray-300 rounded-md" placeholder="contact@exploge.com" />
                     </div>
                   </div>
                   
