@@ -72,12 +72,12 @@ export const About: React.FC<AboutProps> = ({ onNavigate }) => {
               <span className="text-primary mono text-xs font-bold uppercase tracking-[0.4em] mb-6 block">Our Identity</span>
             </Reveal>
             <Reveal direction="left" delay={0.1}>
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.9] mb-8">
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] mb-8">
                 The <span className="text-primary italic">Architects</span> of Agency Efficiency.
               </h1>
             </Reveal>
             <Reveal direction="up" delay={0.2}>
-              <p className="text-xl md:text-2xl text-gray-400 font-light leading-relaxed border-l-2 border-primary pl-8 max-w-2xl">
+              <p className="text-xl text-gray-400 font-light leading-relaxed border-l-2 border-primary pl-8 max-w-2xl">
                 Founded on the principle that complexity is the enemy of growth, Exploge was built to bridge the gap between creative vision and operational reality.
               </p>
             </Reveal>

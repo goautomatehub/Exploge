@@ -12,7 +12,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
 
-  const HEADER_OFFSET = 80;
+  const HEADER_OFFSET = 60;
 
   // Determine if we should use light text (e.g., on About/Services/Portfolio page before scrolling)
   const isLightMode = currentPage !== 'home' && !isScrolled && !isMenuOpen;
@@ -30,7 +30,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
       setIsScrolled(window.scrollY > 50);
 
       if (currentPage === 'home') {
-        const sections = ['services', 'features', 'pricing', 'faq'];
+        const sections = ['features', 'pricing', 'faq'];
         const scrollPosition = window.scrollY + HEADER_OFFSET + 20;
 
         for (const section of sections) {
@@ -49,6 +49,9 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
     };
 
     window.addEventListener('scroll', handleScroll);
+    // Initial check on mount
+    handleScroll();
+    
     return () => window.removeEventListener('scroll', handleScroll);
   }, [currentPage]);
 
@@ -95,7 +98,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
-        isMenuOpen ? 'bg-white py-3 shadow-none' : isScrolled ? 'bg-white/90 backdrop-blur-md py-3 shadow-sm' : 'bg-transparent py-8'
+        isMenuOpen ? 'bg-white py-2 shadow-none' : isScrolled ? 'bg-white/90 backdrop-blur-md py-2 shadow-sm' : 'bg-transparent py-6'
       }`}
     >
       {/* Bottom Border */}

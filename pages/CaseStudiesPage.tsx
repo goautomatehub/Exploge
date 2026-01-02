@@ -17,7 +17,7 @@ export const CaseStudiesPage: React.FC = () => {
               <span className="text-primary mono text-xs font-bold uppercase tracking-[0.4em] mb-6 block">Proof of Work</span>
             </Reveal>
             <Reveal direction="left" delay={0.1}>
-              <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] mb-8">
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] mb-8">
                 The <span className="text-primary italic">Blueprint</span> of Success.
               </h1>
             </Reveal>
