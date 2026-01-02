@@ -313,26 +313,8 @@ export const About: React.FC<AboutProps> = ({ onNavigate }) => {
                   </div>
                   
                   <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Inquiry Type</label>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                      {[
-                        { name: 'Automation', icon: Icons.Zap },
-                        { name: 'Migration', icon: Icons.Workflow },
-                        { name: 'Custom Build', icon: Icons.Plus },
-                        { name: 'Consulting', icon: Icons.MessageSquare }
-                      ].map(type => (
-                        <label key={type.name} className="flex flex-col items-center gap-3 p-4 bg-gray-50 cursor-pointer hover:bg-gray-100 transition-colors border border-transparent has-[:checked]:border-primary has-[:checked]:bg-primary/5 group rounded-md">
-                          <input type="radio" name="inquiry" className="hidden" />
-                          <type.icon className="w-5 h-5 text-gray-400 group-has-[:checked]:text-primary transition-colors" />
-                          <span className="text-[10px] font-bold text-secondary uppercase tracking-widest">{type.name}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Detailed Context</label>
-                    <textarea rows={5} className="w-full bg-gray-50 border-b-2 border-gray-100 p-4 text-sm text-secondary focus:border-primary focus:outline-none transition-all resize-none placeholder:text-gray-300" placeholder="Briefly describe your agency size and primary operational bottleneck..."></textarea>
+                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Message</label>
+                    <textarea rows={6} className="w-full bg-gray-50 border-b-2 border-gray-100 p-4 text-sm text-secondary focus:border-primary focus:outline-none transition-all resize-none placeholder:text-gray-300" placeholder="Tell us about your business..."></textarea>
                   </div>
                   
                   <button type="submit" className="w-full bg-primary text-white font-black py-5 hover:bg-secondary transition-all duration-300 text-sm uppercase tracking-[0.3em] flex items-center justify-center gap-4 shadow-[0_10px_30px_rgba(32,188,97,0.3)] hover:shadow-none hover:-translate-y-1 group rounded-md">

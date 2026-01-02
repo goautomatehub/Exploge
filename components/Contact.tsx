@@ -66,22 +66,9 @@ export const Contact: React.FC = () => {
                     </div>
                   </div>
                   
-                  <div className="space-y-2 relative">
-                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Team Size</label>
-                    <select className="w-full bg-gray-50 border border-gray-100 p-3 md:p-4 text-sm text-secondary focus:border-primary focus:outline-none transition-colors appearance-none cursor-pointer rounded-md">
-                      <option>1-10 people</option>
-                      <option>11-50 people</option>
-                      <option>51-200 people</option>
-                      <option>200+ people</option>
-                    </select>
-                    <div className="absolute right-4 bottom-4 pointer-events-none text-gray-400">
-                      <Icons.ArrowRight className="w-4 h-4 rotate-90" />
-                    </div>
-                  </div>
-                  
                   <div className="space-y-2">
                     <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">How can we help?</label>
-                    <textarea rows={4} className="w-full bg-gray-50 border border-gray-100 p-3 md:p-4 text-sm text-secondary focus:border-primary focus:outline-none transition-colors resize-none placeholder:text-gray-300 rounded-md" placeholder="Tell us about your business..."></textarea>
+                    <textarea rows={6} className="w-full bg-gray-50 border border-gray-100 p-3 md:p-4 text-sm text-secondary focus:border-primary focus:outline-none transition-colors resize-none placeholder:text-gray-300 rounded-md" placeholder="Tell us about your business..."></textarea>
                   </div>
                   
                   <button type="submit" className="w-full bg-primary text-white font-black py-4 md:py-5 hover:bg-secondary transition-all duration-300 text-[10px] md:text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-3 shadow-[0_10px_30px_rgba(32,188,97,0.3)] hover:shadow-none hover:-translate-y-1 group rounded-md">
