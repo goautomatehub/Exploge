@@ -59,13 +59,6 @@ export const About: React.FC<AboutProps> = ({ onNavigate }) => {
         <AmbientGroup variant="dark" />
         <div className="absolute inset-0 bg-grid opacity-[0.05]"></div>
         
-        {/* Floating Elements */}
-        <FloatingDecorations.Plus className="top-40 right-20 text-primary" delay={0.6} />
-        <FloatingDecorations.Dot className="bottom-20 left-1/3" delay={1.8} />
-        <FloatingDecorations.Triangle className="top-20 left-1/4" delay={0.9} />
-        <FloatingDecorations.Cross className="bottom-40 right-1/3" delay={1.4} />
-        <FloatingDecorations.GridDots className="top-1/3 right-10" delay={2.5} />
-        
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl">
             <Reveal direction="left">
