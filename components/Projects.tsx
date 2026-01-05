@@ -101,7 +101,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
         </div>
       </div>
 
-      <div className="p-8 flex flex-col flex-grow relative z-20">
+      <div className="p-6 xs:p-8 flex flex-col flex-grow relative z-20">
         <h4 className="text-xl font-black uppercase tracking-tight mb-3 group-hover:text-primary transition-colors">
           {project.title}
         </h4>
@@ -145,7 +145,7 @@ export const Projects: React.FC = () => {
               </div>
             </Reveal>
             <Reveal direction="left" delay={0.1}>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.95] text-secondary">
+              <h2 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.95] text-secondary">
                 Systems We've <br/> 
                 <span className="text-primary italic">Deployed.</span>
               </h2>
@@ -153,7 +153,7 @@ export const Projects: React.FC = () => {
           </div>
           
           <Reveal direction="right" delay={0.2}>
-            <p className="text-zinc-500 text-base max-w-sm leading-relaxed border-l border-zinc-200 pl-8">
+            <p className="text-zinc-500 text-sm md:text-base max-w-sm leading-relaxed border-l border-zinc-200 pl-6 md:pl-8">
               A collection of architectural implementations that have transformed agency operations into automated powerhouses.
             </p>
           </Reveal>
@@ -207,9 +207,9 @@ export const Projects: React.FC = () => {
         </motion.div>
 
         <Reveal direction="up" delay={0.4}>
-          <div className="mt-20 p-12 bg-zinc-50 border border-black/5 rounded-md flex flex-col md:flex-row items-center justify-between gap-10">
+          <div className="mt-20 p-8 md:p-12 bg-zinc-50 border border-black/5 rounded-md flex flex-col md:flex-row items-center justify-between gap-10">
             <div className="max-w-lg text-center md:text-left">
-              <h4 className="text-2xl font-black uppercase tracking-tight mb-2">Want to see more results?</h4>
+              <h4 className="text-xl xs:text-2xl font-black uppercase tracking-tight mb-2">Want to see more results?</h4>
               <p className="text-gray-500 text-sm leading-relaxed">
                 We have handled over 150+ custom deployments across various industries. Contact us for a deep dive into projects similar to your business model.
               </p>

@@ -66,7 +66,7 @@ export const NodeVisualizer: React.FC = () => {
 
   return (
     <div className="w-full h-full relative flex items-center justify-center overflow-visible">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] pointer-events-none">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] pointer-events-none hidden md:block">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/5 blur-[100px] rounded-full animate-pulse"></div>
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-black/5 blur-[120px] rounded-full"></div>
       </div>
@@ -97,7 +97,7 @@ export const NodeVisualizer: React.FC = () => {
                 strokeWidth="0.6"
                 strokeDasharray="6, 24"
                 strokeLinecap="round"
-                className="filter drop-shadow-[0_0_2px_#20bc61]"
+                className="md:filter md:drop-shadow-[0_0_2px_#20bc61]"
               >
                 <animate
                   attributeName="stroke-dashoffset"

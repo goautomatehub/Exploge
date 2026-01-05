@@ -86,7 +86,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled || isMenuOpen ? 'bg-white/90 backdrop-blur-md py-3 shadow-sm' : 'bg-transparent py-8'
+        isScrolled || isMenuOpen ? 'bg-white/90 backdrop-blur-md py-3 shadow-sm' : 'bg-transparent py-4 md:py-8'
       }`}
     >
       {/* Bottom Border - controlled separately for instant removal on scroll up */}
@@ -101,7 +101,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
           onClick={(e) => { e.preventDefault(); onNavigate('home'); setIsMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
           className="flex items-center group relative"
         >
-          <div className="relative w-40 h-20 md:w-52 md:h-24 flex items-center justify-center transition-all duration-500 transform group-hover:scale-105 overflow-hidden">
+          <div className="relative w-28 h-12 xs:w-32 xs:h-14 sm:w-36 sm:h-16 md:w-48 md:h-20 lg:w-52 lg:h-24 flex items-center justify-center transition-all duration-500 transform group-hover:scale-105 overflow-hidden">
             <img 
               src={isLightMode ? "/logo-light.svg" : "/logo.svg"} 
               alt="Exploge Logo" 
@@ -110,13 +110,13 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
           </div>
         </a>
 
-        <nav className="hidden md:flex items-center space-x-10">
+        <nav className="hidden md:flex items-center space-x-6 lg:space-x-10">
           {navLinks.map((link) => (
             <a 
               key={link.name}
               href={link.href}
               onClick={(e) => handleLinkClick(e, link)}
-              className={`text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-500 mono relative py-2 ${
+              className={`text-[10px] lg:text-[11px] font-bold uppercase tracking-[0.2em] transition-all duration-500 mono relative py-2 ${
                 (link.type === 'page' && currentPage === link.id) || activeSection === link.id 
                   ? 'text-primary' 
                   : isLightMode 
@@ -132,11 +132,11 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
           ))}
         </nav>
 
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-4 lg:gap-6">
           <a 
             href="#contact" 
             onClick={handleConnect}
-            className={`px-8 py-3.5 text-[10px] font-bold uppercase tracking-widest transition-all duration-300 mono flex items-center gap-3 group rounded-md ${
+            className={`hidden md:flex px-6 py-3 lg:px-8 lg:py-3.5 text-[10px] lg:text-[11px] font-bold uppercase tracking-widest transition-all duration-300 mono items-center gap-3 group rounded-md ${
               isLightMode 
                 ? 'bg-white text-black hover:bg-primary hover:text-white' 
                 : 'bg-black text-white hover:bg-primary shadow-[0_4px_15px_rgba(32,188,97,0.2)] hover:shadow-none hover:-translate-y-1'
@@ -183,7 +183,8 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
               onClick={handleConnect}
               className="w-full bg-primary text-white text-center py-5 font-bold uppercase tracking-widest text-xs mono flex items-center justify-center gap-4 rounded-md"
             >
-              Get Started
+              Connect With Us
+              <Icons.Send className="w-4 h-4" />
             </a>
           </div>
         </nav>

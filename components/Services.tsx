@@ -39,7 +39,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ id, title, description, icon,
     <Reveal direction="up" delay={delay}>
       <div 
         onMouseMove={handleMouseMove}
-        className="relative group p-8 md:p-10 bg-white border border-zinc-200/50 flex flex-col transition-all duration-500 hover:border-primary/40 hover:bg-white h-full rounded-[4px] shadow-sm hover:shadow-xl overflow-hidden"
+        className="relative group p-6 xs:p-8 md:p-10 bg-white border border-zinc-200/50 flex flex-col transition-all duration-500 hover:border-primary/40 hover:bg-white h-full rounded-[4px] shadow-sm hover:shadow-xl overflow-hidden"
       >
         {/* Spotlight Effect Overlay - Hidden on mobile for performance */}
         <motion.div
@@ -135,15 +135,15 @@ export const Services: React.FC = () => {
       <div className="absolute inset-0 bg-grid opacity-[0.05] pointer-events-none"></div>
       
       <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col lg:flex-row items-end justify-between mb-20 gap-8">
+        <div className="flex flex-col md:flex-row items-end justify-between mb-16 md:mb-20 gap-8">
           <div className="max-w-2xl">
             <Reveal direction="left">
-              <div className="flex items-center gap-4 mb-6">
+              <div className="flex items-center gap-4 mb-4 md:mb-6">
                 <span className="text-[10px] font-bold text-primary uppercase tracking-[0.5em] mono">Service Portfolio</span>
               </div>
             </Reveal>
             <Reveal direction="left" delay={0.1}>
-              <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter leading-[0.95] text-secondary">
+              <h2 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.95] text-secondary">
                 Professional <br/> 
                 <span className="text-primary italic">Agency</span> Services.
               </h2>
@@ -151,13 +151,13 @@ export const Services: React.FC = () => {
           </div>
           
           <Reveal direction="right" delay={0.2}>
-            <p className="text-zinc-500 text-base max-w-sm leading-relaxed border-l border-zinc-200 pl-8 hidden lg:block">
+            <p className="text-zinc-500 text-sm md:text-base max-w-sm leading-relaxed border-l border-zinc-200 pl-6 md:pl-8 hidden md:block">
               We provide the expertise needed to build reliable, scalable business operations for modern service-based agencies.
             </p>
           </Reveal>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-l border-zinc-200/50">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 border-t border-l border-zinc-200/50">
           {services.map((service, index) => (
             <div key={service.id} className="border-r border-b border-zinc-200/50">
               <ServiceCard 

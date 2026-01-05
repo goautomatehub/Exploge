@@ -94,7 +94,7 @@ export const Testimonials: React.FC = () => {
               <h2 className="text-xs font-bold text-primary uppercase tracking-[0.4em] mb-4 mono">Client Success</h2>
             </Reveal>
             <Reveal direction="left" delay={0.1}>
-              <h3 className="text-5xl font-black tracking-tighter uppercase leading-none">
+              <h3 className="text-3xl xs:text-4xl md:text-5xl font-black tracking-tighter uppercase leading-none">
                 Proven Results <br/> For Leading Agencies.
               </h3>
             </Reveal>
@@ -159,7 +159,7 @@ export const Testimonials: React.FC = () => {
             >
               {currentItems.map((t, i) => (
                 <div key={`${page}-${i}`} className="h-full">
-                  <div className="h-full relative p-10 bg-white border border-black/5 flex flex-col justify-between hover:border-primary/50 transition-all duration-500 shadow-sm hover:shadow-xl group">
+                  <div className="h-full relative p-6 xs:p-10 bg-white border border-black/5 flex flex-col justify-between hover:border-primary/50 transition-all duration-500 shadow-sm hover:shadow-xl group">
                     <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
                       <Icons.Workflow className="w-16 h-16" />
                     </div>
@@ -170,7 +170,7 @@ export const Testimonials: React.FC = () => {
                           <div key={star} className="w-2.5 h-2.5 bg-primary/20 group-hover:bg-primary transition-colors duration-500" style={{ transitionDelay: `${star * 50}ms` }}></div>
                         ))}
                       </div>
-                      <p className="text-xl md:text-2xl text-gray-800 leading-relaxed mb-12 font-medium tracking-tight">
+                      <p className="text-lg md:text-xl lg:text-2xl text-gray-800 leading-relaxed mb-12 font-medium tracking-tight">
                         "{t.quote}"
                       </p>
                     </div>

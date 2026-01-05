@@ -15,19 +15,19 @@ const reviews = [
 
 export const ReviewSlider: React.FC = () => {
   return (
-    <div className="bg-secondary py-6 overflow-hidden border-y border-white/5 relative">
-      <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-secondary to-transparent z-10"></div>
-      <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-secondary to-transparent z-10"></div>
+    <div className="bg-secondary py-4 md:py-6 overflow-hidden border-y border-white/5 relative">
+      <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-secondary to-transparent z-10"></div>
+      <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-secondary to-transparent z-10"></div>
       
       <div className="flex whitespace-nowrap animate-marquee">
         {[...Array(2)].map((_, i) => (
           <div key={i} className="flex shrink-0">
             {reviews.map((review, idx) => (
-              <div key={idx} className="mx-8 flex items-center gap-6">
-                <span className="text-white/40 text-[9px] uppercase font-bold tracking-widest">Verified</span>
-                <p className="text-white font-medium text-sm tracking-tight">"{review.text}"</p>
-                <span className="text-primary font-bold text-[9px] uppercase tracking-widest">{review.author}</span>
-                <div className="w-1 h-1 bg-primary rounded-full mx-2"></div>
+              <div key={idx} className="mx-4 md:mx-8 flex items-center gap-4 md:gap-6">
+                <span className="text-white/40 text-[8px] md:text-[9px] uppercase font-bold tracking-widest">Verified</span>
+                <p className="text-white font-medium text-xs md:text-sm tracking-tight">"{review.text}"</p>
+                <span className="text-primary font-bold text-[8px] md:text-[9px] uppercase tracking-widest">{review.author}</span>
+                <div className="w-1 h-1 bg-primary rounded-full mx-1 md:mx-2"></div>
               </div>
             ))}
           </div>

@@ -49,7 +49,7 @@ export const Features: React.FC = () => {
                 </div>
               </Reveal>
               <Reveal direction="left" delay={0.1}>
-                <h2 className="text-5xl md:text-6xl font-black uppercase tracking-tighter mb-8 leading-[0.9]">
+                <h2 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter mb-8 leading-[0.9]">
                   Speed & <br/> Accuracy.
                 </h2>
               </Reveal>

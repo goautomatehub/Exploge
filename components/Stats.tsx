@@ -5,11 +5,11 @@ import { Counter } from './Counter';
 
 const StatItem = ({ label, value, detail, delay, isNumber = true, suffix = "" }: any) => (
   <Reveal direction="up" delay={delay}>
-    <div className="p-6 md:p-8 border border-black/5 bg-white group hover:bg-black hover:text-white transition-all duration-500">
+    <div className="p-5 xs:p-6 md:p-8 border border-black/5 bg-white group hover:bg-black hover:text-white transition-all duration-500">
       <div className="text-[9px] md:text-[10px] font-bold mono text-primary uppercase tracking-[0.3em] mb-4">
         {label}
       </div>
-      <div className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter mb-2 tabular-nums">
+      <div className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter mb-2 tabular-nums">
         {isNumber ? (
           <Counter value={parseInt(value)} suffix={suffix} />
         ) : (

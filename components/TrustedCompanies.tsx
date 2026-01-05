@@ -19,7 +19,7 @@ export const TrustedCompanies: React.FC = () => {
         <Reveal direction="up">
           <div className="flex flex-col items-center text-center">
             <span className="text-[10px] font-bold text-zinc-400 mono uppercase tracking-[0.4em] mb-4">Strategic Partnerships</span>
-            <h3 className="text-xl font-black uppercase tracking-tight text-secondary/60">
+            <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight text-secondary/60">
               Trusted by Global Industry Leaders
             </h3>
           </div>
@@ -31,11 +31,11 @@ export const TrustedCompanies: React.FC = () => {
           {[...Array(2)].map((_, i) => (
             <div key={i} className="flex shrink-0">
               {companies.map((company, idx) => (
-                <div key={idx} className="mx-12 md:mx-20 flex items-center justify-center">
+                <div key={idx} className="mx-6 xs:mx-8 md:mx-16 lg:mx-20 flex items-center justify-center">
                   <img 
                     src={company.logo} 
                     alt={company.name} 
-                    className="h-6 md:h-8 w-auto object-contain opacity-80 hover:opacity-100 transition-all duration-500 cursor-default"
+                    className="h-4 xs:h-5 md:h-7 lg:h-8 w-auto object-contain opacity-80 hover:opacity-100 transition-all duration-500 cursor-default"
                   />
                 </div>
               ))}

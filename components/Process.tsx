@@ -31,18 +31,18 @@ const steps = [
   }
 ];
 
-const Step = ({ step, index, total }: { step: typeof steps[0], index: number, total: number }) => {
+const Step: React.FC<{ step: typeof steps[0], index: number, total: number }> = ({ step, index, total }) => {
   return (
-    <div className="relative pl-12 md:pl-20 pb-16 last:pb-0">
+    <div className="relative pl-12 md:pl-16 lg:pl-20 pb-16 last:pb-0">
       {/* Icon Circle */}
       <motion.div 
         initial={{ scale: 0.8, opacity: 0 }}
         whileInView={{ scale: 1, opacity: 1 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ delay: index * 0.1 }}
-        className="absolute left-0 top-0 w-10 h-10 md:w-14 md:h-14 bg-white border-2 border-black rounded-md flex items-center justify-center z-10 group"
+        className="absolute left-0 top-0 w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 bg-white border-2 border-black rounded-md flex items-center justify-center z-10 group"
       >
-        <step.icon className="w-5 h-5 md:w-6 md:h-6 transition-transform group-hover:scale-110" />
+        <step.icon className="w-5 h-5 md:w-5.5 md:h-5.5 lg:w-6 lg:h-6 transition-transform group-hover:scale-110" />
         
         {/* Step Number Badge */}
         <div className="absolute -top-2 -right-2 bg-black text-white text-[8px] font-bold w-5 h-5 flex items-center justify-center">
@@ -53,7 +53,7 @@ const Step = ({ step, index, total }: { step: typeof steps[0], index: number, to
       {/* Content */}
       <Reveal direction="up" delay={index * 0.1}>
         <div className="group">
-          <h4 className="text-xl md:text-2xl font-black uppercase tracking-tight mb-3 group-hover:text-primary transition-colors">
+          <h4 className="text-xl md:text-2xl lg:text-3xl font-black uppercase tracking-tight mb-3 group-hover:text-primary transition-colors">
             {step.title}
           </h4>
           <p className="text-gray-500 text-sm md:text-base leading-relaxed max-w-xl">
@@ -96,7 +96,7 @@ export const Process: React.FC = () => {
               </div>
             </Reveal>
             <Reveal direction="left" delay={0.1}>
-              <h3 className="text-4xl md:text-5xl lg:text-7xl font-black uppercase tracking-tighter leading-[0.9] mb-8">
+              <h3 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black uppercase tracking-tighter leading-[0.9] mb-8">
                 Simple Systems <br /> 
                 <span className="text-primary italic">For Complex Growth.</span>
               </h3>
@@ -123,12 +123,12 @@ export const Process: React.FC = () => {
           {/* Right Side: Animated Steps */}
           <div className="w-full lg:w-7/12 relative">
             {/* Background Line (Static) */}
-            <div className="absolute left-5 md:left-7 top-0 bottom-0 w-[2px] bg-gray-100" />
+            <div className="absolute left-5 md:left-6 lg:left-7 top-0 bottom-0 w-[2px] bg-gray-100" />
             
             {/* Animated Progress Line */}
             <motion.div 
               style={{ scaleY, originY: 0, willChange: "transform" }}
-              className="absolute left-5 md:left-7 top-0 bottom-0 w-[2px] bg-primary z-0"
+              className="absolute left-5 md:left-6 lg:left-7 top-0 bottom-0 w-[2px] bg-primary z-0"
             />
 
             <div className="relative z-10">

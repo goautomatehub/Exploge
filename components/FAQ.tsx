@@ -62,7 +62,7 @@ export const FAQ: React.FC = () => {
               <h2 className="text-xs font-bold text-primary mono uppercase tracking-[0.4em] mb-4">Common Questions</h2>
             </Reveal>
             <Reveal direction="left" delay={0.1}>
-              <h3 className="text-4xl font-black uppercase tracking-tighter mb-6 leading-none">Helpful <br/> Information.</h3>
+              <h3 className="text-3xl xs:text-4xl font-black uppercase tracking-tighter mb-6 leading-none">Helpful <br/> Information.</h3>
             </Reveal>
             <Reveal direction="none" delay={0.2}>
               <p className="text-gray-400 text-sm max-w-xs">

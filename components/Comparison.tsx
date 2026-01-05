@@ -25,7 +25,7 @@ export const Comparison: React.FC = () => {
             <h2 className="text-[10px] font-bold text-primary mono uppercase tracking-[0.4em] mb-4">Why We Are Different</h2>
           </Reveal>
           <Reveal direction="up" delay={0.1}>
-            <h3 className="text-3xl md:text-4xl font-black uppercase tracking-tighter">Exploge vs. The Old Way</h3>
+            <h3 className="text-2xl xs:text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tighter">Exploge vs. The Old Way</h3>
           </Reveal>
         </div>
 
@@ -60,10 +60,10 @@ export const Comparison: React.FC = () => {
           </div>
           
           <Reveal direction="up" delay={0.6}>
-            <div className="mt-8 md:mt-12 p-6 md:p-8 bg-black text-white flex flex-col md:flex-row items-center justify-between gap-6 border border-primary/20 text-center md:text-left rounded-[4px] shadow-lg">
+            <div className="mt-8 md:mt-10 lg:mt-12 p-6 md:p-7 lg:p-8 bg-black text-white flex flex-col md:flex-row items-center justify-between gap-6 border border-primary/20 text-center md:text-left rounded-[4px] shadow-lg">
               <div className="space-y-1">
                 <div className="text-primary mono text-[9px] md:text-[10px] font-bold uppercase tracking-widest">Efficiency Increase</div>
-                <div className="text-xl md:text-2xl font-black uppercase">Consolidate & Improve Performance by 65%</div>
+                <div className="text-xl md:text-[22px] lg:text-2xl font-black uppercase">Consolidate & Improve Performance by 65%</div>
               </div>
               <button className="w-full md:w-auto bg-primary text-white px-8 py-3.5 font-bold uppercase tracking-widest text-[9px] md:text-[10px] mono flex items-center justify-center gap-3 transition-all duration-300 shadow-[0_10px_30px_rgba(32,188,97,0.3)] hover:shadow-none hover:-translate-y-1 group rounded-[4px]">
                 Learn More
