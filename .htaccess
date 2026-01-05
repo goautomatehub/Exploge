@@ -1,0 +1,16 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  
+  # 1. Root request ko dist/index.html par bhejein
+  RewriteRule ^$ dist/index.html [L]
+  
+  # 2. Agar koi file dist folder ke andar majood hai (jaise assets), to wahan se uthayein
+  RewriteCond %{REQUEST_URI} !^/dist/
+  RewriteCond %{DOCUMENT_ROOT}/dist%{REQUEST_URI} -f
+  RewriteRule ^(.*)$ dist/$1 [L]
+  
+  # 3. SPA Routing: Agar URL koi asli file nahi hai, to dist/index.html load karein (React routing ke liye)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ dist/index.html [L]
+</IfModule>
