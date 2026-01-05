@@ -21,7 +21,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
       setIsScrolled(window.scrollY > 50);
 
       if (currentPage === 'home') {
-        const sections = ['services', 'features', 'pricing', 'faq'];
+        const sections = ['features', 'pricing', 'faq'];
         const scrollPosition = window.scrollY + HEADER_OFFSET + 20;
 
         for (const section of sections) {
