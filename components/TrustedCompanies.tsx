@@ -35,7 +35,7 @@ export const TrustedCompanies: React.FC = () => {
                   <img 
                     src={company.logo} 
                     alt={company.name} 
-                    className="h-6 md:h-8 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default"
+                    className="h-6 md:h-8 w-auto object-contain transition-all duration-500 cursor-default"
                   />
                 </div>
               ))}
