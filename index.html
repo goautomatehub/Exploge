@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Exploge | Expert Automation & Business Engineering</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+        }
+        body {
+            font-family: 'Josefin Sans', 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .mono { font-family: 'Josefin Sans', sans-serif; }
+        .text-primary { color: #20bc61; }
+        .bg-primary { background-color: #20bc61; }
+        .border-primary { border-color: #20bc61; }
+        
+        /* Soft Zinc Background to avoid pure white glare */
+        .bg-soft { background-color: #fcfcfc; }
+        /* Tinted background for variation */
+        .bg-tinted { background-color: #f2fdf5; }
+
+        .bg-grid {
+            background-size: 50px 50px;
+            background-image: 
+                linear-gradient(to right, rgba(0,0,0,0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0,0,0,0.02) 1px, transparent 1px);
+        }
+
+        /* Premium Dark Gradient - Deep Obsidian Obsidian */
+        .bg-premium-dark {
+            background: radial-gradient(circle at 0% 0%, #0d1d15 0%, #060f0b 50%, #030806 100%);
+            position: relative;
+        }
+
+        /* High Fidelity Matte Grain overlay */
+        .bg-grain::after {
+            content: "";
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.025; /* Highly subtle to avoid pixelation */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            mix-blend-mode: overlay;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f8f9fa; }
+        ::-webkit-scrollbar-thumb { background: #000000; border-radius: 0px; }
+
+        @keyframes blob-float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+        
+        @keyframes blob-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .animate-blob {
+            animation: blob-float 20s infinite alternate cubic-bezier(0.45, 0, 0.55, 1);
+        }
+        
+        .animate-blob-slow {
+            animation: blob-float 35s infinite alternate-reverse cubic-bezier(0.45, 0, 0.55, 1);
+        }
+
+        .animate-blob-spin {
+            animation: blob-spin 60s infinite linear;
+        }
+
+        @keyframes bounce-short {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+        .group:hover .group-hover\:animate-bounce-short {
+            animation: bounce-short 0.6s ease-in-out infinite;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Josefin Sans', 'Inter', 'sans-serif'],
+                        mono: ['Josefin Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#20bc61',
+                        secondary: '#060f0b',
+                        soft: '#fcfcfc',
+                        zinc: {
+                            50: '#f8f9fa',
+                            100: '#f1f3f5',
+                            200: '#e9ecef',
+                            300: '#dee2e6',
+                            400: '#ced4da',
+                            500: '#adb5bd',
+                            600: '#868e96',
+                            700: '#495057',
+                            800: '#343a40',
+                            900: '#212529',
+                        }
+                    },
+                    borderRadius: {
+                        'none': '0',
+                        'sm': '4px',
+                        'DEFAULT': '4px',
+                        'md': '4px',
+                        'lg': '4px',
+                        'xl': '4px',
+                        '2xl': '4px',
+                        'full': '9999px',
+                    }
+                }
+            }
+        }
+    </script>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "framer-motion": "https://esm.sh/framer-motion@^12.23.26",
+    "path": "https://esm.sh/path@^0.12.7",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
+    "vite": "https://esm.sh/vite@^7.3.0",
+    "url": "https://esm.sh/url@^0.11.4"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-soft text-secondary selection:bg-primary selection:text-white antialiased bg-grain">
+    <div id="root"></div>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
