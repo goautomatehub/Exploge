@@ -41,9 +41,9 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ id, title, description, icon,
         onMouseMove={handleMouseMove}
         className="relative group p-8 md:p-10 bg-white border border-zinc-200/50 flex flex-col transition-all duration-500 hover:border-primary/40 hover:bg-white h-full rounded-[4px] shadow-sm hover:shadow-xl overflow-hidden"
       >
-        {/* Spotlight Effect Overlay - Reduced radius to 350px and focused green */}
+        {/* Spotlight Effect Overlay - Hidden on mobile for performance */}
         <motion.div
-          className="pointer-events-none absolute -inset-px rounded-[4px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"
+          className="pointer-events-none absolute -inset-px rounded-[4px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 hidden lg:block"
           style={{
             background: useMotionTemplate`radial-gradient(350px circle at ${mouseXSpring}px ${mouseYSpring}px, rgba(32,188,97,0.12), transparent 80%)`,
           }}

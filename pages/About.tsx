@@ -33,7 +33,7 @@ const SpotlightWrapper = ({ children, className = "", spotlightColor = "rgba(32,
       className={`relative group overflow-hidden ${className}`}
     >
       <motion.div
-        className="pointer-events-none absolute -inset-px rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"
+        className="pointer-events-none absolute -inset-px rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 hidden lg:block"
         style={{
           background: useMotionTemplate`radial-gradient(350px circle at ${mouseXSpring}px ${mouseYSpring}px, ${spotlightColor}, transparent 80%)`,
         }}

@@ -22,16 +22,12 @@ export const Reveal: React.FC<RevealProps> = ({
   const getVariants = () => {
     const initial = {
       opacity: 0,
-      filter: 'blur(20px)',
-      scale: 0.9,
-      y: direction === 'up' ? 60 : direction === 'down' ? -60 : 0,
-      x: direction === 'left' ? -60 : direction === 'right' ? 60 : 0,
+      y: direction === 'up' ? 30 : direction === 'down' ? -30 : 0,
+      x: direction === 'left' ? -30 : direction === 'right' ? 30 : 0,
     };
 
     const animate = {
       opacity: 1,
-      filter: 'blur(0px)',
-      scale: 1,
       y: 0,
       x: 0,
     };
@@ -50,13 +46,7 @@ export const Reveal: React.FC<RevealProps> = ({
       transition={{
         duration: duration,
         delay: delay,
-        ease: [0.16, 1, 0.3, 1], // Premium easing
-        scale: {
-          type: "spring",
-          damping: 20,
-          stiffness: 100,
-          restDelta: 0.001
-        }
+        ease: [0.21, 0.47, 0.32, 0.98], // Smoother, lighter easing
       }}
       style={{ width }}
     >

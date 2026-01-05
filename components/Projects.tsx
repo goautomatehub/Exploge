@@ -79,9 +79,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
       onMouseMove={handleMouseMove}
       className="group relative bg-white border border-black/5 rounded-md overflow-hidden flex flex-col h-full hover:shadow-2xl transition-all duration-500"
     >
-      {/* Spotlight Effect */}
+      {/* Spotlight Effect - Hidden on mobile for performance */}
       <motion.div
-        className="pointer-events-none absolute -inset-px rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+        className="pointer-events-none absolute -inset-px rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 hidden lg:block"
         style={{
           background: useMotionTemplate`radial-gradient(400px circle at ${mouseXSpring}px ${mouseYSpring}px, rgba(32,188,97,0.08), transparent 80%)`,
         }}

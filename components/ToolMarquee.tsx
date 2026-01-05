@@ -73,9 +73,9 @@ const CategoryCard: React.FC<{ category: typeof categories[0], idx: number }> = 
         onMouseMove={handleMouseMove}
         className="group relative h-full p-8 lg:p-10 border border-black/5 rounded-md overflow-hidden transition-all duration-500 hover:border-primary/20 hover:shadow-xl hover:bg-white"
       >
-        {/* Spotlight Effect - Standardized to Primary Green and Reduced to 350px */}
+        {/* Spotlight Effect - Hidden on mobile for performance */}
         <motion.div
-          className="pointer-events-none absolute -inset-px rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"
+          className="pointer-events-none absolute -inset-px rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 hidden lg:block"
           style={{
             background: useMotionTemplate`radial-gradient(350px circle at ${mouseXSpring}px ${mouseYSpring}px, rgba(32,188,97,0.1), transparent 80%)`,
           }}

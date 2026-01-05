@@ -127,7 +127,7 @@ export const Process: React.FC = () => {
             
             {/* Animated Progress Line */}
             <motion.div 
-              style={{ scaleY, originY: 0 }}
+              style={{ scaleY, originY: 0, willChange: "transform" }}
               className="absolute left-5 md:left-7 top-0 bottom-0 w-[2px] bg-primary z-0"
             />
 

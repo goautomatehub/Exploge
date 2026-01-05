@@ -20,7 +20,7 @@ export const ReviewSlider: React.FC = () => {
       <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-secondary to-transparent z-10"></div>
       
       <div className="flex whitespace-nowrap animate-marquee">
-        {[...Array(3)].map((_, i) => (
+        {[...Array(2)].map((_, i) => (
           <div key={i} className="flex shrink-0">
             {reviews.map((review, idx) => (
               <div key={idx} className="mx-8 flex items-center gap-6">
@@ -37,10 +37,11 @@ export const ReviewSlider: React.FC = () => {
       <style>{`
         @keyframes marquee {
           0% { transform: translateX(0); }
-          100% { transform: translateX(-33.33%); }
+          100% { transform: translateX(-50%); }
         }
         .animate-marquee {
           animation: marquee 60s linear infinite;
+          will-change: transform;
         }
         .animate-marquee:hover {
           animation-play-state: paused;

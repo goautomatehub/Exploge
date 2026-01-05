@@ -28,7 +28,7 @@ export const TrustedCompanies: React.FC = () => {
 
       <div className="relative flex overflow-x-hidden">
         <div className="flex animate-marquee-fast whitespace-nowrap items-center py-4">
-          {[...Array(3)].map((_, i) => (
+          {[...Array(2)].map((_, i) => (
             <div key={i} className="flex shrink-0">
               {companies.map((company, idx) => (
                 <div key={idx} className="mx-12 md:mx-20 flex items-center justify-center">
@@ -51,10 +51,11 @@ export const TrustedCompanies: React.FC = () => {
       <style>{`
         @keyframes marquee-fast {
           0% { transform: translateX(0); }
-          100% { transform: translateX(-33.33%); }
+          100% { transform: translateX(-50%); }
         }
         .animate-marquee-fast {
           animation: marquee-fast 30s linear infinite;
+          will-change: transform;
         }
         .animate-marquee-fast:hover {
           animation-play-state: paused;

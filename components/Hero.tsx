@@ -23,25 +23,31 @@ export const Hero: React.FC = () => {
   return (
     <section ref={containerRef} className="relative pt-24 pb-12 md:pt-32 md:pb-20 lg:pt-56 lg:pb-40 bg-zinc-50 overflow-hidden bg-grid">
       <motion.div style={{ y: blobsY, opacity }} className="absolute inset-0 pointer-events-none">
-        <AmbientGroup />
+        <div className="hidden md:block">
+          <AmbientGroup />
+        </div>
         
-        {/* Floating Decorative Elements */}
-        <FloatingDecorations.Plus className="top-24 left-12" delay={0.5} />
-        <FloatingDecorations.Plus className="bottom-40 right-1/4" delay={1.2} />
-        <FloatingDecorations.Dot className="top-40 left-1/3" delay={0.8} />
-        <FloatingDecorations.Dot className="bottom-24 left-20" delay={2} />
-        <FloatingDecorations.Circle className="top-1/4 right-10" delay={1.5} />
-        <FloatingDecorations.Box className="bottom-1/3 left-10" delay={0.3} />
-        <FloatingDecorations.Triangle className="top-32 right-1/3" delay={0.7} />
-        <FloatingDecorations.Square className="bottom-1/4 right-20" delay={1.1} />
-        <FloatingDecorations.Zigzag className="top-1/2 left-20" delay={2.3} />
-        <FloatingDecorations.GridDots className="top-20 left-1/4" delay={1.5} />
-        <FloatingDecorations.Cross className="bottom-20 right-10" delay={0.9} />
+        {/* Floating Decorative Elements - Hidden on mobile for performance */}
+        <div className="hidden md:block">
+          <FloatingDecorations.Plus className="top-24 left-12" delay={0.5} />
+          <FloatingDecorations.Plus className="bottom-40 right-1/4" delay={1.2} />
+          <FloatingDecorations.Dot className="top-40 left-1/3" delay={0.8} />
+          <FloatingDecorations.Dot className="bottom-24 left-20" delay={2} />
+          <FloatingDecorations.Circle className="top-1/4 right-10" delay={1.5} />
+          <FloatingDecorations.Box className="bottom-1/3 left-10" delay={0.3} />
+          <FloatingDecorations.Triangle className="top-32 right-1/3" delay={0.7} />
+          <FloatingDecorations.Square className="bottom-1/4 right-20" delay={1.1} />
+          <FloatingDecorations.Zigzag className="top-1/2 left-20" delay={2.3} />
+          <FloatingDecorations.GridDots className="top-20 left-1/4" delay={1.5} />
+          <FloatingDecorations.Cross className="bottom-20 right-10" delay={0.9} />
+        </div>
         
-        {/* Additional Greenish Blobs */}
-        <AmbientBlobs color="bg-primary" size="w-[500px] h-[500px]" className="-top-24 -right-24" opacity="opacity-[0.12]" animation="animate-blob-slow" />
-        <AmbientBlobs color="bg-primary" size="w-[400px] h-[400px]" className="top-1/2 -left-48" opacity="opacity-[0.15]" animation="animate-blob" />
-        <AmbientBlobs color="bg-primary" size="w-[600px] h-[600px]" className="-bottom-48 right-1/4" opacity="opacity-[0.10]" animation="animate-blob-spin" />
+        {/* Additional Greenish Blobs - Hidden on mobile for performance */}
+        <div className="hidden md:block">
+          <AmbientBlobs color="bg-primary" size="w-[500px] h-[500px]" className="-top-24 -right-24" opacity="opacity-[0.12]" animation="animate-blob-slow" />
+          <AmbientBlobs color="bg-primary" size="w-[400px] h-[400px]" className="top-1/2 -left-48" opacity="opacity-[0.15]" animation="animate-blob" />
+          <AmbientBlobs color="bg-primary" size="w-[600px] h-[600px]" className="-bottom-48 right-1/4" opacity="opacity-[0.10]" animation="animate-blob-spin" />
+        </div>
       </motion.div>
 
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-full bg-zinc-200/50 hidden lg:block"></div>
@@ -113,7 +119,7 @@ export const Hero: React.FC = () => {
             </Reveal>
           </motion.div>
           
-          <motion.div style={{ y: nodeY, opacity }} className="w-full lg:w-1/2 h-[350px] md:h-[500px] lg:h-[600px] relative overflow-visible">
+          <motion.div style={{ y: nodeY, opacity }} className="w-full lg:w-1/2 h-[350px] md:h-[500px] lg:h-[600px] relative overflow-visible hidden lg:block">
             <Reveal direction="right" delay={0.4} className="h-full">
               <NodeVisualizer />
             </Reveal>

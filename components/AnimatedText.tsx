@@ -23,7 +23,7 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({
     hidden: { opacity: 0 },
     visible: (i = 1) => ({
       opacity: 1,
-      transition: { staggerChildren: 0.12, delayChildren: delay * i },
+      transition: { staggerChildren: 0.05, delayChildren: delay * i },
     }),
   };
 
@@ -32,17 +32,14 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({
     visible: {
       opacity: 1,
       y: 0,
-      filter: "blur(0px)",
       transition: {
-        type: "spring",
-        damping: 12,
-        stiffness: 100,
+        duration: 0.4,
+        ease: "easeOut"
       },
     },
     hidden: {
       opacity: 0,
       y: 20,
-      filter: "blur(8px)",
     },
   };
 
