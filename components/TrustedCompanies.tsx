@@ -1,15 +1,18 @@
 import React from 'react';
 import { Reveal } from './Reveal';
+import { Icons } from './Icons';
 
-const companies = [
-  { name: "Velocity Digital", logo: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Meta-Logo.png" }, // Placeholders for professional look
-  { name: "Nova Systems", logo: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" },
-  { name: "Apex Creative", logo: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" },
-  { name: "Nexus Lab", logo: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Tesla_Motors.svg" },
-  { name: "Orbit Agency", logo: "https://upload.wikimedia.org/wikipedia/commons/2/24/Samsung_Logo.svg" },
-  { name: "Prism Dev", logo: "https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg" },
-  { name: "Evolve Marketing", logo: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" },
-  { name: "Summit Tech", logo: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" },
+const tools = [
+  { name: "Zapier", icon: Icons.Zapier },
+  { name: "Make", icon: Icons.Make },
+  { name: "GoHighLevel", icon: Icons.GoHighLevel },
+  { name: "Airtable", icon: Icons.Airtable },
+  { name: "n8n", icon: Icons.N8N },
+  { name: "Monday", icon: Icons.Monday },
+  { name: "ClickUp", icon: Icons.ClickUp },
+  { name: "HubSpot", icon: Icons.HubSpot },
+  { name: "Asana", icon: Icons.Asana },
+  { name: "Pabbly", icon: Icons.Pabbly },
 ];
 
 export const TrustedCompanies: React.FC = () => {
@@ -18,9 +21,9 @@ export const TrustedCompanies: React.FC = () => {
       <div className="container mx-auto px-6 mb-12">
         <Reveal direction="up">
           <div className="flex flex-col items-center text-center">
-            <span className="text-[10px] font-bold text-zinc-400 mono uppercase tracking-[0.4em] mb-4">Strategic Partnerships</span>
-            <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight text-secondary/60">
-              Trusted by Global Industry Leaders
+            <span className="text-[10px] font-bold text-primary mono uppercase tracking-[0.4em] mb-4">Ecosystem Mastery</span>
+            <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight text-secondary/80">
+              Powering Growth With Industry-Leading Tools
             </h3>
           </div>
         </Reveal>
@@ -30,13 +33,14 @@ export const TrustedCompanies: React.FC = () => {
         <div className="flex animate-marquee-fast whitespace-nowrap items-center py-4">
           {[...Array(2)].map((_, i) => (
             <div key={i} className="flex shrink-0">
-              {companies.map((company, idx) => (
-                <div key={idx} className="mx-6 xs:mx-8 md:mx-16 lg:mx-20 flex items-center justify-center">
-                  <img 
-                    src={company.logo} 
-                    alt={company.name} 
-                    className="h-4 xs:h-5 md:h-7 lg:h-8 w-auto object-contain opacity-80 hover:opacity-100 transition-all duration-500 cursor-default"
-                  />
+              {tools.map((tool, idx) => (
+                <div key={idx} className="mx-6 xs:mx-8 md:mx-16 lg:mx-20 flex items-center gap-3">
+                  <div className="h-6 w-6 xs:h-7 xs:w-7 md:h-9 md:w-9 transition-all duration-500">
+                    <tool.icon className="w-full h-full object-contain" />
+                  </div>
+                  <span className="text-sm md:text-lg font-bold text-zinc-400 uppercase tracking-tighter group-hover:text-secondary transition-colors">
+                    {tool.name}
+                  </span>
                 </div>
               ))}
             </div>
