@@ -25,8 +25,19 @@ const StatItem = ({ label, value, detail, delay, isNumber = true, suffix = "" }:
 
 export const Stats: React.FC = () => {
   return (
-    <section className="py-12 md:py-24 bg-gray-50/50">
+    <section className="py-16 md:py-24 bg-gray-50/50">
       <div className="container mx-auto px-6">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <Reveal direction="up">
+            <h2 className="text-[10px] font-bold text-primary mono uppercase tracking-[0.4em] mb-4">Our Impact</h2>
+          </Reveal>
+          <Reveal direction="up" delay={0.1}>
+            <h3 className="text-2xl xs:text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tighter">
+              Results That Matter.
+            </h3>
+          </Reveal>
+        </div>
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-black/5 border border-black/5">
           <StatItem 
             label="TIME SAVED" 

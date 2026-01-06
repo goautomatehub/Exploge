@@ -19,12 +19,12 @@ export const Contact: React.FC = () => {
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-20">
           <div className="w-full lg:w-1/2 space-y-6 md:space-y-8">
-            <h2 className="text-[10px] md:text-sm font-bold text-primary uppercase tracking-[0.4em]">Contact Us</h2>
+            <h2 className="text-[10px] md:text-sm font-bold text-primary uppercase tracking-[0.4em]">Get In Touch</h2>
             <h3 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight tracking-tighter">
-              Ready to <br className="hidden md:block"/> <span className="text-primary underline decoration-2 underline-offset-8">Grow</span> <br className="hidden md:block"/> Your Agency?
+              Ready to <br className="hidden md:block"/> Start Your <br className="hidden md:block"/> Project?
             </h3>
             <p className="text-gray-400 text-sm md:text-lg max-w-md leading-relaxed">
-              Join many agencies that use our systems to save time. We'll help you set everything up quickly and easily.
+              Have a question or want to work together? Fill out the form and we'll get back to you within 24 hours.
             </p>
             
             <div className="space-y-4 pt-4">
@@ -32,14 +32,19 @@ export const Contact: React.FC = () => {
                 <div className="w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 border border-white/10 flex items-center justify-center text-primary group-hover:border-primary group-hover:bg-primary/5 transition-all">
                   <Icons.Mail className="w-4 h-4 md:w-4.5 md:h-4.5 lg:w-5 lg:h-5" />
                 </div>
-                <span className="text-gray-300 text-xs md:text-base font-medium group-hover:text-white transition-colors">hello@exploge.io</span>
+                <span className="text-gray-300 text-xs md:text-base font-medium group-hover:text-white transition-colors">contact@exploge.com</span>
               </div>
               <div className="flex items-center gap-4 group cursor-pointer">
                 <div className="w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 border border-white/10 flex items-center justify-center text-primary group-hover:border-primary group-hover:bg-primary/5 transition-all">
                   <Icons.Zap className="w-4 h-4 md:w-4.5 md:h-4.5 lg:w-5 lg:h-5" />
                 </div>
-                <span className="text-gray-300 text-xs md:text-base font-medium group-hover:text-white transition-colors">San Francisco & London</span>
+                <span className="text-gray-300 text-xs md:text-base font-medium group-hover:text-white transition-colors">Pakistan</span>
               </div>
+            </div>
+
+            <div className="p-8 bg-secondary/30 border border-white/5 rounded-md mt-12 hidden lg:block">
+              <h4 className="text-white font-bold uppercase text-xs mb-4 tracking-widest">Why wait?</h4>
+              <p className="text-zinc-500 text-sm leading-relaxed">Our team is ready to analyze your workflows and build a system that scales your business automatically. Book your call today and save 40+ hours per week.</p>
             </div>
           </div>
           
@@ -66,22 +71,14 @@ export const Contact: React.FC = () => {
                     </div>
                   </div>
                   
-                  <div className="space-y-2 relative">
-                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Team Size</label>
-                    <select className="w-full bg-gray-50 border border-gray-100 p-3 md:p-4 text-sm text-secondary focus:border-primary focus:outline-none transition-colors appearance-none cursor-pointer rounded-md">
-                      <option>1-10 people</option>
-                      <option>11-50 people</option>
-                      <option>51-200 people</option>
-                      <option>200+ people</option>
-                    </select>
-                    <div className="absolute right-4 bottom-4 pointer-events-none text-gray-400">
-                      <Icons.ArrowRight className="w-4 h-4 rotate-90" />
-                    </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Subject</label>
+                    <input required type="text" className="w-full bg-gray-50 border border-gray-100 p-3 md:p-4 text-sm text-secondary focus:border-primary focus:outline-none transition-colors placeholder:text-gray-300 rounded-md" placeholder="How can we help?" />
                   </div>
                   
                   <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">How can we help?</label>
-                    <textarea rows={4} className="w-full bg-gray-50 border border-gray-100 p-3 md:p-4 text-sm text-secondary focus:border-primary focus:outline-none transition-colors resize-none placeholder:text-gray-300 rounded-md" placeholder="Tell us about your business..."></textarea>
+                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Message</label>
+                    <textarea rows={4} className="w-full bg-gray-50 border border-gray-100 p-3 md:p-4 text-sm text-secondary focus:border-primary focus:outline-none transition-colors resize-none placeholder:text-gray-300 rounded-md" placeholder="Your message here..."></textarea>
                   </div>
                   
                   <button type="submit" className="w-full bg-primary text-white font-black py-4 md:py-5 hover:bg-secondary transition-all duration-300 text-[10px] md:text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-3 shadow-[0_10px_30px_rgba(32,188,97,0.3)] hover:shadow-none hover:-translate-y-1 group rounded-md">

@@ -56,27 +56,27 @@ export const FAQ: React.FC = () => {
   return (
     <section id="faq" className="py-24 bg-white border-t border-black/5">
       <div className="container mx-auto px-6">
-        <div className="flex flex-col lg:flex-row gap-20">
-          <div className="w-full lg:w-1/3">
-            <Reveal direction="left">
-              <h2 className="text-xs font-bold text-primary mono uppercase tracking-[0.4em] mb-4">Common Questions</h2>
-            </Reveal>
-            <Reveal direction="left" delay={0.1}>
-              <h3 className="text-3xl xs:text-4xl font-black uppercase tracking-tighter mb-6 leading-none">Helpful <br/> Information.</h3>
-            </Reveal>
-            <Reveal direction="none" delay={0.2}>
-              <p className="text-gray-400 text-sm max-w-xs">
-                Finding answers for your agency operations. Need more details? 
-                <a href="#contact" className="text-primary underline ml-1">Contact our team.</a>
-              </p>
-            </Reveal>
-          </div>
-          
-          <div className="w-full lg:w-2/3">
-            {faqs.map((faq, i) => (
-              <FAQItem key={i} question={faq.q} answer={faq.a} delay={0.1 + (i * 0.1)} />
-            ))}
-          </div>
+        <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
+          <Reveal direction="up">
+            <h2 className="text-xs font-bold text-primary mono uppercase tracking-[0.4em] mb-4">Common Questions</h2>
+          </Reveal>
+          <Reveal direction="up" delay={0.1}>
+            <h3 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter mb-6 leading-none">
+              Helpful Information.
+            </h3>
+          </Reveal>
+          <Reveal direction="up" delay={0.2}>
+            <p className="text-gray-400 text-sm md:text-base max-w-2xl mx-auto">
+              Finding answers for your operations. Need more details? 
+              <a href="#contact" className="text-primary underline ml-1">Contact our team.</a>
+            </p>
+          </Reveal>
+        </div>
+        
+        <div className="max-w-4xl mx-auto">
+          {faqs.map((faq, i) => (
+            <FAQItem key={i} question={faq.q} answer={faq.a} delay={0.1 + (i * 0.1)} />
+          ))}
         </div>
       </div>
     </section>

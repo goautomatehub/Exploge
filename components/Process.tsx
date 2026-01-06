@@ -7,26 +7,26 @@ import { ClipboardList, Layers, Settings2, Rocket, CheckCircle2 } from 'lucide-r
 const steps = [
   {
     icon: ClipboardList,
-    title: "Step 1: Consultation",
-    desc: "We dive deep into your existing workflows to identify bottlenecks and manual tasks that are draining your resources.",
+    title: "Audit",
+    desc: "We look at your current manual tasks and find where you're losing time.",
     color: "bg-blue-500"
   },
   {
     icon: Layers,
-    title: "Step 2: Strategy",
-    desc: "Our architects design a bespoke automation map, connecting your tech stack into one seamless, autonomous ecosystem.",
+    title: "Strategy",
+    desc: "We plan a simple system to connect your tools and automate your work.",
     color: "bg-purple-500"
   },
   {
     icon: Settings2,
-    title: "Step 3: Build",
-    desc: "We engineer your custom systems using industry-leading tools, ensuring every integration is robust and scalable.",
+    title: "Setup",
+    desc: "We build your workflows using the best tools to make sure they work perfectly.",
     color: "bg-primary"
   },
   {
     icon: Rocket,
-    title: "Step 4: Launch",
-    desc: "Your automated engine goes live. We monitor and optimize to ensure you start saving hours from day one.",
+    title: "Launch",
+    desc: "We turn it on. You start saving hours every day while your business grows.",
     color: "bg-orange-500"
   }
 ];
@@ -84,37 +84,46 @@ export const Process: React.FC = () => {
   });
 
   return (
-    <section className="py-20 md:py-32 bg-white overflow-hidden" ref={containerRef}>
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
+    <section id="process" className="py-24 md:py-32 bg-white relative overflow-hidden" ref={containerRef}>
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="flex flex-col lg:flex-row gap-20">
           
           {/* Left Side: Sticky Content */}
-          <div className="w-full lg:w-5/12 lg:sticky lg:top-32 lg:h-fit">
-            <Reveal direction="left">
-              <div className="inline-block px-3 py-1 bg-black text-white text-[10px] font-bold mono uppercase tracking-[0.3em] mb-6">
-                The Workflow
-              </div>
-            </Reveal>
-            <Reveal direction="left" delay={0.1}>
-              <h3 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black uppercase tracking-tighter leading-[0.9] mb-8">
-                Simple Systems <br /> 
-                <span className="text-primary italic">For Complex Growth.</span>
-              </h3>
-            </Reveal>
-            <Reveal direction="up" delay={0.2}>
-              <p className="text-gray-500 text-lg mb-10 max-w-md">
-                We've refined our approach into a 4-step framework that takes the guesswork out of automation.
-              </p>
-            </Reveal>
-            
-            <Reveal direction="up" delay={0.3}>
-              <div className="flex items-center gap-4 group cursor-pointer">
-                <div className="w-12 h-12 rounded-full border border-black flex items-center justify-center group-hover:bg-black group-hover:text-white transition-all">
-                  <Rocket className="w-5 h-5" />
+          <div className="w-full lg:w-5/12 lg:sticky lg:top-32 lg:h-fit space-y-8 md:space-y-12">
+            <div>
+              <Reveal direction="left">
+                <div className="inline-block px-3 py-1 bg-black text-white text-[10px] font-bold mono uppercase tracking-[0.3em] mb-6">
+                  The Workflow
                 </div>
-                <div>
-                  <div className="text-xs font-bold mono uppercase tracking-widest">Start Your Journey</div>
-                  <div className="text-[10px] text-gray-400 uppercase">Book a discovery call today</div>
+              </Reveal>
+              <Reveal direction="left" delay={0.1}>
+                <h2 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black uppercase tracking-tighter leading-[0.9] mb-8">
+                  How We <br/> Automate.
+                </h2>
+              </Reveal>
+              <Reveal direction="left" delay={0.2}>
+                <p className="text-gray-500 text-sm md:text-lg leading-relaxed max-w-sm">
+                  A simple 4-step process to get your business running on autopilot.
+                </p>
+              </Reveal>
+            </div>
+
+            {/* CTA Card Moved Below Heading */}
+            <Reveal direction="up" delay={0.3}>
+              <div className="bg-zinc-50 p-8 md:p-12 border border-black/5 rounded-md relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 -translate-y-16 translate-x-16 rounded-full group-hover:scale-150 transition-transform duration-700"></div>
+                
+                <h4 className="text-xl md:text-2xl font-black uppercase mb-4 relative z-10">Ready to Scale?</h4>
+                <p className="text-gray-500 text-sm mb-8 relative z-10">Join many agencies that use our systems to save time and increase revenue.</p>
+                
+                <div className="flex items-center gap-4 group/btn cursor-pointer relative z-10">
+                  <div className="w-12 h-12 rounded-full border border-black flex items-center justify-center group-hover/btn:bg-black group-hover/btn:text-white transition-all">
+                    <Rocket className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold mono uppercase tracking-widest">Start Your Journey</div>
+                    <div className="text-[10px] text-gray-400 uppercase">Book a discovery call</div>
+                  </div>
                 </div>
               </div>
             </Reveal>

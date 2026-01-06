@@ -135,24 +135,21 @@ export const Services: React.FC = () => {
       <div className="absolute inset-0 bg-grid opacity-[0.05] pointer-events-none"></div>
       
       <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col md:flex-row items-end justify-between mb-16 md:mb-20 gap-8">
-          <div className="max-w-2xl">
-            <Reveal direction="left">
-              <div className="flex items-center gap-4 mb-4 md:mb-6">
-                <span className="text-[10px] font-bold text-primary uppercase tracking-[0.5em] mono">Service Portfolio</span>
-              </div>
-            </Reveal>
-            <Reveal direction="left" delay={0.1}>
-              <h2 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.95] text-secondary">
-                Professional <br/> 
-                <span className="text-primary italic">Agency</span> Services.
-              </h2>
-            </Reveal>
-          </div>
+        <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
+          <Reveal direction="up">
+            <div className="flex items-center justify-center gap-4 mb-4 md:mb-6">
+              <span className="text-[10px] font-bold text-primary uppercase tracking-[0.5em] mono">Service Portfolio</span>
+            </div>
+          </Reveal>
+          <Reveal direction="up" delay={0.1}>
+            <h2 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.95] text-secondary mb-8">
+              Expertise & Solutions.
+            </h2>
+          </Reveal>
           
-          <Reveal direction="right" delay={0.2}>
-            <p className="text-zinc-500 text-sm md:text-base max-w-sm leading-relaxed border-l border-zinc-200 pl-6 md:pl-8 hidden md:block">
-              We provide the expertise needed to build reliable, scalable business operations for modern service-based agencies.
+          <Reveal direction="up" delay={0.2}>
+            <p className="text-zinc-500 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed">
+              We provide the tools and expertise needed to build reliable and scalable operations for your business.
             </p>
           </Reveal>
         </div>

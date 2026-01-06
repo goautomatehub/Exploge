@@ -19,7 +19,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               />
             </div>
             <p className="text-gray-500 max-w-xs text-xs md:text-sm leading-relaxed">
-              Bespoke automation & engineering for high-growth businesses. We architect the future of your operations.
+              We help businesses grow by building simple and effective automation systems.
             </p>
             <div className="flex items-center gap-5">
               <a href="#" className="text-gray-400 hover:text-primary transition-colors" aria-label="X (Twitter)">
@@ -52,8 +52,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           <div className="space-y-4 flex flex-col items-center sm:items-start text-center sm:text-left">
             <h4 className="font-bold text-[10px] uppercase tracking-[0.2em] text-secondary">Contact</h4>
             <ul className="space-y-3 text-xs md:text-sm text-gray-500">
-              <li><a href="#contact" className="hover:text-primary transition-colors">Project Inquiry</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Email Us</a></li>
+              <li><a href="mailto:contact@exploge.com" className="hover:text-primary transition-colors">contact@exploge.com</a></li>
+              <li><span className="text-gray-400">Pakistan</span></li>
             </ul>
           </div>
         </div>

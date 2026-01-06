@@ -94,51 +94,49 @@ export const Testimonials: React.FC = () => {
               <h2 className="text-xs font-bold text-primary uppercase tracking-[0.4em] mb-4 mono">Client Success</h2>
             </Reveal>
             <Reveal direction="left" delay={0.1}>
-              <h3 className="text-2xl xs:text-3xl md:text-4xl font-black tracking-tighter uppercase leading-tight">
-                What Our Clients <br/> Say About Us.
+              <h3 className="text-2xl xs:text-3xl md:text-4xl lg:text-5xl font-black tracking-tighter uppercase leading-tight">
+                What Our Clients Say About Us.
               </h3>
             </Reveal>
           </div>
 
-          <Reveal direction="right" delay={0.2}>
-            <div className="flex items-center gap-4">
-              <motion.button 
-                whileHover="hover"
-                whileTap="tap"
-                onClick={() => paginate(-1)}
-                className="w-14 h-14 border border-black rounded-md flex items-center justify-center hover:bg-black hover:text-white transition-colors group active:scale-95"
-                aria-label="Previous Slide"
+          <div className="hidden lg:flex items-center gap-4 mb-2">
+            <motion.button 
+              whileHover="hover"
+              whileTap="tap"
+              onClick={() => paginate(-1)}
+              className="w-14 h-14 border border-black rounded-md flex items-center justify-center hover:bg-black hover:text-white transition-colors group active:scale-95 bg-white"
+              aria-label="Previous Slide"
+            >
+              <motion.span
+                variants={{
+                  hover: { x: -6 },
+                  tap: { x: -12 }
+                }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
-                <motion.span
-                  variants={{
-                    hover: { x: -6 },
-                    tap: { x: -12 }
-                  }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                >
-                  <Icons.ArrowRight className="w-5 h-5 rotate-180" />
-                </motion.span>
-              </motion.button>
-              
-              <motion.button 
-                whileHover="hover"
-                whileTap="tap"
-                onClick={() => paginate(1)}
-                className="w-14 h-14 border border-black rounded-md flex items-center justify-center hover:bg-black hover:text-white transition-colors group active:scale-95"
-                aria-label="Next Slide"
+                <Icons.ArrowRight className="w-5 h-5 rotate-180" />
+              </motion.span>
+            </motion.button>
+            
+            <motion.button 
+              whileHover="hover"
+              whileTap="tap"
+              onClick={() => paginate(1)}
+              className="w-14 h-14 border border-black rounded-md flex items-center justify-center hover:bg-black hover:text-white transition-colors group active:scale-95 bg-white"
+              aria-label="Next Slide"
+            >
+              <motion.span
+                variants={{
+                  hover: { x: 6 },
+                  tap: { x: 12 }
+                }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
-                <motion.span
-                  variants={{
-                    hover: { x: 6 },
-                    tap: { x: 12 }
-                  }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                >
-                  <Icons.ArrowRight className="w-5 h-5" />
-                </motion.span>
-              </motion.button>
-            </div>
-          </Reveal>
+                <Icons.ArrowRight className="w-5 h-5" />
+              </motion.span>
+            </motion.button>
+          </div>
         </div>
 
         <div className="relative min-h-[400px]">
@@ -220,6 +218,27 @@ export const Testimonials: React.FC = () => {
             <span className="text-secondary">CLIENT SUCCESS:</span>
             <span>CASE {slideIndex + 1} OF {totalSlides}</span>
           </div>
+        </div>
+        <div className="mt-12 flex lg:hidden items-center justify-center gap-4">
+          <motion.button 
+            whileHover="hover"
+            whileTap="tap"
+            onClick={() => paginate(-1)}
+            className="w-14 h-14 border border-black rounded-md flex items-center justify-center hover:bg-black hover:text-white transition-colors group active:scale-95 bg-white"
+            aria-label="Previous Slide"
+          >
+            <Icons.ArrowRight className="w-5 h-5 rotate-180" />
+          </motion.button>
+          
+          <motion.button 
+            whileHover="hover"
+            whileTap="tap"
+            onClick={() => paginate(1)}
+            className="w-14 h-14 border border-black rounded-md flex items-center justify-center hover:bg-black hover:text-white transition-colors group active:scale-95 bg-white"
+            aria-label="Next Slide"
+          >
+            <Icons.ArrowRight className="w-5 h-5" />
+          </motion.button>
         </div>
       </div>
     </section>

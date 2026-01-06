@@ -43,25 +43,26 @@ export const Pricing: React.FC = () => {
       <div className="absolute inset-0 bg-grid-white opacity-[0.03] pointer-events-none"></div>
       
       <div className="container mx-auto px-6 relative z-10">
+        <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
+          <Reveal direction="up">
+            <div className="inline-block bg-primary text-white px-3 py-1 mono text-[10px] font-bold mb-6 tracking-widest rounded-sm">
+              INVESTMENT
+            </div>
+          </Reveal>
+          <Reveal direction="up" delay={0.1}>
+            <h2 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter mb-8 leading-[0.9]">
+              Custom Built <span className="text-primary italic">Not</span> Off-The-Shelf.
+            </h2>
+          </Reveal>
+          <Reveal direction="up" delay={0.2}>
+            <p className="text-zinc-400 text-sm md:text-lg leading-relaxed max-w-2xl mx-auto">
+              Every business has unique bottlenecks. We don't believe in fixed packages that don't fit. We build bespoke automation ecosystems tailored to your specific scale, tools, and goals.
+            </p>
+          </Reveal>
+        </div>
+
         <div className="flex flex-col lg:flex-row gap-16 items-center">
           <div className="w-full lg:w-1/2">
-            <Reveal direction="left">
-              <div className="inline-block bg-primary text-white px-3 py-1 mono text-[10px] font-bold mb-6 tracking-widest rounded-sm">
-                INVESTMENT
-              </div>
-            </Reveal>
-            <Reveal direction="left" delay={0.1}>
-              <h2 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter mb-8 leading-[0.9]">
-                Custom Built <br/>
-                <span className="text-primary italic">Not</span> Off-The-Shelf.
-              </h2>
-            </Reveal>
-            <Reveal direction="up" delay={0.2}>
-              <p className="text-zinc-400 text-lg leading-relaxed max-w-xl mb-10">
-                Every business has unique bottlenecks. We don't believe in fixed packages that don't fit. We build bespoke automation ecosystems tailored to your specific scale, tools, and goals.
-              </p>
-            </Reveal>
-
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {[
                 { title: "Discovery Call", desc: "We analyze your current tech stack and workflows." },

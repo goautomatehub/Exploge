@@ -40,26 +40,26 @@ export const Features: React.FC = () => {
       <div className="absolute top-0 right-0 w-1/2 h-full bg-primary/5 -skew-x-12 translate-x-32 pointer-events-none"></div>
       
       <div className="container mx-auto px-6 relative z-10">
+        <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
+          <Reveal direction="up">
+            <div className="inline-block bg-primary text-white px-3 py-1 mono text-[10px] font-bold mb-6 tracking-widest rounded-sm">
+              WHY CHOOSE US
+            </div>
+          </Reveal>
+          <Reveal direction="up" delay={0.1}>
+            <h2 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter mb-8 leading-[0.9]">
+              Speed & Accuracy.
+            </h2>
+          </Reveal>
+          <Reveal direction="up" delay={0.2}>
+            <p className="text-gray-400 text-sm md:text-lg leading-relaxed max-w-2xl mx-auto">
+              We don't just set up software. We build high-performance systems that eliminate bottlenecks and human error. Our focus is on making your business faster, leaner, and more profitable through precision automation.
+            </p>
+          </Reveal>
+        </div>
+
         <div className="flex flex-col lg:flex-row gap-20">
           <div className="w-full lg:w-1/2 space-y-12">
-            <div>
-              <Reveal direction="left">
-                <div className="inline-block bg-primary text-white px-3 py-1 mono text-[10px] font-bold mb-6 tracking-widest rounded-sm">
-                  WHY CHOOSE US
-                </div>
-              </Reveal>
-              <Reveal direction="left" delay={0.1}>
-                <h2 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter mb-8 leading-[0.9]">
-                  Speed & <br/> Accuracy.
-                </h2>
-              </Reveal>
-              <Reveal direction="up" delay={0.2}>
-                <p className="text-gray-400 text-lg leading-relaxed max-w-xl">
-                  We don't just set up software. We build high-performance systems that eliminate bottlenecks and human error. Our focus is on making your agency faster, leaner, and more profitable through precision automation.
-                </p>
-              </Reveal>
-            </div>
-            
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               {metrics.map((spec, i) => (
                 <Reveal key={i} direction="up" delay={0.3 + (i * 0.1)}>
