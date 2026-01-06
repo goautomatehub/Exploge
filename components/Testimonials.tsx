@@ -6,28 +6,28 @@ import { Icons } from './Icons';
 
 const testimonials = [
   {
-    quote: "The Exploge team completely streamlined our client management process. Our team efficiency improved by 40% in the first quarter.",
-    author: "Sarah Jenkins",
-    role: "Director @ Creative Agency",
-    avatar: "https://picsum.photos/seed/sarah/100/100"
+    quote: "Exploge completely transformed our fulfillment. What used to take 2 days now happens in minutes. They are true automation experts.",
+    author: "James Wilson",
+    role: "Founder, ScaleUp Media",
+    avatar: "https://i.pravatar.cc/150?u=james"
   },
   {
-    quote: "Their automation expertise is exceptional. We've saved approximately 15 hours per week on complex client coordination workflows.",
-    author: "Marcus Thorne",
-    role: "Founder, Growth Management",
-    avatar: "https://picsum.photos/seed/marcus/100/100"
+    quote: "The GHL and Make setup they built for us is a work of art. We've scaled from 10 to 50 clients without adding any operations staff.",
+    author: "Sarah Thompson",
+    role: "CEO, Nexa Digital",
+    avatar: "https://i.pravatar.cc/150?u=sarah"
   },
   {
-    quote: "Clean, fast, and reliable. They built the professional operations we've been waiting for. Our agency processes are finally seamless.",
-    author: "Elena Rodriguez",
-    role: "Operations Manager, TechFlow",
-    avatar: "https://picsum.photos/seed/elena/100/100"
+    quote: "Their team understands the agency business better than anyone. They didn't just build tools; they built a scalable business engine.",
+    author: "Michael Chen",
+    role: "Operations Director, Flow Creative",
+    avatar: "https://i.pravatar.cc/150?u=michael"
   },
   {
-    quote: "Finally, a strategic team that understands how agencies scale. Their custom automation solutions have saved our sanity.",
-    author: "David Chen",
-    role: "CEO, Scaler Creative",
-    avatar: "https://picsum.photos/seed/david/100/100"
+    quote: "Cleanest automation architecture I've seen. The level of detail in their workflows is unmatched. Highly recommended for any growing agency.",
+    author: "Emma Rodriguez",
+    role: "Head of Growth, Zenith Agency",
+    avatar: "https://i.pravatar.cc/150?u=emma"
   }
 ];
 
@@ -94,8 +94,8 @@ export const Testimonials: React.FC = () => {
               <h2 className="text-xs font-bold text-primary uppercase tracking-[0.4em] mb-4 mono">Client Success</h2>
             </Reveal>
             <Reveal direction="left" delay={0.1}>
-              <h3 className="text-3xl xs:text-4xl md:text-5xl font-black tracking-tighter uppercase leading-none">
-                Proven Results <br/> For Leading Agencies.
+              <h3 className="text-2xl xs:text-3xl md:text-4xl font-black tracking-tighter uppercase leading-tight">
+                What Our Clients <br/> Say About Us.
               </h3>
             </Reveal>
           </div>
@@ -165,9 +165,13 @@ export const Testimonials: React.FC = () => {
                     </div>
                     
                     <div>
-                      <div className="flex gap-1.5 mb-8">
+                      <div className="flex gap-1 mb-8">
                         {[...Array(5)].map((_, star) => (
-                          <div key={star} className="w-2.5 h-2.5 bg-primary/20 group-hover:bg-primary transition-colors duration-500" style={{ transitionDelay: `${star * 50}ms` }}></div>
+                          <Icons.Star 
+                            key={star} 
+                            className="w-4 h-4 text-primary fill-primary transition-all duration-500 group-hover:scale-110" 
+                            style={{ transitionDelay: `${star * 50}ms` }} 
+                          />
                         ))}
                       </div>
                       <p className="text-lg md:text-xl lg:text-2xl text-gray-800 leading-relaxed mb-12 font-medium tracking-tight">
@@ -177,7 +181,7 @@ export const Testimonials: React.FC = () => {
 
                     <div className="flex items-center justify-between border-t border-gray-100 pt-8 mt-auto">
                       <div className="flex items-center gap-4">
-                        <div className="w-14 h-14 border border-black p-0.5 grayscale group-hover:grayscale-0 transition-all duration-700">
+                        <div className="w-14 h-14 border border-black p-0.5 transition-all duration-700">
                           <img src={t.avatar} alt={t.author} className="w-full h-full object-cover" />
                         </div>
                         <div>
