@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AmbientBlobs } from './AmbientBlobs';
 import { Icons } from './Icons';
+import { FloatingDecorations } from './FloatingDecorations';
 
 export const Contact: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -12,84 +13,92 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-12 md:py-24 bg-premium-dark text-white overflow-hidden relative">
-      <AmbientBlobs color="bg-primary" size="w-[500px] h-[500px]" className="-top-48 -right-48" opacity="opacity-[0.08]" animation="animate-blob" />
-      <AmbientBlobs color="bg-primary" size="w-72 h-72" className="bottom-0 left-0" opacity="opacity-[0.05]" animation="animate-blob-slow" />
+    <section id="contact" className="py-8 md:pt-16 md:pb-0 overflow-visible relative z-20 -mb-40 md:-mb-52">
+      <AmbientBlobs color="bg-primary" size="w-[400px] h-[400px]" className="-top-32 -right-32" opacity="opacity-[0.08]" animation="animate-blob" />
+      <AmbientBlobs color="bg-primary" size="w-64 h-64" className="bottom-0 left-0" opacity="opacity-[0.05]" animation="animate-blob-slow" />
       
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col lg:flex-row gap-10 lg:gap-20">
-          <div className="w-full lg:w-1/2 space-y-6 md:space-y-8">
-            <h2 className="text-[10px] md:text-sm font-bold text-primary uppercase tracking-[0.4em]">Get In Touch</h2>
-            <h3 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight tracking-tighter">
-              Ready to <br className="hidden md:block"/> Start Your <br className="hidden md:block"/> Project?
-            </h3>
-            <p className="text-gray-400 text-sm md:text-lg max-w-md leading-relaxed">
-              Have a question or want to work together? Fill out the form and we'll get back to you within 24 hours.
-            </p>
-            
-            <div className="space-y-4 pt-4">
-              <div className="flex items-center gap-4 group cursor-pointer">
-                <div className="w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 border border-white/10 flex items-center justify-center text-primary group-hover:border-primary group-hover:bg-primary/5 transition-all">
-                  <Icons.Mail className="w-4 h-4 md:w-4.5 md:h-4.5 lg:w-5 lg:h-5" />
-                </div>
-                <span className="text-gray-300 text-xs md:text-base font-medium group-hover:text-white transition-colors">contact@exploge.com</span>
-              </div>
-              <div className="flex items-center gap-4 group cursor-pointer">
-                <div className="w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 border border-white/10 flex items-center justify-center text-primary group-hover:border-primary group-hover:bg-primary/5 transition-all">
-                  <Icons.Zap className="w-4 h-4 md:w-4.5 md:h-4.5 lg:w-5 lg:h-5" />
-                </div>
-                <span className="text-gray-300 text-xs md:text-base font-medium group-hover:text-white transition-colors">Pakistan</span>
-              </div>
-            </div>
+      {/* Floating Elements */}
+      <FloatingDecorations.Plus className="top-10 right-[15%] text-primary hidden md:block" delay={0.2} />
+      <FloatingDecorations.Dot className="bottom-20 left-[10%] hidden md:block" delay={0.6} />
+      <FloatingDecorations.Circle className="top-1/2 left-[5%] hidden md:block" delay={1.0} />
 
-            <div className="p-8 bg-secondary/30 border border-white/5 rounded-md mt-12 hidden lg:block">
-              <h4 className="text-white font-bold uppercase text-xs mb-4 tracking-widest">Why wait?</h4>
-              <p className="text-zinc-500 text-sm leading-relaxed">Our team is ready to analyze your workflows and build a system that scales your business automatically. Book your call today and save 40+ hours per week.</p>
-            </div>
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="bg-secondary border border-white/5 p-6 md:p-8 lg:p-10 backdrop-blur-sm text-white shadow-2xl relative overflow-hidden" style={{ borderRadius: '14px' }}>
+          {/* Background Image with Left to Right Gradient */}
+          <div className="absolute inset-0 z-0 pointer-events-none">
+            <div 
+              className="absolute inset-0 bg-cover bg-center opacity-[0.15]" 
+              style={{ 
+                backgroundImage: 'url("https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2074&auto=format&fit=crop")',
+                backgroundBlendMode: 'luminosity'
+              }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-secondary via-secondary/60 to-transparent"></div>
           </div>
-          
-          <div className="w-full lg:w-1/2">
-            <div className="bg-white p-6 md:p-8 lg:p-10 relative rounded-md">
-              {submitted ? (
-                <div className="py-12 md:py-16 lg:py-20 text-center animate-pulse">
-                  <div className="w-16 h-16 md:w-18 md:h-18 lg:w-20 lg:h-20 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-6">
-                    <Icons.Check className="w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10" />
+
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center relative z-10">
+            <div className="w-full lg:w-1/2 space-y-4 md:space-y-6">
+              <span className="text-xl font-bold text-primary sub-heading mb-2 inline-block">Get In Touch</span>
+              <h3 className="text-2xl xs:text-3xl md:text-4xl lg:text-5xl font-black leading-tight tracking-tighter">
+                Let's Talk <span className="text-primary">Automation</span>.
+              </h3>
+              <p className="text-gray-400 text-sm md:text-base max-w-md leading-relaxed">
+                Fill out the form and we'll get back to you within 24 hours.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row lg:flex-col gap-4 pt-2">
+                <div className="flex items-center gap-3 group cursor-pointer">
+                  <div className="w-8 h-8 border border-white/10 flex items-center justify-center text-primary group-hover:border-primary group-hover:bg-primary/5 transition-all rounded-md">
+                    <Icons.Mail className="w-4 h-4" />
                   </div>
-                  <h4 className="text-secondary text-xl md:text-2xl font-bold mb-2">Message Sent</h4>
-                  <p className="text-gray-500 text-sm">We'll get back to you very soon.</p>
+                  <span className="text-gray-300 text-xs md:text-sm font-medium group-hover:text-white transition-colors">contact@exploge.com</span>
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Your Name</label>
-                      <input required type="text" className="w-full bg-gray-50 border border-gray-100 p-3 md:p-4 text-sm text-secondary focus:border-primary focus:outline-none transition-colors placeholder:text-gray-300 rounded-md" placeholder="John Doe" />
+              </div>
+            </div>
+            
+            <div className="w-full lg:w-1/2">
+              <div className="bg-white p-5 md:p-6 lg:p-8 relative rounded-xl shadow-2xl">
+                {submitted ? (
+                  <div className="py-12 md:py-16 lg:py-20 text-center animate-pulse">
+                    <div className="w-16 h-16 md:w-18 md:h-18 lg:w-20 lg:h-20 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-6">
+                      <Icons.Check className="w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10" />
                     </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Your Email</label>
-                      <input required type="email" className="w-full bg-gray-50 border border-gray-100 p-3 md:p-4 text-sm text-secondary focus:border-primary focus:outline-none transition-colors placeholder:text-gray-300 rounded-md" placeholder="john@agency.com" />
+                    <h4 className="text-secondary text-xl md:text-2xl font-bold mb-2">Message Sent</h4>
+                    <p className="text-gray-500 text-sm">We'll get back to you very soon.</p>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+                      <div className="space-y-1">
+                        <label className="text-[10px] font-bold text-secondary/60 uppercase tracking-wider">Your Name</label>
+                        <input required type="text" className="w-full bg-zinc-50 border border-zinc-100 p-2.5 md:p-3 text-sm text-secondary focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all placeholder:text-zinc-400 rounded-lg" placeholder="John Doe" />
+                      </div>
+                      <div className="space-y-1">
+                        <label className="text-[10px] font-bold text-secondary/60 uppercase tracking-wider">Your Email</label>
+                        <input required type="email" className="w-full bg-zinc-50 border border-zinc-100 p-2.5 md:p-3 text-sm text-secondary focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all placeholder:text-zinc-400 rounded-lg" placeholder="john@agency.com" />
+                      </div>
                     </div>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Subject</label>
-                    <input required type="text" className="w-full bg-gray-50 border border-gray-100 p-3 md:p-4 text-sm text-secondary focus:border-primary focus:outline-none transition-colors placeholder:text-gray-300 rounded-md" placeholder="How can we help?" />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Message</label>
-                    <textarea rows={4} className="w-full bg-gray-50 border border-gray-100 p-3 md:p-4 text-sm text-secondary focus:border-primary focus:outline-none transition-colors resize-none placeholder:text-gray-300 rounded-md" placeholder="Your message here..."></textarea>
-                  </div>
-                  
-                  <button type="submit" className="w-full bg-primary text-white font-black py-4 md:py-5 hover:bg-secondary transition-all duration-300 text-[10px] md:text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-3 shadow-[0_10px_30px_rgba(32,188,97,0.3)] hover:shadow-none hover:-translate-y-1 group rounded-md">
-                    Send Message
-                    <Icons.ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                  </button>
-                  <p className="text-[8px] md:text-[10px] text-gray-400 text-center uppercase tracking-widest">
-                    By submitting, you agree to our privacy policy and terms of service.
-                  </p>
-                </form>
-              )}
+                    
+                    <div className="space-y-1">
+                      <label className="text-[10px] font-bold text-secondary/60 uppercase tracking-wider">Subject</label>
+                      <input required type="text" className="w-full bg-zinc-50 border border-zinc-100 p-2.5 md:p-3 text-sm text-secondary focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all placeholder:text-zinc-400 rounded-lg" placeholder="How can we help?" />
+                    </div>
+                    
+                    <div className="space-y-1">
+                      <label className="text-[10px] font-bold text-secondary/60 uppercase tracking-wider">Message</label>
+                      <textarea rows={3} className="w-full bg-zinc-50 border border-zinc-100 p-2.5 md:p-3 text-sm text-secondary focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all resize-none placeholder:text-zinc-400 rounded-lg" placeholder="Your message here..."></textarea>
+                    </div>
+                    
+                    <button type="submit" className="w-full bg-primary text-white font-black py-3 md:py-4 hover:bg-secondary transition-all duration-300 text-[10px] md:text-xs uppercase flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:-translate-y-0.5 group rounded-lg">
+                      Send Message
+                      <Icons.ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    </button>
+                    <p className="text-[8px] md:text-[9px] text-zinc-400 text-center uppercase tracking-widest">
+                      By submitting, you agree to our terms.
+                    </p>
+                  </form>
+                )}
+              </div>
             </div>
           </div>
         </div>

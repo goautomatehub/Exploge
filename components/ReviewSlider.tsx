@@ -19,9 +19,9 @@ export const ReviewSlider: React.FC = () => {
       <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-secondary to-transparent z-10"></div>
       <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-secondary to-transparent z-10"></div>
       
-      <div className="flex whitespace-nowrap animate-marquee">
+      <div className="flex whitespace-nowrap animate-marquee w-max">
         {[...Array(2)].map((_, i) => (
-          <div key={i} className="flex shrink-0">
+          <div key={i} className="flex shrink-0 items-center">
             {reviews.map((review, idx) => (
               <div key={idx} className="mx-4 md:mx-8 flex items-center gap-4 md:gap-6">
                 <span className="text-white/40 text-[8px] md:text-[9px] uppercase font-bold tracking-widest">Verified</span>

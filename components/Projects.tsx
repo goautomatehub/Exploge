@@ -79,6 +79,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
       onMouseMove={handleMouseMove}
       className="group relative bg-white border border-black/5 rounded-md overflow-hidden flex flex-col h-full hover:shadow-2xl transition-all duration-500"
     >
+      <a href="#contact" className="absolute inset-0 z-30"></a>
       {/* Spotlight Effect - Hidden on mobile for performance */}
       <motion.div
         className="pointer-events-none absolute -inset-px rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 hidden lg:block"
@@ -95,14 +96,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
         />
         <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-500"></div>
         <div className="absolute top-4 left-4">
-          <span className="px-3 py-1 bg-white/90 backdrop-blur-md text-secondary font-bold text-[9px] uppercase tracking-widest rounded-sm border border-black/5">
+          <span className="px-3 py-1 bg-white/90 backdrop-blur-md text-secondary font-bold text-[9px] uppercase rounded-sm border border-black/5">
             {project.category}
           </span>
         </div>
       </div>
 
       <div className="p-6 xs:p-8 flex flex-col flex-grow relative z-20">
-        <h4 className="text-xl font-black uppercase tracking-tight mb-3 group-hover:text-primary transition-colors">
+        <h4 className="text-xl font-black uppercase mb-3 group-hover:text-primary transition-colors">
           {project.title}
         </h4>
         <p className="text-gray-500 text-sm mb-6 leading-relaxed flex-grow font-normal">
@@ -111,14 +112,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
 
         <div className="flex flex-wrap gap-2 mb-8">
           {project.tags.map(tag => (
-            <span key={tag} className="text-[8px] font-bold mono text-zinc-400 uppercase border border-zinc-100 px-2 py-0.5 rounded-sm">
+            <span key={tag} className="text-[8px] font-bold text-zinc-400 uppercase border border-zinc-100 px-2 py-0.5 rounded-sm">
               {tag}
             </span>
           ))}
         </div>
 
         <div className="pt-6 border-t border-black/5 flex items-center justify-between">
-          <span className="text-[10px] font-bold uppercase tracking-widest text-secondary group-hover:text-primary transition-colors">View Deployment</span>
+          <span className="text-[10px] font-bold uppercase text-secondary group-hover:text-primary transition-colors">View Deployment</span>
           <ArrowUpRight className="w-4 h-4 text-zinc-300 group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
         </div>
       </div>
@@ -141,11 +142,11 @@ export const Projects: React.FC = () => {
             <Reveal direction="left">
               <div className="flex items-center gap-4 mb-6">
                 <LayoutGrid className="text-primary w-5 h-5" />
-                <span className="text-[10px] font-bold text-primary uppercase tracking-[0.5em] mono">Case Studies</span>
+                <span className="text-2xl font-bold text-primary sub-heading inline-block">Case Studies</span>
               </div>
             </Reveal>
             <Reveal direction="left" delay={0.1}>
-              <h2 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.95] text-secondary">
+              <h2 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl font-black uppercase leading-[0.95] text-secondary">
                 Systems We've <br/> 
                 <span className="text-primary italic">Deployed.</span>
               </h2>
@@ -165,7 +166,7 @@ export const Projects: React.FC = () => {
             <button
               key={cat}
               onClick={() => setActiveTab(cat)}
-              className={`relative px-6 py-3 text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-300 rounded-md border-2 ${
+              className={`relative px-6 py-3 text-[10px] font-black uppercase transition-all duration-300 rounded-md border-2 ${
                 activeTab === cat 
                   ? 'text-white border-transparent' 
                   : 'text-zinc-400 border-transparent hover:text-secondary'

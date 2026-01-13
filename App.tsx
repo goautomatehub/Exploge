@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
-import { ReviewSlider } from './components/ReviewSlider';
 import { ScrollToTop } from './components/ScrollToTop';
 import { Home } from './pages/Home';
 import { About } from './pages/About';
@@ -47,7 +46,7 @@ const App: React.FC = () => {
       case 'home':
         return (
           <PageTransition key="home">
-            <Home />
+            <Home onNavigate={navigate} />
           </PageTransition>
         );
       case 'about':
@@ -81,7 +80,6 @@ const App: React.FC = () => {
           {renderPage()}
         </AnimatePresence>
       </main>
-      <ReviewSlider />
       <Footer onNavigate={navigate} />
       <ScrollToTop />
     </div>

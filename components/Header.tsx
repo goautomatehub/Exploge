@@ -11,7 +11,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
 
-  const HEADER_OFFSET = 80;
+  const HEADER_OFFSET = 50;
 
   // Determine if we should use light text (e.g., on About/Services/Portfolio page before scrolling)
   const isLightMode = currentPage !== 'home' && !isScrolled && !isMenuOpen;
@@ -47,7 +47,6 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
     { name: 'Home', href: '/', id: 'home', type: 'page' },
     { name: 'About', href: '/about', id: 'about', type: 'page' },
     { name: 'Services', href: '/services', id: 'services', type: 'page' },
-    { name: 'Case Studies', href: '/casestudies', id: 'casestudies', type: 'page' },
   ];
 
   const handleLinkClick = (e: React.MouseEvent, link: typeof navLinks[0]) => {
@@ -86,7 +85,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled || isMenuOpen ? 'bg-white/90 backdrop-blur-md py-3 shadow-sm' : 'bg-transparent py-4 md:py-8'
+        isScrolled || isMenuOpen ? 'bg-white/70 backdrop-blur-md py-1.5 shadow-sm' : 'bg-transparent py-3 md:py-6'
       }`}
     >
       {/* Bottom Border - controlled separately for instant removal on scroll up */}
@@ -99,15 +98,28 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
         <a 
           href="#" 
           onClick={(e) => { e.preventDefault(); onNavigate('home'); setIsMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-          className="flex items-center group relative"
+          className="flex flex-col items-start group relative"
         >
-          <div className="relative w-28 h-12 xs:w-32 xs:h-14 sm:w-36 sm:h-16 md:w-48 md:h-20 lg:w-52 lg:h-24 flex items-center justify-center transition-all duration-500 transform group-hover:scale-105 overflow-hidden">
+          <div className={`relative transition-all duration-500 transform group-hover:scale-105 flex items-center justify-center ${
+            isScrolled 
+              ? 'w-24 h-8 xs:w-28 h-9 md:w-36 md:h-11 lg:w-40 lg:h-12' 
+              : 'w-28 h-10 xs:w-32 xs:h-11 sm:w-36 sm:h-12 md:w-48 md:h-16 lg:w-52 lg:h-20'
+          }`}>
             <img 
               src={isLightMode ? "/logo-light.svg" : "/logo.svg"} 
               alt="Exploge Logo" 
               className="w-full h-full object-contain object-left"
             />
           </div>
+          <span className={`text-[5px] xs:text-[6px] md:text-[7px] lg:text-[8px] font-black uppercase tracking-[0.3em] transition-all duration-500 leading-none -mt-1 md:-mt-2 ${
+              isLightMode ? 'text-white/50' : 'text-secondary/40'
+            } ${
+              isScrolled 
+                ? 'w-24 xs:w-28 md:w-36 lg:w-40 opacity-100 translate-y-0' 
+                : 'w-28 xs:w-32 sm:w-36 md:w-48 lg:w-52 opacity-0 -translate-y-2 pointer-events-none'
+            } block text-left whitespace-nowrap overflow-hidden`}>
+              EXPLORATION & GROWTH
+            </span>
         </a>
 
         <nav className="hidden md:flex items-center space-x-6 lg:space-x-10">

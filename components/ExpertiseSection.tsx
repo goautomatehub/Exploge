@@ -1,0 +1,191 @@
+
+import React, { useEffect, useRef, useState } from 'react';
+import { Icons } from './Icons';
+import { FloatingDecorations } from './FloatingDecorations';
+
+export const ExpertiseSection: React.FC = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
+  const getRevealClass = (delay: string) => {
+    return `reveal-item ${isVisible ? 'is-visible' : ''} ${delay}`;
+  };
+
+  return (
+    <section ref={sectionRef} className="pt-12 pb-16 md:py-24 bg-white overflow-hidden relative">
+      {/* Floating Elements */}
+      <FloatingDecorations.Dot className="top-20 right-[5%] hidden md:block" delay={0.3} />
+      <FloatingDecorations.Box className="bottom-[20%] left-[2%] hidden md:block" delay={0.7} />
+      <FloatingDecorations.Cross className="top-[40%] left-[10%] hidden md:block" delay={1.1} />
+      <FloatingDecorations.Plus className="bottom-10 right-[15%] hidden md:block" delay={1.5} />
+
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+          
+          {/* Image Side */}
+          <div className="w-full lg:w-1/2 relative">
+            <div className={getRevealClass('delay-100')}>
+              <div className="relative">
+                {/* Decorative Elements */}
+                <div className="absolute -top-6 -left-6 w-32 h-32 bg-primary/10 rounded-2xl -z-10 animate-pulse"></div>
+                <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-secondary/5 rounded-full -z-10"></div>
+                
+                {/* Main Image Container */}
+                <div className="relative rounded-md overflow-hidden shadow-2xl border border-black/5 aspect-[4/3] md:aspect-[16/10] lg:aspect-square">
+                  <img 
+                    src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop" 
+                    alt="Team working on automation strategy" 
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                  />
+                  
+                  {/* Floating Badge */}
+                  <div className="absolute bottom-8 left-8 bg-white/90 backdrop-blur-md p-6 rounded-md shadow-xl border border-white/20 max-w-[200px] hidden md:block">
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white">
+                        <Icons.Zap className="w-5 h-5" />
+                      </div>
+                      <span className="font-black text-sm uppercase tracking-tighter">Reliability</span>
+                    </div>
+                    <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest leading-tight">
+                      Built for consistent performance
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Content Side */}
+          <div className="w-full lg:w-1/2 space-y-8">
+            <div className="flex flex-col">
+              <div className={getRevealClass('delay-200')}>
+                <div className="inline-block text-2xl font-bold text-primary sub-heading mb-4">
+                  What we do best
+                </div>
+              </div>
+              
+              <div className={getRevealClass('delay-300')}>
+                <h2 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tighter leading-[0.9] mb-8 text-secondary">
+                  Helping Your <span className="text-primary">Business Grow</span>.
+                </h2>
+              </div>
+
+              <div className={getRevealClass('delay-400')}>
+                <p className="text-gray-500 text-base md:text-lg leading-relaxed mb-8">
+                  We handle the manual work so you don't have to. Our team creates simple solutions that connect your tools and help you save time every single day.
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10">
+                <div className={getRevealClass('delay-500')}>
+                  <div className="flex gap-4">
+                    <div className="flex-shrink-0 w-10 h-10 border border-primary/20 rounded-md flex items-center justify-center text-primary bg-primary/5">
+                      <Icons.Workflow className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-sm uppercase mb-1 text-secondary">Personal Setup</h4>
+                      <p className="text-[11px] text-gray-400 leading-relaxed">Systems built exactly for your needs.</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className={getRevealClass('delay-600')}>
+                  <div className="flex gap-4">
+                    <div className="flex-shrink-0 w-10 h-10 border border-primary/20 rounded-md flex items-center justify-center text-primary bg-primary/5">
+                      <Icons.Cpu className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-sm uppercase mb-1 text-secondary">Total Connection</h4>
+                      <p className="text-[11px] text-gray-400 leading-relaxed">Your apps finally talk to each other.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={getRevealClass('delay-700')}>
+                  <div className="flex gap-4">
+                    <div className="flex-shrink-0 w-10 h-10 border border-primary/20 rounded-md flex items-center justify-center text-primary bg-primary/5">
+                      <Icons.Shield className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-sm uppercase mb-1 text-secondary">Secure Data</h4>
+                      <p className="text-[11px] text-gray-400 leading-relaxed">Your information is always kept safe.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={getRevealClass('delay-800')}>
+                  <div className="flex gap-4">
+                    <div className="flex-shrink-0 w-10 h-10 border border-primary/20 rounded-md flex items-center justify-center text-primary bg-primary/5">
+                      <Icons.Clock className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-sm uppercase mb-1 text-secondary">Hours Saved</h4>
+                      <p className="text-[11px] text-gray-400 leading-relaxed">Get more time to focus on your goals.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className={getRevealClass('delay-900')}>
+                <div className="pt-10">
+                  <a 
+                    href="#contact" 
+                    className="inline-flex items-center justify-center gap-3 w-full sm:w-auto bg-primary text-white px-12 py-5 font-black uppercase text-[10px] hover:bg-secondary transition-all duration-300 shadow-[0_10px_30px_rgba(32,188,97,0.3)] hover:shadow-none hover:-translate-y-1 text-center rounded-md group"
+                  >
+                    Automate My Business
+                    <Icons.ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <style>{`
+        .reveal-item {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+          will-change: transform, opacity;
+        }
+        .reveal-item.is-visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
+        .delay-500 { transition-delay: 500ms; }
+        .delay-600 { transition-delay: 600ms; }
+        .delay-700 { transition-delay: 700ms; }
+        .delay-800 { transition-delay: 800ms; }
+        .delay-900 { transition-delay: 1000ms; }
+      `}</style>
+    </section>
+  );
+};

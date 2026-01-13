@@ -8,11 +8,11 @@ const ServicePackageCard = ({ title, price, features, delay, recommended = false
   <Reveal direction="up" delay={delay}>
     <div className={`relative border border-black/10 p-6 sm:p-10 flex flex-col h-full transition-all duration-500 rounded-[4px] ${recommended ? 'bg-secondary text-white shadow-2xl scale-105 z-10' : 'bg-white text-secondary shadow-sm hover:shadow-lg'}`}>
       {recommended && (
-        <div className="absolute top-0 right-0 bg-primary text-white px-2 py-0.5 md:px-3 md:py-1 mono text-[8px] md:text-[10px] font-bold uppercase rounded-bl-[4px]">
+        <div className="absolute top-0 right-0 bg-primary text-white px-2 py-0.5 md:px-3 md:py-1 text-[8px] md:text-[10px] font-bold uppercase rounded-bl-[4px]">
           Most Requested
         </div>
       )}
-      <div className={`mono text-[9px] md:text-[10px] font-bold uppercase tracking-widest mb-4 ${recommended ? 'text-primary' : 'text-zinc-400'}`}>
+      <div className={`text-[9px] md:text-[10px] font-bold uppercase mb-4 ${recommended ? 'text-primary' : 'text-zinc-400'}`}>
         {title} Engagement
       </div>
       <div className="flex items-baseline gap-1 mb-6 md:mb-8">
@@ -29,7 +29,7 @@ const ServicePackageCard = ({ title, price, features, delay, recommended = false
         ))}
       </ul>
       
-      <a href="#contact" className={`w-full py-3 md:py-4 font-bold uppercase text-center tracking-widest text-[9px] md:text-[10px] mono border flex items-center justify-center gap-3 transition-all duration-300 rounded-[4px] group ${recommended ? 'bg-primary text-white border-primary shadow-[0_10px_30px_rgba(32,188,97,0.3)] hover:bg-white hover:text-black hover:border-white' : 'bg-white text-black border-black shadow-sm hover:bg-black hover:text-white'} hover:shadow-none hover:-translate-y-1`}>
+      <a href="#contact" className={`w-full py-3 md:py-4 font-bold uppercase text-center text-[9px] md:text-[10px] border flex items-center justify-center gap-3 transition-all duration-300 rounded-[4px] group ${recommended ? 'bg-primary text-white border-primary shadow-[0_10px_30px_rgba(32,188,97,0.3)] hover:bg-white hover:text-black hover:border-white' : 'bg-white text-black border-black shadow-sm hover:bg-black hover:text-white'} hover:shadow-none hover:-translate-y-1`}>
         Discuss This Model
         <Icons.ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
       </a>
@@ -45,12 +45,10 @@ export const Pricing: React.FC = () => {
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
           <Reveal direction="up">
-            <div className="inline-block bg-primary text-white px-3 py-1 mono text-[10px] font-bold mb-6 tracking-widest rounded-sm">
-              INVESTMENT
-            </div>
+            <span className="text-2xl font-bold text-primary sub-heading mb-4 inline-block">INVESTMENT</span>
           </Reveal>
           <Reveal direction="up" delay={0.1}>
-            <h2 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter mb-8 leading-[0.9]">
+            <h2 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl font-black uppercase mb-8 leading-[0.9]">
               Custom Built <span className="text-primary italic">Not</span> Off-The-Shelf.
             </h2>
           </Reveal>
@@ -72,7 +70,7 @@ export const Pricing: React.FC = () => {
               ].map((item, i) => (
                 <Reveal key={i} direction="up" delay={0.3 + (i * 0.1)}>
                   <div className="group border-l border-primary/20 pl-6 py-2 hover:border-primary transition-colors">
-                    <h4 className="text-white font-bold uppercase text-xs mb-2 tracking-widest">{item.title}</h4>
+                    <h4 className="text-white font-bold uppercase text-xs mb-2">{item.title}</h4>
                     <p className="text-zinc-500 text-sm">{item.desc}</p>
                   </div>
                 </Reveal>
@@ -85,7 +83,7 @@ export const Pricing: React.FC = () => {
               <div className="bg-white p-8 md:p-12 rounded-[4px] text-secondary shadow-2xl relative">
                 <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/10 -z-10 rounded-full blur-2xl"></div>
                 
-                <h3 className="text-3xl font-black uppercase tracking-tight mb-4">Book a Strategy Call</h3>
+                <h3 className="text-3xl font-black uppercase mb-4">Book a Strategy Call</h3>
                 <p className="text-zinc-500 mb-8">Stop losing hours to manual work. Let's build a system that scales your agency automatically.</p>
                 
                 <ul className="space-y-4 mb-10">

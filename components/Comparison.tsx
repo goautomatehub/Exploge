@@ -22,7 +22,7 @@ export const Comparison: React.FC = () => {
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-12 md:mb-16">
           <Reveal direction="none">
-            <h2 className="text-[10px] font-bold text-primary mono uppercase tracking-[0.4em] mb-4">Why We Are Different</h2>
+            <span className="text-2xl font-bold text-primary sub-heading mb-4 inline-block">Why We Are Different</span>
           </Reveal>
           <Reveal direction="up" delay={0.1}>
             <h3 className="text-2xl xs:text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tighter">Exploge vs. The Old Way</h3>
@@ -65,10 +65,13 @@ export const Comparison: React.FC = () => {
                 <div className="text-primary mono text-[9px] md:text-[10px] font-bold uppercase tracking-widest">Efficiency Increase</div>
                 <div className="text-xl md:text-[22px] lg:text-2xl font-black uppercase">Consolidate & Improve Performance by 65%</div>
               </div>
-              <button className="w-full md:w-auto bg-primary text-white px-8 py-3.5 font-bold uppercase tracking-widest text-[9px] md:text-[10px] mono flex items-center justify-center gap-3 transition-all duration-300 shadow-[0_10px_30px_rgba(32,188,97,0.3)] hover:shadow-none hover:-translate-y-1 group rounded-[4px]">
+              <a 
+                href="#contact"
+                className="w-full md:w-auto bg-primary text-white px-8 py-3.5 font-bold uppercase tracking-widest text-[9px] md:text-[10px] mono flex items-center justify-center gap-3 transition-all duration-300 shadow-[0_10px_30px_rgba(32,188,97,0.3)] hover:shadow-none hover:-translate-y-1 group rounded-[4px]"
+              >
                 Learn More
                 <Icons.ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-              </button>
+              </a>
             </div>
           </Reveal>
         </div>

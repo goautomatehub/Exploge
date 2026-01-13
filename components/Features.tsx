@@ -42,12 +42,10 @@ export const Features: React.FC = () => {
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
           <Reveal direction="up">
-            <div className="inline-block bg-primary text-white px-3 py-1 mono text-[10px] font-bold mb-6 tracking-widest rounded-sm">
-              WHY CHOOSE US
-            </div>
+            <span className="text-2xl font-bold text-primary sub-heading mb-4 inline-block">WHY CHOOSE US</span>
           </Reveal>
           <Reveal direction="up" delay={0.1}>
-            <h2 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter mb-8 leading-[0.9]">
+            <h2 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl font-black uppercase mb-8 leading-[0.9]">
               Speed & Accuracy.
             </h2>
           </Reveal>
@@ -64,9 +62,9 @@ export const Features: React.FC = () => {
               {metrics.map((spec, i) => (
                 <Reveal key={i} direction="up" delay={0.3 + (i * 0.1)}>
                   <div className="border-l border-primary/30 pl-6 py-2 group hover:border-primary transition-colors">
-                    <div className="text-[10px] font-bold mono text-primary uppercase tracking-widest mb-1">{spec.label}</div>
+                    <div className="text-[10px] font-bold text-primary uppercase mb-1">{spec.label}</div>
                     <div className="text-2xl font-black uppercase mb-1 group-hover:translate-x-1 transition-transform">{spec.value}</div>
-                    <div className="text-[10px] text-gray-500 mono uppercase">{spec.detail}</div>
+                    <div className="text-[10px] text-gray-500 uppercase">{spec.detail}</div>
                   </div>
                 </Reveal>
               ))}
@@ -75,7 +73,7 @@ export const Features: React.FC = () => {
             <Reveal direction="up" delay={0.7}>
               <button 
                 onClick={scrollToContact}
-                className="group border-b border-primary text-primary pb-1 font-bold uppercase tracking-widest text-[10px] hover:text-white hover:border-white transition-all flex items-center gap-3"
+                className="group border-b border-primary text-primary pb-1 font-bold uppercase text-[10px] hover:text-white hover:border-white transition-all flex items-center gap-3"
               >
                 Free Strategy Session
                 <Icons.ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1" />
@@ -95,7 +93,7 @@ export const Features: React.FC = () => {
                 <div className="space-y-10">
                   {pillars.map((pillar, i) => (
                     <div key={i} className={`border-l-2 ${pillar.opacity} pl-6 hover:border-primary transition-colors duration-500`}>
-                      <h4 className="text-white font-black uppercase tracking-widest text-[11px] mb-3 flex items-center gap-2">
+                      <h4 className="text-white font-black uppercase text-[11px] mb-3 flex items-center gap-2">
                         <span className="text-primary">0{i + 1}</span> {pillar.title}
                       </h4>
                       <p className="text-gray-400 text-sm leading-relaxed">{pillar.desc}</p>

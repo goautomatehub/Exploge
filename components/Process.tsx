@@ -3,72 +3,34 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 import { Reveal } from './Reveal';
 import { ClipboardList, Layers, Settings2, Rocket, CheckCircle2 } from 'lucide-react';
+import { FloatingDecorations } from './FloatingDecorations';
 
 const steps = [
   {
     icon: ClipboardList,
-    title: "Audit",
-    desc: "We look at your current manual tasks and find where you're losing time.",
+    title: "Spotting the Bottlenecks",
+    desc: "We look at your daily work to find exactly which manual tasks are wasting your time and slowing you down.",
     color: "bg-blue-500"
   },
   {
     icon: Layers,
-    title: "Strategy",
-    desc: "We plan a simple system to connect your tools and automate your work.",
+    title: "Building the Blueprint",
+    desc: "We design a custom plan to link your favorite apps together and create a workflow that makes sense for you.",
     color: "bg-purple-500"
   },
   {
     icon: Settings2,
-    title: "Setup",
-    desc: "We build your workflows using the best tools to make sure they work perfectly.",
+    title: "Setting Up the System",
+    desc: "Our team handles all the technical setup and testing to make sure everything works perfectly from the very first day.",
     color: "bg-primary"
   },
   {
     icon: Rocket,
-    title: "Launch",
-    desc: "We turn it on. You start saving hours every day while your business grows.",
+    title: "Growth on Autopilot",
+    desc: "We launch your new automated system so you can watch your business grow while you save hours of work every day.",
     color: "bg-orange-500"
   }
 ];
-
-const Step: React.FC<{ step: typeof steps[0], index: number, total: number }> = ({ step, index, total }) => {
-  return (
-    <div className="relative pl-12 md:pl-16 lg:pl-20 pb-16 last:pb-0">
-      {/* Icon Circle */}
-      <motion.div 
-        initial={{ scale: 0.8, opacity: 0 }}
-        whileInView={{ scale: 1, opacity: 1 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ delay: index * 0.1 }}
-        className="absolute left-0 top-0 w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 bg-white border-2 border-black rounded-md flex items-center justify-center z-10 group"
-      >
-        <step.icon className="w-5 h-5 md:w-5.5 md:h-5.5 lg:w-6 lg:h-6 transition-transform group-hover:scale-110" />
-        
-        {/* Step Number Badge */}
-        <div className="absolute -top-2 -right-2 bg-black text-white text-[8px] font-bold w-5 h-5 flex items-center justify-center">
-          0{index + 1}
-        </div>
-      </motion.div>
-
-      {/* Content */}
-      <Reveal direction="up" delay={index * 0.1}>
-        <div className="group">
-          <h4 className="text-xl md:text-2xl lg:text-3xl font-black uppercase tracking-tight mb-3 group-hover:text-primary transition-colors">
-            {step.title}
-          </h4>
-          <p className="text-gray-500 text-sm md:text-base leading-relaxed max-w-xl">
-            {step.desc}
-          </p>
-          
-          <div className="mt-4 flex items-center gap-2 text-[10px] font-bold mono text-primary opacity-0 group-hover:opacity-100 transition-opacity">
-            <CheckCircle2 className="w-3 h-3" />
-            READY TO SCALE
-          </div>
-        </div>
-      </Reveal>
-    </div>
-  );
-};
 
 export const Process: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -84,74 +46,115 @@ export const Process: React.FC = () => {
   });
 
   return (
-    <section id="process" className="py-24 md:py-32 bg-white relative overflow-hidden" ref={containerRef}>
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col lg:flex-row gap-20">
+    <section id="process" className="pt-12 pb-16 md:py-24 bg-white relative overflow-hidden">
+      {/* Floating Elements */}
+      <FloatingDecorations.Triangle className="top-10 left-[5%] hidden md:block" delay={0.2} />
+      <FloatingDecorations.Dot className="bottom-20 right-[10%] hidden md:block" delay={0.6} />
+      <FloatingDecorations.Zigzag className="top-1/2 right-[5%] hidden md:block" delay={1.0} />
+      <FloatingDecorations.GridDots className="bottom-1/4 left-[15%] hidden md:block" delay={1.4} />
+
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
+        <div className="flex flex-col lg:flex-row gap-12 md:gap-16 items-start">
           
-          {/* Left Side: Sticky Content */}
-          <div className="w-full lg:w-5/12 lg:sticky lg:top-32 lg:h-fit space-y-8 md:space-y-12">
+          {/* Left Side: Sticky Content (No Background) */}
+          <div className="w-full lg:w-1/2 lg:sticky lg:top-32 space-y-6 md:space-y-8 py-4">
             <div>
               <Reveal direction="left">
-                <div className="inline-block px-3 py-1 bg-black text-white text-[10px] font-bold mono uppercase tracking-[0.3em] mb-6">
-                  The Workflow
-                </div>
-              </Reveal>
-              <Reveal direction="left" delay={0.1}>
-                <h2 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black uppercase tracking-tighter leading-[0.9] mb-8">
-                  How We <br/> Automate.
+                <span className="text-2xl font-bold text-primary sub-heading mb-4 inline-block">The Process</span>
+                <h2 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tighter leading-[0.95] mb-6 text-secondary">
+                  Our Simple 4-Step <br/> <span className="text-primary">Process</span>.
                 </h2>
               </Reveal>
               <Reveal direction="left" delay={0.2}>
-                <p className="text-gray-500 text-sm md:text-lg leading-relaxed max-w-sm">
-                  A simple 4-step process to get your business running on autopilot.
+                <p className="text-gray-500 text-sm md:text-lg leading-relaxed max-w-xl font-normal">
+                  Many business owners spend hours every day moving data between apps and doing the same manual tasks over and over. We follow a clear, proven plan to take that weight off your shoulders. From our very first chat to the moment your new system goes live, we handle all the difficult work so you can finally get back to growing your business without the stress of manual paperwork.
                 </p>
               </Reveal>
             </div>
 
-            {/* CTA Card Moved Below Heading */}
+            {/* CTA Card */}
             <Reveal direction="up" delay={0.3}>
-              <div className="bg-zinc-50 p-8 md:p-12 border border-black/5 rounded-md relative overflow-hidden group">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 -translate-y-16 translate-x-16 rounded-full group-hover:scale-150 transition-transform duration-700"></div>
+              <div className="bg-zinc-50 p-6 md:p-8 border border-zinc-100 rounded-[14px] relative overflow-hidden group">
+                <h4 className="text-xl md:text-2xl font-extrabold mb-3 relative z-10 text-secondary">Your Future is Automatic</h4>
+                <p className="text-gray-500 text-sm mb-6 relative z-10 font-normal">Don't let your growth be limited by how many manual tasks you can handle in a day. Our custom-built systems are designed to scale with you, giving you the freedom to take on more clients without doing more work.</p>
                 
-                <h4 className="text-xl md:text-2xl font-black uppercase mb-4 relative z-10">Ready to Scale?</h4>
-                <p className="text-gray-500 text-sm mb-8 relative z-10">Join many agencies that use our systems to save time and increase revenue.</p>
-                
-                <div className="flex items-center gap-4 group/btn cursor-pointer relative z-10">
-                  <div className="w-12 h-12 rounded-full border border-black flex items-center justify-center group-hover/btn:bg-black group-hover/btn:text-white transition-all">
+                <a href="#contact" className="flex items-center gap-4 group/btn cursor-pointer relative z-10">
+                  <div className="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center group-hover/btn:bg-secondary transition-all duration-300 shadow-lg shadow-primary/20">
                     <Rocket className="w-5 h-5" />
                   </div>
                   <div>
-                    <div className="text-xs font-bold mono uppercase tracking-widest">Start Your Journey</div>
-                    <div className="text-[10px] text-gray-400 uppercase">Book a discovery call</div>
+                    <div className="text-xs font-bold mono uppercase tracking-widest text-secondary">Claim Your Strategy</div>
+                    <div className="text-[10px] text-primary uppercase font-bold">Reserve your consultation</div>
                   </div>
-                </div>
+                </a>
               </div>
             </Reveal>
           </div>
           
-          {/* Right Side: Animated Steps */}
-          <div className="w-full lg:w-7/12 relative">
-            {/* Background Line (Static) */}
-            <div className="absolute left-5 md:left-6 lg:left-7 top-0 bottom-0 w-[2px] bg-gray-100" />
-            
-            {/* Animated Progress Line */}
-            <motion.div 
-              style={{ scaleY, originY: 0, willChange: "transform" }}
-              className="absolute left-5 md:left-6 lg:left-7 top-0 bottom-0 w-[2px] bg-primary z-0"
-            />
+          {/* Right Side: Animated Steps (With Dark Background) */}
+          <div className="w-full lg:w-1/2 relative bg-secondary rounded-[14px] p-6 md:p-10 lg:p-12 text-white overflow-hidden shadow-2xl" ref={containerRef}>
+            {/* Subtle decoration */}
+            <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/10 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
 
-            <div className="relative z-10">
-              {steps.map((step, index) => (
-                <Step 
-                  key={index} 
-                  step={step} 
-                  index={index} 
-                  total={steps.length} 
-                />
-              ))}
+            <div className="relative z-10 flex gap-6 md:gap-10 lg:gap-12">
+              {/* Column 1: Icons & Lines */}
+              <div className="flex flex-col items-center flex-shrink-0 relative">
+                {steps.map((step, index) => (
+                  <React.Fragment key={index}>
+                    {/* Icon Circle */}
+                    <motion.div 
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      whileInView={{ scale: 1, opacity: 1 }}
+                      viewport={{ once: true, margin: "0px" }}
+                      transition={{ delay: index * 0.1 }}
+                      className="w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 bg-zinc-900 border-2 border-white/30 rounded-[4px] flex items-center justify-center z-10 relative overflow-hidden flex-shrink-0 shadow-lg"
+                    >
+                      <step.icon className="w-5 h-5 md:w-5.5 md:h-5.5 lg:w-6 lg:h-6 text-white transition-transform group-hover:scale-110 relative z-10" />
+                      <div className="absolute -top-1 -right-1 bg-primary text-white text-[8px] font-bold w-5 h-5 flex items-center justify-center rounded-bl-lg">
+                        0{index + 1}
+                      </div>
+                    </motion.div>
+
+                    {/* Vertical Line Segment (Static) */}
+                    {index < steps.length - 1 && (
+                      <div className="w-[2px] flex-grow bg-white/20" />
+                    )}
+                  </React.Fragment>
+                ))}
+
+                {/* Animated Progress Line */}
+                <div className="absolute top-[20px] md:top-[24px] lg:top-[28px] bottom-[20px] md:bottom-[24px] lg:bottom-[28px] w-[2px] z-0">
+                  <motion.div 
+                    style={{ scaleY, originY: 0 }}
+                    className="absolute inset-0 bg-primary shadow-[0_0_15px_rgba(32,188,97,0.5)]"
+                  />
+                </div>
+              </div>
+
+              {/* Column 2: Content */}
+              <div className="flex flex-col flex-grow">
+                {steps.map((step, index) => (
+                  <div key={index} className={`${index < steps.length - 1 ? 'pb-12 md:pb-16' : 'pb-0'}`}>
+                    <Reveal direction="up" delay={index * 0.1}>
+                      <div>
+                        <h4 className="text-xl md:text-2xl lg:text-3xl font-extrabold tracking-tight mb-3 text-white transition-colors">
+                          {step.title}
+                        </h4>
+                        <p className="text-zinc-400 text-sm md:text-base leading-relaxed max-w-xl">
+                          {step.desc}
+                        </p>
+                        <div className="mt-4 flex items-center gap-2 text-[10px] font-bold mono text-primary">
+                          <CheckCircle2 className="w-3 h-3" />
+                          READY TO SCALE
+                        </div>
+                      </div>
+                    </Reveal>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-
         </div>
       </div>
     </section>

@@ -18,110 +18,234 @@ export const Hero: React.FC = () => {
   const textY = useTransform(scrollYProgress, [0, 1], [0, -150]);
   const blobsY = useTransform(scrollYProgress, [0, 1], [0, 100]);
   const nodeY = useTransform(scrollYProgress, [0, 1], [0, -50]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      const headerOffset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+  };
 
   return (
     <section ref={containerRef} className="relative pt-24 pb-12 xs:pt-28 sm:pt-32 md:pt-40 md:pb-20 lg:pt-56 lg:pb-40 bg-zinc-50 overflow-hidden bg-grid">
-      <motion.div style={{ y: blobsY, opacity }} className="absolute inset-0 pointer-events-none">
-        <div className="hidden md:block">
-          <AmbientGroup />
-        </div>
+      {/* Background Radial Glow for Mobile - Adds depth without clutter */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(32,188,97,0.08),transparent_70%)] lg:hidden pointer-events-none" />
+
+      {/* Floating Elements - Adjusted for better responsiveness */}
+      <FloatingDecorations.Plus className="top-20 left-[10%] text-primary hidden lg:block" delay={0.2} />
+      <FloatingDecorations.Dot className="top-40 right-[15%] hidden lg:block" delay={0.5} />
+      <FloatingDecorations.Triangle className="bottom-[30%] left-[5%] hidden lg:block" delay={0.8} />
+      <FloatingDecorations.Circle className="bottom-20 right-[10%] hidden lg:block" delay={1.1} />
+      <FloatingDecorations.GridDots className="top-1/2 left-[15%] hidden lg:block" delay={1.4} />
+      <FloatingDecorations.Zigzag className="top-[25%] right-[5%] hidden lg:block" delay={1.7} />
+
+      <motion.div style={{ y: blobsY }} className="absolute inset-0 pointer-events-none">
+        <AmbientGroup />
         
-        {/* Floating Decorative Elements - Hidden on mobile for performance */}
-        <div className="hidden md:block">
-          <FloatingDecorations.Plus className="top-24 left-12" delay={0.5} />
-          <FloatingDecorations.Plus className="bottom-40 right-1/4" delay={1.2} />
-          <FloatingDecorations.Dot className="top-40 left-1/3" delay={0.8} />
-          <FloatingDecorations.Dot className="bottom-24 left-20" delay={2} />
-          <FloatingDecorations.Circle className="top-1/4 right-10" delay={1.5} />
-          <FloatingDecorations.Box className="bottom-1/3 left-10" delay={0.3} />
-          <FloatingDecorations.Triangle className="top-32 right-1/3" delay={0.7} />
-          <FloatingDecorations.Square className="bottom-1/4 right-20" delay={1.1} />
-          <FloatingDecorations.Zigzag className="top-1/2 left-20" delay={2.3} />
-          <FloatingDecorations.GridDots className="top-20 left-1/4" delay={1.5} />
-          <FloatingDecorations.Cross className="bottom-20 right-10" delay={0.9} />
-        </div>
-        
-        {/* Additional Greenish Blobs - Hidden on mobile for performance */}
-        <div className="hidden md:block">
-          <AmbientBlobs color="bg-primary" size="w-[500px] h-[500px]" className="-top-24 -right-24" opacity="opacity-[0.12]" animation="animate-blob-slow" />
-          <AmbientBlobs color="bg-primary" size="w-[400px] h-[400px]" className="top-1/2 -left-48" opacity="opacity-[0.15]" animation="animate-blob" />
+        {/* Additional Greenish Blobs - Balanced for all screens */}
+        <AmbientBlobs color="bg-primary" size="w-[300px] h-[300px] sm:w-[500px] sm:h-[500px]" className="-top-24 -right-24" opacity="opacity-[0.08] sm:opacity-[0.12]" animation="animate-blob-slow" />
+        <AmbientBlobs color="bg-primary" size="w-[250px] h-[250px] sm:w-[400px] sm:h-[400px]" className="top-1/2 -left-32 sm:-left-48" opacity="opacity-[0.1] sm:opacity-[0.15]" animation="animate-blob" />
+        <div className="hidden sm:block">
           <AmbientBlobs color="bg-primary" size="w-[600px] h-[600px]" className="-bottom-48 right-1/4" opacity="opacity-[0.10]" animation="animate-blob-spin" />
         </div>
       </motion.div>
 
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-full bg-zinc-200/50 hidden lg:block"></div>
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-full bg-zinc-200/50 hidden xl:block"></div>
       
-      {/* Smooth Transition Fader to next section - Hidden on mobile to avoid "blur" feel */}
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-zinc-50 via-zinc-50/80 to-transparent z-20 pointer-events-none hidden md:block"></div>
+      {/* Smooth Transition Fader to next section - Hidden on mobile/tablet to avoid "blur" feel */}
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-zinc-50 via-zinc-50/80 to-transparent z-20 pointer-events-none hidden lg:block"></div>
       
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
-          <motion.div style={{ y: textY, opacity, willChange: "transform" }} className="w-full lg:w-1/2 space-y-8 md:space-y-12">
-            <AnimatedText 
-              text="We Build Autonomous Systems."
-              className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-[0.9] tracking-tighter text-secondary uppercase"
-              delay={0.2}
-              highlightWords={["Autonomous"]}
-              highlightClassName="text-primary not-italic"
-            />
-            
-            <div className="max-w-xl space-y-6 md:space-y-10">
-              <Reveal direction="up" delay={0.4} duration={1.2}>
-                <div className="relative">
-                  <div className="absolute -left-4 xs:-left-6 md:-left-8 top-0 bottom-0 w-1 bg-gradient-to-b from-primary to-transparent opacity-50"></div>
-                  <p className="text-sm xs:text-base md:text-xl text-zinc-600 leading-relaxed font-medium">
-                    We help agencies grow by automating their daily tasks. Our team builds simple systems that save you time and help you focus on your clients.
-                  </p>
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+        {/* Relevant Automation Elements - Responsive & Polished */}
+        <div className="hidden xl:block absolute inset-0 pointer-events-none overflow-visible">
+          {/* Background Ambient Glows */}
+          <div className="absolute top-[15%] left-[5%] w-[300px] h-[300px] bg-primary/5 rounded-full blur-[100px] -z-10" />
+          <div className="absolute bottom-[15%] right-[5%] w-[300px] h-[300px] bg-primary/5 rounded-full blur-[100px] -z-10" />
+
+          {/* Top Left - Lead Flow / CRM Sync - Hidden on small tablets */}
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            whileHover={{ y: -5 }}
+            className="absolute top-[12%] lg:top-[18%] left-[2%] lg:left-[4%] bg-white/70 backdrop-blur-md border border-zinc-200/50 p-3 lg:p-4 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex items-center gap-3 lg:gap-4 group pointer-events-auto cursor-default hidden xl:flex"
+          >
+            <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-xl bg-white shadow-sm flex items-center justify-center p-1.5 lg:p-2 border border-zinc-100">
+              <Icons.HubSpot className="w-full h-full" />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-[9px] lg:text-[10px] font-black uppercase tracking-widest text-secondary font-satoshi leading-none mb-1 lg:mb-1.5">Lead Capture</span>
+              <div className="flex items-center gap-2">
+                <div className="w-1 h-1 lg:w-1.5 lg:h-1.5 rounded-full bg-primary" />
+                <span className="text-[8px] lg:text-[9px] font-bold text-zinc-500 font-satoshi">New lead sent to CRM</span>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Top Right - Integration Cluster */}
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            whileHover={{ y: -5 }}
+            className="absolute top-[10%] lg:top-[15%] right-[2%] lg:right-[6%] flex flex-col items-center gap-2 lg:gap-3 pointer-events-auto cursor-default"
+          >
+            <div className="flex -space-x-2 lg:-space-x-3">
+              {[
+                { Icon: Icons.Zapier, color: "bg-[#FF4A00]/5" },
+                { Icon: Icons.Make, color: "bg-[#7B3FE4]/5" },
+                { Icon: Icons.Slack, color: "bg-[#4A154B]/5" }
+              ].map((tool, i) => (
+                <div key={i} className={`w-10 h-10 lg:w-12 lg:h-12 rounded-xl lg:rounded-2xl ${tool.color} backdrop-blur-md border border-zinc-200/50 p-2 lg:p-2.5 shadow-sm flex items-center justify-center bg-white/90`}>
+                  <tool.Icon className="w-full h-full" />
                 </div>
+              ))}
+            </div>
+            <div className="bg-secondary px-3 py-1 lg:px-4 lg:py-1.5 rounded-full shadow-lg border border-white/5">
+              <span className="text-[7px] lg:text-[8px] font-black text-white uppercase tracking-[0.2em]">Systems Active</span>
+            </div>
+          </motion.div>
+
+          {/* Bottom Left - Automated Task Feed */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            whileHover={{ y: -5 }}
+            className="absolute bottom-[20%] lg:bottom-[22%] left-[4%] lg:left-[8%] bg-white/70 backdrop-blur-md border border-zinc-200/50 p-4 lg:p-5 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] w-48 lg:w-56 pointer-events-auto cursor-default hidden lg:block"
+          >
+            <div className="flex items-center justify-between mb-3 lg:mb-4">
+              <span className="text-[9px] lg:text-[10px] font-black uppercase tracking-widest text-secondary opacity-40">Task Progress</span>
+              <Icons.Activity className="w-3 h-3 text-primary" />
+            </div>
+            <div className="space-y-2 lg:space-y-3">
+              {[
+                { text: "Auto-reply sent to client", status: "complete" },
+                { text: "Data added to spreadsheet", status: "complete" },
+                { text: "Team notified on Slack", status: "complete" }
+              ].map((task, i) => (
+                <div key={i} className="flex items-center gap-2 lg:gap-3">
+                  <div className="w-3.5 h-3.5 lg:w-4 lg:h-4 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
+                    <Icons.Check className="w-1.5 h-1.5 lg:w-2 lg:h-2 text-primary" />
+                  </div>
+                  <span className="text-[9px] lg:text-[10px] font-bold text-secondary/70 font-satoshi">{task.text}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Bottom Right - Efficiency Gauge */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            whileHover={{ y: -5 }}
+            className="absolute bottom-[15%] lg:bottom-[18%] right-[4%] lg:right-[10%] bg-secondary text-white p-4 lg:p-6 rounded-2xl lg:rounded-3xl shadow-2xl border border-white/5 flex flex-col items-center gap-2 lg:gap-3 pointer-events-auto cursor-default hidden lg:flex"
+          >
+            <div className="relative w-10 h-10 lg:w-14 lg:h-14 flex items-center justify-center">
+              <svg className="w-full h-full transform -rotate-90">
+                <circle cx="28" cy="28" r="24" stroke="currentColor" strokeWidth="4" fill="transparent" className="text-white/10" />
+                <motion.circle 
+                  cx="28" cy="28" r="24" stroke="#20BC61" strokeWidth="4" fill="transparent"
+                  strokeDasharray="150.8"
+                  initial={{ strokeDashoffset: 150.8 }}
+                  animate={{ strokeDashoffset: 0 }}
+                  transition={{ duration: 2, delay: 1.2 }}
+                />
+              </svg>
+              <span className="absolute text-[8px] lg:text-[10px] font-black text-primary">100%</span>
+            </div>
+            <div className="text-center">
+              <span className="text-sm lg:text-[18px] font-black font-urbanist tracking-tighter block leading-none text-primary mb-0.5 lg:mb-1">100% Accuracy</span>
+              <span className="text-[7px] lg:text-[8px] font-bold uppercase tracking-widest opacity-40">Zero manual errors</span>
+            </div>
+          </motion.div>
+        </div>
+
+        <div className="flex flex-col items-center text-center max-w-6xl mx-auto">
+          <motion.div style={{ y: textY, willChange: "transform" }} className="w-full space-y-6 sm:space-y-8 md:space-y-10">
+            {/* SaaS Style Subheading */}
+            <Reveal direction="down" delay={0.1}>
+              <div className="inline-flex items-center gap-2 sm:gap-3 px-4 py-2 sm:py-2.5 rounded-full border border-primary/20 bg-primary/5 text-secondary font-bold tracking-wide">
+                <span className="hidden sm:inline-block bg-primary text-white px-2.5 py-0.5 rounded-full text-[10px] md:text-xs uppercase tracking-wider font-black">RESULT</span>
+                <span className="text-secondary sub-heading text-sm sm:text-base md:text-lg lg:text-xl">Modern Automation for Growing Businesses</span>
+              </div>
+            </Reveal>
+
+            {/* Main Heading - Responsive Sizes */}
+            <div className="flex flex-col items-center w-full space-y-1 sm:space-y-2 md:space-y-4 px-2">
+              <AnimatedText 
+                text="We Help Your Business"
+                className="text-[32px] xs:text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[90px] font-black leading-[1.1] tracking-tight sm:tracking-normal text-secondary font-urbanist justify-center"
+                delay={0.2}
+              />
+              <AnimatedText 
+                text="Run on Autopilot"
+                className="text-[32px] xs:text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[90px] font-black leading-[1.1] tracking-tight sm:tracking-normal text-secondary font-urbanist justify-center"
+                delay={0.4}
+                highlightWords={["Autopilot"]}
+                highlightClassName="text-primary"
+              />
+            </div>
+            
+            {/* Centered Description */}
+            <div className="max-w-2xl mx-auto px-4 sm:px-0">
+              <Reveal direction="up" delay={0.6} duration={1.2}>
+                <p className="text-sm sm:text-base md:text-lg text-zinc-600 leading-relaxed font-medium font-satoshi">
+                  Stop wasting time on repetitive manual tasks. We create simple systems that connect your tools and handle your daily work for you, so you can focus on what matters most.
+                </p>
               </Reveal>
             </div>
             
-            <Reveal direction="up" delay={0.6} duration={1.2}>
-              <div className="flex flex-col space-y-6 md:space-y-8">
-                <div className="flex items-center gap-4 md:gap-5">
-                  <div className="flex -space-x-3 md:-space-x-4">
+            <Reveal direction="up" delay={0.8} duration={1.2}>
+              <div className="flex flex-col items-center space-y-10">
+                {/* Simplified Trusted By */}
+                <div className="flex flex-col items-center gap-4">
+                  <div className="flex -space-x-3">
                     {[
                       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
                       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop",
-                      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop",
-                      "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=100&h=100&fit=crop"
-                    ].map((url, i) => (
-                      <div key={i} className="relative w-10 h-10 md:w-12 md:h-12 rounded-full border-2 md:border-4 border-zinc-50 overflow-hidden bg-zinc-100 hover:translate-y-[-4px] transition-transform duration-300 shadow-sm">
+                      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop"
+                    ].map((url, i) => ( 
+                      <div key={i} className="relative w-10 h-10 rounded-full border-4 border-zinc-50 overflow-hidden bg-zinc-100 shadow-sm">
                         <img src={url} alt="Client" className="w-full h-full object-cover" />
                       </div>
                     ))}
-                    <div className="relative w-10 h-10 md:w-12 md:h-12 rounded-full border-2 md:border-4 border-zinc-50 bg-black flex items-center justify-center text-white text-[9px] md:text-[10px] font-bold shadow-sm">
-                      50+
+                    <div className="relative w-10 h-10 rounded-full border-4 border-zinc-50 bg-black flex items-center justify-center text-white text-[10px] font-bold shadow-sm">
+                      3+
                     </div>
                   </div>
-                  <div className="flex flex-col">
-                    <div className="flex gap-0.5 mb-1">
-                      {[1, 2, 3, 4, 5].map(s => <Icons.Star key={s} className="w-2.5 h-2.5 md:w-3 md:h-3 text-yellow-500 fill-current" />)}
-                    </div>
-                    <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] text-secondary">Trusted by 50+ Global Teams</span>
-                  </div>
+                  <span className="text-[10px] font-black uppercase text-zinc-600 tracking-widest font-satoshi">Helping Businesses Save Time</span>
                 </div>
 
-                <div className="flex flex-col sm:flex-row items-center gap-4 md:gap-8">
-                  <a href="#contact" className="w-full sm:w-auto bg-primary text-white px-8 md:px-10 py-4 md:py-5 font-black uppercase text-center tracking-[0.2em] text-[9px] md:text-[10px] hover:bg-black transition-all duration-300 shadow-[0_10px_30px_rgba(32,188,97,0.3)] hover:shadow-none hover:-translate-y-1 flex items-center justify-center gap-3 group rounded-[4px]">
+                {/* Two Centered Buttons */}
+                <div className="flex flex-col sm:flex-row items-center gap-4 md:gap-6">
+                  <a 
+                    href="#contact" 
+                    onClick={(e) => scrollToSection(e, 'contact')}
+                    className="w-full sm:w-auto bg-primary text-white px-10 py-5 font-black uppercase text-center text-[10px] md:text-xs hover:bg-black transition-all duration-300 shadow-[0_10px_30px_rgba(32,188,97,0.3)] hover:shadow-none hover:-translate-y-1 flex items-center justify-center gap-3 group rounded-full"
+                  >
                     <span className="relative z-10">Start Your Project</span>
                     <Icons.ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                   </a>
-                  <a href="#services" className="group flex items-center gap-3 md:gap-4 text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] text-secondary hover:text-primary transition-all">
-                    <div className="w-8 h-8 md:w-10 md:h-10 rounded-[4px] border border-black/10 flex items-center justify-center group-hover:border-primary group-hover:bg-primary/5 transition-all">
-                      <Icons.Zap className="w-3.5 h-3.5 md:w-4 md:h-4" />
-                    </div>
+                  <a 
+                    href="#services" 
+                    onClick={(e) => scrollToSection(e, 'services')}
+                    className="group flex items-center gap-3 px-8 py-5 text-[10px] md:text-xs font-black uppercase text-secondary hover:text-primary transition-all border border-black/10 rounded-full hover:border-primary font-satoshi"
+                  >
+                    <Icons.Zap className="w-4 h-4" />
                     Explore Services
                   </a>
                 </div>
               </div>
-            </Reveal>
-          </motion.div>
-          
-          <motion.div style={{ y: nodeY, opacity, willChange: "transform" }} className="w-full lg:w-1/2 h-[350px] md:h-[500px] lg:h-[600px] relative overflow-visible">
-            <Reveal direction="right" delay={0.4} className="h-full">
-              <NodeVisualizer />
             </Reveal>
           </motion.div>
         </div>

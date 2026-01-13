@@ -8,19 +8,29 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700;800;900&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         html, body {
             max-width: 100%;
             overflow-x: hidden;
             width: 100%;
             position: relative;
-        }
-        body {
-            font-family: 'Josefin Sans', 'Inter', sans-serif;
             scroll-behavior: smooth;
         }
-        .mono { font-family: 'Josefin Sans', sans-serif; }
+        body {
+            font-family: 'Satoshi', sans-serif;
+            color: #1a1a1a;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Urbanist', sans-serif;
+        }
+        .sub-heading {
+            font-family: 'Caveat', cursive;
+        }
+        .font-urbanist { font-family: 'Urbanist', sans-serif; }
+        .font-satoshi { font-family: 'Satoshi', sans-serif; }
+        .mono { font-family: 'Satoshi', sans-serif; }
         .text-primary { color: #20bc61; }
         .bg-primary { background-color: #20bc61; }
         .border-primary { border-color: #20bc61; }
@@ -87,6 +97,14 @@
 
         .animate-blob-spin {
             animation: blob-spin 60s infinite linear;
+        }
+
+        @keyframes bounce-slow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        .animate-bounce-slow {
+            animation: bounce-slow 6s ease-in-out infinite;
         }
 
         @keyframes bounce-short {

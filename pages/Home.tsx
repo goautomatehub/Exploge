@@ -13,16 +13,23 @@ import { ToolMarquee } from '../components/ToolMarquee';
 import { Stats } from '../components/Stats';
 import { Process } from '../components/Process';
 import { TrustedCompanies } from '../components/TrustedCompanies';
+import { ExpertiseSection } from '../components/ExpertiseSection';
 
-export const Home: React.FC = () => {
+interface HomeProps {
+  onNavigate?: (page: 'home' | 'about' | 'services' | 'casestudies') => void;
+}
+
+export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   return (
     <>
       <Hero />
       <TrustedCompanies />
-      <Services />
-      <Projects />
+      <ExpertiseSection />
       <Process />
+      <Services onNavigate={onNavigate} />
       <Testimonials />
+      <Stats />
+      <FAQ />
       <Contact />
     </>
   );
