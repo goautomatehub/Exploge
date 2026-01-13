@@ -66,6 +66,13 @@
             opacity: 0.015;
             background-image: url("https://grainy-gradients.vercel.app/noise.svg");
             mix-blend-mode: overlay;
+            display: none; /* Hidden by default for performance */
+        }
+
+        @media (min-width: 1024px) {
+            .bg-grain::after {
+                display: block; /* Only show on desktop */
+            }
         }
 
         .animate-blob, .animate-blob-slow, .animate-blob-spin {
@@ -171,7 +178,7 @@
   }
 }
 </script>
-  <script type="module" crossorigin src="./assets/index-CRd0NKLg.js"></script>
+  <script type="module" crossorigin src="./assets/index-C3wi-8Is.js"></script>
 </head>
 <body class="bg-soft text-secondary selection:bg-primary selection:text-white antialiased bg-grain">
     <div id="root"></div>

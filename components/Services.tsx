@@ -159,11 +159,11 @@ export const Services: React.FC<ServicesProps> = ({ onNavigate }) => {
       <FloatingDecorations.Circle className="top-[20%] right-[15%] hidden md:block" delay={1.0} />
       <FloatingDecorations.Triangle className="bottom-10 right-[10%] hidden md:block" delay={1.3} />
 
-      {/* Decorative Blobs */}
-      <div className="absolute top-0 -left-1/4 w-[600px] h-[600px] bg-primary/15 rounded-full blur-[140px] pointer-events-none z-0"></div>
-      <div className="absolute -top-40 -right-1/4 w-[700px] h-[700px] bg-primary/10 rounded-full blur-[160px] pointer-events-none z-0"></div>
-      <div className="absolute -bottom-40 left-1/4 w-[650px] h-[650px] bg-primary/15 rounded-full blur-[150px] pointer-events-none z-0"></div>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[110px] pointer-events-none z-0"></div>
+      {/* Decorative Blobs - Optimized for Mobile */}
+      <div className="hidden md:block absolute top-0 -left-1/4 w-[600px] h-[600px] bg-primary/15 rounded-full blur-[140px] pointer-events-none z-0"></div>
+      <div className="hidden md:block absolute -top-40 -right-1/4 w-[700px] h-[700px] bg-primary/10 rounded-full blur-[160px] pointer-events-none z-0"></div>
+      <div className="hidden md:block absolute -bottom-40 left-1/4 w-[650px] h-[650px] bg-primary/15 rounded-full blur-[150px] pointer-events-none z-0"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-primary/5 rounded-full blur-[80px] md:blur-[110px] pointer-events-none z-0"></div>
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">

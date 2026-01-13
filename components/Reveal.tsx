@@ -19,11 +19,16 @@ export const Reveal: React.FC<RevealProps> = ({
   className = "",
   duration = 0.8
 }) => {
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
   const getVariants = () => {
+    // Simpler animation for mobile to improve performance
+    const offset = isMobile ? 15 : 30;
+    
     const initial = {
       opacity: 0,
-      y: direction === 'up' ? 30 : direction === 'down' ? -30 : 0,
-      x: direction === 'left' ? -30 : direction === 'right' ? 30 : 0,
+      y: direction === 'up' ? offset : direction === 'down' ? -offset : 0,
+      x: direction === 'left' ? -offset : direction === 'right' ? offset : 0,
     };
 
     const animate = {
@@ -42,13 +47,13 @@ export const Reveal: React.FC<RevealProps> = ({
       className={className}
       initial={initial}
       whileInView={animate}
-      viewport={{ once: true, margin: "-100px" }}
+      viewport={{ once: true, margin: isMobile ? "-20px" : "-100px" }}
       transition={{
-        duration: duration,
-        delay: delay,
-        ease: [0.21, 0.47, 0.32, 0.98], // Smoother, lighter easing
+        duration: isMobile ? duration * 0.8 : duration,
+        delay: isMobile ? delay * 0.5 : delay,
+        ease: [0.21, 0.47, 0.32, 0.98],
       }}
-      style={{ width }}
+      style={{ width, willChange: "transform, opacity" }}
     >
       {children}
     </motion.div>

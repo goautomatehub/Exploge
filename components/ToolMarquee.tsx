@@ -80,6 +80,7 @@ const categories = [
 ];
 
 const CategoryCard: React.FC<{ category: typeof categories[0], idx: number }> = ({ category, idx }) => {
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -88,6 +89,7 @@ const CategoryCard: React.FC<{ category: typeof categories[0], idx: number }> = 
   const mouseYSpring = useSpring(mouseY, springConfig);
 
   const handleMouseMove = ({ currentTarget, clientX, clientY }: React.MouseEvent) => {
+    if (isMobile) return;
     const { left, top } = currentTarget.getBoundingClientRect();
     mouseX.set(clientX - left);
     mouseY.set(clientY - top);

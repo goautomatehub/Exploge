@@ -14,10 +14,12 @@ const FloatingElement: React.FC<FloatingElementProps> = ({
   className = "", 
   delay = 0, 
   duration = 3, 
-  yOffset = 20,
-  xOffset = 10,
+  yOffset = 20, 
+  xOffset = 10, 
   children 
 }) => {
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
   return (
     <motion.div
       className={`absolute pointer-events-none z-0 ${className}`}
@@ -26,9 +28,9 @@ const FloatingElement: React.FC<FloatingElementProps> = ({
       whileInView={{ 
         opacity: 1, 
         scale: 1,
-        y: [0, -yOffset, 0],
-        x: [0, xOffset, 0],
-        rotate: [0, 5, 0]
+        y: isMobile ? 0 : [0, -yOffset, 0],
+        x: isMobile ? 0 : [0, xOffset, 0],
+        rotate: isMobile ? 0 : [0, 5, 0]
       }}
       viewport={{ once: true }}
       transition={{
@@ -36,19 +38,19 @@ const FloatingElement: React.FC<FloatingElementProps> = ({
         scale: { duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] },
         y: {
           duration: duration,
-          repeat: Infinity,
+          repeat: isMobile ? 0 : Infinity,
           delay: delay,
           ease: "easeInOut"
         },
         x: {
           duration: duration * 1.2,
-          repeat: Infinity,
+          repeat: isMobile ? 0 : Infinity,
           delay: delay,
           ease: "easeInOut"
         },
         rotate: {
           duration: duration * 1.5,
-          repeat: Infinity,
+          repeat: isMobile ? 0 : Infinity,
           delay: delay,
           ease: "easeInOut"
         }

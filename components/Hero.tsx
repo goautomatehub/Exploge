@@ -50,10 +50,10 @@ export const Hero: React.FC = () => {
       <motion.div style={{ y: blobsY }} className="absolute inset-0 pointer-events-none">
         <AmbientGroup />
         
-        {/* Additional Greenish Blobs - Balanced for all screens */}
-        <AmbientBlobs color="bg-primary" size="w-[300px] h-[300px] sm:w-[500px] sm:h-[500px]" className="-top-24 -right-24" opacity="opacity-[0.08] sm:opacity-[0.12]" animation="animate-blob-slow" />
-        <AmbientBlobs color="bg-primary" size="w-[250px] h-[250px] sm:w-[400px] sm:h-[400px]" className="top-1/2 -left-32 sm:-left-48" opacity="opacity-[0.1] sm:opacity-[0.15]" animation="animate-blob" />
-        <div className="hidden sm:block">
+        {/* Additional Greenish Blobs - Optimized for Mobile */}
+        <div className="hidden lg:block">
+          <AmbientBlobs color="bg-primary" size="w-[500px] h-[500px]" className="-top-24 -right-24" opacity="opacity-[0.12]" animation="animate-blob-slow" />
+          <AmbientBlobs color="bg-primary" size="w-[400px] h-[400px]" className="top-1/2 -left-48" opacity="opacity-[0.15]" animation="animate-blob" />
           <AmbientBlobs color="bg-primary" size="w-[600px] h-[600px]" className="-bottom-48 right-1/4" opacity="opacity-[0.10]" animation="animate-blob-spin" />
         </div>
       </motion.div>

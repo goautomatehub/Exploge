@@ -161,7 +161,7 @@ export const Testimonials: React.FC = () => {
                 }}
                 className="w-full"
               >
-                <div className="relative p-8 md:p-12 bg-white/5 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden group">
+                <div className="relative p-8 md:p-12 bg-white/10 md:bg-white/5 backdrop-blur-md md:backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden group">
                   {/* Decorative Quote Mark */}
                   <div className="absolute -top-4 -right-4 opacity-10 group-hover:opacity-20 transition-opacity">
                     <Icons.Workflow className="w-32 h-32 text-white" />
