@@ -25,7 +25,9 @@ import {
   ChevronDown,
   Search,
   Activity,
-  Clock
+  Clock,
+  Linkedin,
+  Facebook
 } from 'lucide-react';
 
 // Tool Icons
@@ -92,6 +94,8 @@ export const Icons = {
   Search,
   Activity,
   Clock,
+  Linkedin,
+  Facebook,
   WordPress: (props: any) => <img src={wordpressLogo} {...props} />,
   Zapier: (props: any) => <img src={zapierLogo} {...props} />,
   Asana: (props: any) => <img src={asanaLogo} {...props} />,

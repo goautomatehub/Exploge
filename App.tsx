@@ -80,7 +80,7 @@ const App: React.FC = () => {
           {renderPage()}
         </AnimatePresence>
       </main>
-      <Footer onNavigate={navigate} />
+      <Footer onNavigate={navigate} currentPage={currentPage} />
       <ScrollToTop />
     </div>
   );

@@ -42,10 +42,10 @@ export const Features: React.FC = () => {
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
           <Reveal direction="up">
-            <span className="text-2xl font-bold text-primary sub-heading mb-4 inline-block">WHY CHOOSE US</span>
+            <span className="text-2xl font-bold text-primary sub-heading mb-4 inline-block">Why Choose Us</span>
           </Reveal>
           <Reveal direction="up" delay={0.1}>
-            <h2 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl font-black uppercase mb-8 leading-[0.9]">
+            <h2 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl font-black mb-8 leading-[0.9]">
               Speed & Accuracy.
             </h2>
           </Reveal>
@@ -62,9 +62,9 @@ export const Features: React.FC = () => {
               {metrics.map((spec, i) => (
                 <Reveal key={i} direction="up" delay={0.3 + (i * 0.1)}>
                   <div className="border-l border-primary/30 pl-6 py-2 group hover:border-primary transition-colors">
-                    <div className="text-[10px] font-bold text-primary uppercase mb-1">{spec.label}</div>
-                    <div className="text-2xl font-black uppercase mb-1 group-hover:translate-x-1 transition-transform">{spec.value}</div>
-                    <div className="text-[10px] text-gray-500 uppercase">{spec.detail}</div>
+                    <div className="text-xl sub-heading text-primary mb-1">{spec.label}</div>
+                    <div className="text-2xl font-black mb-1 group-hover:translate-x-1 transition-transform">{spec.value}</div>
+                    <div className="text-lg sub-heading text-gray-500">{spec.detail}</div>
                   </div>
                 </Reveal>
               ))}
@@ -73,7 +73,7 @@ export const Features: React.FC = () => {
             <Reveal direction="up" delay={0.7}>
               <button 
                 onClick={scrollToContact}
-                className="group border-b border-primary text-primary pb-1 font-bold uppercase text-[10px] hover:text-white hover:border-white transition-all flex items-center gap-3"
+                className="group border-b border-primary text-primary pb-1 font-bold text-[10px] hover:text-white hover:border-white transition-all flex items-center gap-3"
               >
                 Free Strategy Session
                 <Icons.ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1" />
@@ -93,7 +93,7 @@ export const Features: React.FC = () => {
                 <div className="space-y-10">
                   {pillars.map((pillar, i) => (
                     <div key={i} className={`border-l-2 ${pillar.opacity} pl-6 hover:border-primary transition-colors duration-500`}>
-                      <h4 className="text-white font-black uppercase text-[11px] mb-3 flex items-center gap-2">
+                      <h4 className="text-white font-black text-[11px] mb-3 flex items-center gap-2">
                         <span className="text-primary">0{i + 1}</span> {pillar.title}
                       </h4>
                       <p className="text-gray-400 text-sm leading-relaxed">{pillar.desc}</p>
@@ -101,10 +101,10 @@ export const Features: React.FC = () => {
                   ))}
                 </div>
 
-                <div className="mt-12 pt-8 border-t border-white/5 flex items-center justify-between">
+                <div className="mt-12 flex items-center justify-between border-t border-white/5 pt-8">
                   <div className="flex flex-col">
-                    <span className="text-[9px] font-bold text-gray-500 uppercase mono tracking-[0.2em]">Service Status</span>
-                    <span className="text-[10px] font-black text-primary uppercase mono">Ready for Scaling</span>
+                    <span className="text-[9px] font-bold text-gray-500 mono tracking-[0.2em]">Service Status</span>
+                    <span className="text-[10px] font-black text-primary mono">Ready for Scaling</span>
                   </div>
                   <div className="w-12 h-12 border border-primary/20 bg-primary/5 flex items-center justify-center rounded-[4px]">
                     <Icons.Zap className="w-6 h-6 text-primary animate-pulse" />

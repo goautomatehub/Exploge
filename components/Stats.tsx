@@ -39,7 +39,7 @@ export const Stats: React.FC = () => {
                 <div className="text-5xl md:text-6xl font-extrabold text-secondary mb-4 tracking-tighter">
                   <Counter value={5000} suffix="+" />
                 </div>
-                <div className="text-[10px] font-extrabold text-secondary uppercase tracking-[0.2em]">
+                <div className="text-xl sub-heading text-secondary">
                   Hours Saved Every Month
                 </div>
               </Reveal>
@@ -51,7 +51,7 @@ export const Stats: React.FC = () => {
                 <div className="text-5xl md:text-6xl font-extrabold text-secondary mb-4 tracking-tighter">
                   <Counter value={250} suffix="+" />
                 </div>
-                <div className="text-[10px] font-extrabold text-secondary uppercase tracking-[0.2em]">
+                <div className="text-xl sub-heading text-secondary">
                   Systems Built for Clients
                 </div>
               </Reveal>
@@ -63,7 +63,7 @@ export const Stats: React.FC = () => {
                 <div className="text-5xl md:text-6xl font-extrabold text-secondary mb-4 tracking-tighter">
                   <Counter value={98} suffix="%" />
                 </div>
-                <div className="text-[10px] font-extrabold text-secondary uppercase tracking-[0.2em]">
+                <div className="text-xl sub-heading text-secondary">
                   Success Rate
                 </div>
               </Reveal>

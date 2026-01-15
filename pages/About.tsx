@@ -30,7 +30,7 @@ const SpotlightWrapper = ({ children, className = "", spotlightColor = "rgba(32,
   return (
     <div 
       onMouseMove={handleMouseMove}
-      className={`relative group overflow-hidden ${className}`}
+      className={`relative group ${className}`}
     >
       <motion.div
         className="pointer-events-none absolute -inset-px rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 hidden lg:block"
@@ -69,16 +69,16 @@ export const About: React.FC<AboutProps> = ({ onNavigate }) => {
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl">
             <Reveal direction="left">
-              <span className="text-primary mono text-[10px] md:text-xs font-bold uppercase tracking-[0.4em] mb-6 block">Our Identity</span>
+              <span className="text-primary sub-heading text-2xl mb-4 block">Our Identity</span>
             </Reveal>
             <Reveal direction="left" delay={0.1}>
-              <h1 className="text-3xl xs:text-4xl md:text-6xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.9] mb-8">
-                The <span className="text-primary italic">Architects</span> of Agency Efficiency.
+              <h1 className="text-3xl xs:text-4xl md:text-6xl lg:text-8xl font-black tracking-tighter leading-[0.9] mb-8">
+                Your <span className="text-primary">Growth</span> Partner <br/>In <span className="text-primary">Automation.</span>
               </h1>
             </Reveal>
             <Reveal direction="up" delay={0.2}>
-              <p className="text-base md:text-xl text-gray-400 font-light leading-relaxed border-l-2 border-primary pl-6 md:pl-8 max-w-2xl">
-                Founded on the principle that complexity is the enemy of growth, Exploge was built to bridge the gap between creative vision and operational reality.
+              <p className="text-base md:text-xl text-zinc-200 font-light leading-relaxed border-l-2 border-primary pl-6 md:pl-8 max-w-2xl">
+                We turn complex manual processes into simple, automated systems that help your business scale without the stress.
               </p>
             </Reveal>
           </div>
@@ -91,100 +91,106 @@ export const About: React.FC<AboutProps> = ({ onNavigate }) => {
         <div className="container mx-auto px-6 relative z-10">
           <Reveal direction="left">
             <div className="mb-12 md:mb-16">
-              <span className="text-primary mono text-[10px] font-bold uppercase tracking-[0.4em] mb-4 block">The Advantage</span>
-              <h2 className="text-3xl xs:text-4xl md:text-6xl font-black uppercase tracking-tighter leading-none">Why Agencies <br/>Choose Exploge.</h2>
+              <span className="text-primary sub-heading text-2xl mb-2 block">The Advantage</span>
+              <h2 className="text-3xl xs:text-4xl md:text-6xl font-black tracking-tighter leading-none">Why Businesses <br/>Choose <span className="text-primary">Exploge.</span></h2>
             </div>
           </Reveal>
 
           {/* Master Bento Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 lg:gap-6 min-h-auto md:min-h-[700px]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             
-            {/* LARGE HERO CARD: The Mindset */}
-            <Reveal direction="up" className="md:col-span-2 md:row-span-2">
+            {/* CARD 1: Large - The Architecture */}
+            <Reveal direction="up" className="md:col-span-2">
               <SpotlightWrapper className="h-full">
-                <div className="relative bg-zinc-50 h-full border border-black/5 rounded-md p-6 xs:p-8 md:p-12 flex flex-col justify-between hover:border-primary/30 transition-all duration-500 shadow-sm hover:shadow-xl">
+                <div className="relative bg-zinc-50 h-full border border-black/5 rounded-md p-8 md:p-12 flex flex-col justify-between hover:border-primary/20 transition-all duration-500 shadow-[0_10px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)] group overflow-hidden">
                   <div className="relative z-10">
-                    <div className="w-10 h-10 md:w-12 md:h-12 bg-primary/10 text-primary flex items-center justify-center rounded-md mb-6 md:mb-8 group-hover:scale-110 transition-transform duration-500">
-                      <Icons.Workflow className="w-5 h-5 md:w-6 md:h-6" />
-                    </div>
-                    <h4 className="text-2xl xs:text-3xl md:text-4xl font-black uppercase tracking-tighter mb-4 md:mb-6 leading-none">
-                      The Engineering <br/> <span className="text-primary italic">Mindset</span>.
+                    <span className="text-primary sub-heading text-xl mb-4 block">The Core Philosophy</span>
+                    <h4 className="text-3xl md:text-5xl font-black tracking-tighter mb-6 leading-tight text-secondary">
+                      Building Your <br/><span className="text-primary">Operational Backbone.</span>
                     </h4>
-                    <p className="text-gray-500 text-base md:text-xl leading-relaxed max-w-sm">
-                      We don't just build automations; we engineer business freedom. Our systems are built to endure, scale, and evolve alongside your agency's highest ambitions.
+                    <p className="text-gray-500 text-base md:text-lg leading-relaxed max-w-xl">
+                      Most businesses are just a collection of apps that don't talk to each other. We bridge the gap between your tools to create a single, smooth workflow that handles the heavy lifting, allowing you to grow without needing to hire more people just to manage the paperwork.
                     </p>
                   </div>
                   
-                  <div className="relative z-10 pt-10 md:pt-12 flex items-center gap-4 text-[10px] font-bold mono uppercase tracking-widest text-secondary group-hover:text-primary transition-colors">
-                    <div className="w-8 h-px bg-zinc-300 group-hover:bg-primary group-hover:w-12 transition-all duration-500"></div>
-                    Technical Precision First
+                  <div className="relative z-10 pt-10 flex flex-wrap gap-6">
+                    {[
+                      { label: "Systems First", icon: Icons.Cpu },
+                      { label: "Data You Can Trust", icon: Icons.Database },
+                      { label: "Ready to Scale", icon: Icons.Rocket }
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-center gap-2 text-[10px] font-bold tracking-widest text-secondary/60">
+                        <item.icon className="w-4 h-4 text-primary" />
+                        {item.label}
+                      </div>
+                    ))}
                   </div>
 
                   {/* Background Decor */}
-                  <div className="absolute -bottom-24 -right-24 w-80 h-80 bg-primary/5 rounded-full blur-[80px] group-hover:bg-primary/10 transition-all duration-700"></div>
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.02] group-hover:opacity-[0.05] transition-opacity pointer-events-none">
-                    <Icons.Cpu size={400} strokeWidth={0.5} className="w-[200px] md:w-[400px]" />
-                  </div>
+                  <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_100%_0%,rgba(32,188,97,0.03),transparent_50%)]"></div>
                 </div>
               </SpotlightWrapper>
             </Reveal>
 
-            {/* STAT CARD: Efficiency Boost */}
-            <Reveal direction="up" delay={0.1} className="md:col-span-2">
-              <SpotlightWrapper className="h-full" spotlightColor="rgba(32,188,97,0.25)">
-                <div className="relative bg-premium-dark h-full border border-white/5 rounded-md p-6 xs:p-8 text-white flex items-center justify-between hover:shadow-[0_0_40px_rgba(32,188,97,0.15)] transition-all duration-500">
+            {/* CARD 2: Stat - Efficiency */}
+            <Reveal direction="up" delay={0.1} className="md:col-span-1">
+              <SpotlightWrapper className="h-full" spotlightColor="rgba(32,188,97,0.15)">
+                <div className="relative bg-zinc-900 h-full border border-white/5 rounded-md p-8 text-white flex flex-col justify-between hover:border-primary/30 transition-all duration-500 shadow-lg group overflow-hidden">
                   <div className="relative z-10">
-                    <div className="text-5xl xs:text-6xl lg:text-7xl font-black text-primary mb-2 tracking-tighter group-hover:scale-105 transition-transform duration-500 origin-left">65%</div>
-                    <div className="text-[10px] font-bold uppercase tracking-[0.4em] mb-4 text-white/50">Efficiency Multiplier</div>
-                    <p className="text-gray-400 text-sm italic leading-relaxed max-w-[200px]">
-                      "Average time saved for project management teams across our partners."
+                    <div className="flex items-center gap-2 mb-8">
+                      <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+                      <span className="text-[10px] font-bold tracking-[0.2em] text-white/50">Performance Metric</span>
+                    </div>
+                    <div className="text-7xl md:text-8xl font-black text-primary mb-4 tracking-tighter leading-none">65%</div>
+                    <h5 className="text-lg font-black tracking-tight mb-3 text-white">Less Busy Work</h5>
+                    <p className="text-gray-400 text-sm leading-relaxed max-w-[200px]">
+                      Average decrease in manual data entry within the first 90 days.
                     </p>
                   </div>
                   
-                  <div className="relative z-10 hidden xs:block">
-                    <div className="w-20 h-20 md:w-24 md:h-24 border-2 border-primary/20 rounded-full flex items-center justify-center animate-spin-slow">
-                      <Icons.Zap className="w-8 h-8 md:w-10 md:h-10 text-primary" />
-                    </div>
-                  </div>
-
-                  {/* Background Grid Accent */}
-                  <div className="absolute inset-0 bg-grid opacity-[0.05] pointer-events-none"></div>
-                </div>
-              </SpotlightWrapper>
-            </Reveal>
-
-            {/* SMALL CARD 1: Zero Manual */}
-            <Reveal direction="up" delay={0.2} className="md:col-span-1">
-              <SpotlightWrapper className="h-full">
-                <div className="relative h-full bg-white border border-black/5 rounded-md p-6 xs:p-8 hover:border-primary/20 transition-all duration-500 hover:-translate-y-1 hover:shadow-lg flex flex-col justify-between">
-                  <div className="relative z-10">
-                    <div className="p-3 bg-zinc-50 border border-black/5 w-fit rounded-md mb-6 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
-                      <Icons.Check className="w-5 h-5" />
-                    </div>
-                    <h5 className="font-black text-sm uppercase tracking-widest mb-3">Manual Zero</h5>
-                    <p className="text-gray-500 text-[13px] leading-relaxed">We eliminate the repetitive to focus on the creative.</p>
-                  </div>
-                  <div className="relative z-10 mt-6 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <Icons.ArrowRight className="w-4 h-4 text-primary" />
+                  {/* Subtle Accent Line */}
+                  <div className="relative z-10 h-1 w-full bg-white/5 mt-8 rounded-full overflow-hidden">
+                    <div className="absolute top-0 left-0 h-full w-2/3 bg-primary rounded-full"></div>
                   </div>
                 </div>
               </SpotlightWrapper>
             </Reveal>
 
-            {/* SMALL CARD 2: Scale Ready */}
-            <Reveal direction="up" delay={0.3} className="md:col-span-1">
+            {/* CARD 3: Small - Everything in One Place */}
+            <Reveal direction="up" delay={0.2}>
               <SpotlightWrapper className="h-full">
-                <div className="relative h-full bg-white border border-black/5 rounded-md p-6 xs:p-8 hover:border-primary/20 transition-all duration-500 hover:-translate-y-1 hover:shadow-lg flex flex-col justify-between">
-                  <div className="relative z-10">
-                    <div className="p-3 bg-zinc-50 border border-black/5 w-fit rounded-md mb-6 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
-                      <Icons.Layers className="w-5 h-5" />
-                    </div>
-                    <h5 className="font-black text-sm uppercase tracking-widest mb-3">Scale Core</h5>
-                    <p className="text-gray-500 text-[13px] leading-relaxed">Architecture built for 10x growth without overhead.</p>
+                <div className="relative h-full bg-zinc-50 border border-black/5 rounded-md p-8 shadow-[0_10px_40px_rgba(0,0,0,0.04)] hover:border-primary/20 transition-all duration-500 hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)] flex flex-col group">
+                  <div className="w-12 h-12 bg-white shadow-sm border border-black/5 rounded-md flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-500">
+                    <Icons.Layers className="w-6 h-6" />
                   </div>
-                  <div className="relative z-10 mt-6 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <Icons.ArrowRight className="w-4 h-4 text-primary" />
+                  <h5 className="font-black text-lg tracking-tight mb-2 text-secondary">Everything in One Place</h5>
+                  <p className="text-gray-500 text-sm leading-relaxed">We connect your favorite tools so information flows instantly from one app to the next, removing the need for manual updates and messy spreadsheets.</p>
+                </div>
+              </SpotlightWrapper>
+            </Reveal>
+
+            {/* CARD 4: Small - Built to Last */}
+            <Reveal direction="up" delay={0.3}>
+              <SpotlightWrapper className="h-full">
+                <div className="relative h-full bg-zinc-50 border border-black/5 rounded-md p-8 shadow-[0_10px_40px_rgba(0,0,0,0.04)] hover:border-primary/20 transition-all duration-500 hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)] flex flex-col group">
+                  <div className="w-12 h-12 bg-white shadow-sm border border-black/5 rounded-md flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-500">
+                    <Icons.Shield className="w-6 h-6" />
                   </div>
+                  <h5 className="font-black text-lg tracking-tight mb-2 text-secondary">Built to Last</h5>
+                  <p className="text-gray-500 text-sm leading-relaxed">Every automation we build is stress-tested to handle errors. If something changes in your workflow, our systems are designed to adapt rather than break.</p>
+                </div>
+              </SpotlightWrapper>
+            </Reveal>
+
+            {/* CARD 5: Small - Support That Actually Helps */}
+            <Reveal direction="up" delay={0.4}>
+              <SpotlightWrapper className="h-full">
+                <div className="relative h-full bg-zinc-50 border border-black/5 rounded-md p-8 shadow-[0_10px_40px_rgba(0,0,0,0.04)] hover:border-primary/20 transition-all duration-500 hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)] flex flex-col group">
+                  <div className="w-12 h-12 bg-white shadow-sm border border-black/5 rounded-md flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-500">
+                    <Icons.Workflow className="w-6 h-6" />
+                  </div>
+                  <h5 className="font-black text-lg tracking-tight mb-2 text-secondary">Support That Actually Helps</h5>
+                  <p className="text-gray-500 text-sm leading-relaxed">We don't just build a system and disappear. We provide ongoing advice to make sure your automation keeps up with your business as you get bigger and busier.</p>
                 </div>
               </SpotlightWrapper>
             </Reveal>
@@ -203,76 +209,104 @@ export const About: React.FC<AboutProps> = ({ onNavigate }) => {
         `}</style>
       </section>
 
+      {/* CEO Section */}
+      <section className="pt-24 pb-0 md:pt-32 md:pb-0 bg-gray-50 relative overflow-hidden">
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+            {/* Left: Image with Overlay */}
+            <div className="w-full lg:w-[380px] flex-shrink-0">
+              <Reveal direction="left">
+                <div className="relative group">
+                  <div className="aspect-[3/4] overflow-hidden rounded-2xl border border-black/5 shadow-2xl bg-zinc-100">
+                    <img 
+                      src={CEO_IMAGE} 
+                      alt="Haroon Taj" 
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
+                    />
+                  </div>
+                  {/* Name & Title Overlay - Left Bottom */}
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <div className="bg-white/90 backdrop-blur-md p-5 rounded-xl border border-white/20 shadow-xl">
+                      <div className="text-secondary font-black text-xl tracking-tighter leading-none mb-1">Haroon Taj</div>
+                      <div className="text-primary text-sm font-bold sub-heading">Founder & CEO</div>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            </div>
+
+            {/* Right: Content */}
+            <div className="flex-1">
+              <Reveal direction="right">
+                <div className="space-y-6">
+                  <div className="space-y-2">
+                    <span className="text-primary sub-heading text-2xl block">Executive Vision</span>
+                    <h3 className="text-4xl md:text-5xl font-black tracking-tighter leading-[0.95] text-secondary">
+                      "<span className="text-primary">Chaos</span> isn't a scaling strategy. We build the digital <span className="text-primary">systems</span> that turn <span className="text-primary">potential</span> into performance."
+                    </h3>
+                  </div>
+
+                  <div className="space-y-6 text-zinc-600 leading-relaxed text-base md:text-lg font-medium max-w-2xl">
+                  <p>
+                    I spent a decade in operations. I saw firsthand how great talent was being crushed by the weight of administrative chaos. We were losing 30% of our capacity just trying to figure out what was happening in our own business.
+                  </p>
+                  <p>
+                    Exploge wasn't born in a boardroom. It was born out of frustration. We design systems for the people who actually do the work—the managers, the developers, and the directors who need a source of truth that doesn't get in their way.
+                  </p>
+                </div>
+
+                {/* Social & Minimal Elements */}
+                <div className="pt-8 flex flex-col sm:flex-row sm:items-center gap-8">
+                  <div className="flex items-center gap-4">
+                    <a href="#" className="w-12 h-12 rounded-full border border-black/5 flex items-center justify-center text-secondary hover:bg-primary hover:text-white hover:border-primary transition-all duration-300">
+                      <Icons.Linkedin className="w-5 h-5" />
+                    </a>
+                    <a href="#" className="w-12 h-12 rounded-full border border-black/5 flex items-center justify-center text-secondary hover:bg-primary hover:text-white hover:border-primary transition-all duration-300">
+                      <Icons.Facebook className="w-5 h-5" />
+                    </a>
+                  </div>
+                  
+                  <div className="hidden sm:block h-px w-12 bg-black/10"></div>
+                  
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+                    <span className="text-[10px] font-bold tracking-[0.2em] text-secondary/40">Direct Leadership</span>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </div>
+
+      {/* Minimal Background Element */}
+        <div className="absolute top-1/2 left-0 -translate-y-1/2 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-x-1/2 opacity-50"></div>
+      </section>
+
+      {/* Our Commitment */}
+      <section className="pt-0 pb-20 md:pt-0 md:pb-24 bg-gray-50 overflow-hidden relative">
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 md:gap-12 border-y border-black/10 py-12 md:py-16">
+            <Reveal direction="up" className="w-full md:w-1/2">
+              <h3 className="text-2xl text-primary sub-heading mb-2">Our Commitment</h3>
+              <p className="text-2xl xs:text-3xl font-black tracking-tighter leading-tight">
+                Engineering <span className="text-primary">Excellence</span> Into Every Workflow.
+              </p>
+            </Reveal>
+            <Reveal direction="up" delay={0.2} className="w-full md:w-1/2">
+              <p className="text-gray-500 text-base md:text-lg leading-relaxed">
+                We don't settle for "good enough." Every system we deploy undergoes rigorous stress testing to ensure it handles the complexities of your business without breaking. Our goal is 100% reliability.
+              </p>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
       {/* Stats Section */}
       <Stats />
 
       {/* Comparison Section */}
       <Comparison />
-
-      {/* Our Commitment */}
-      <section className="py-20 md:py-24 bg-gray-50 overflow-hidden relative">
-        <AmbientBlobs color="bg-primary" size="w-[800px] h-[800px]" className="-bottom-[400px] -right-[400px]" opacity="opacity-5" />
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 md:gap-12 border-y border-black/10 py-12 md:py-16">
-            <Reveal direction="up" className="w-full md:w-1/2">
-              <h3 className="text-[10px] font-bold text-primary mono uppercase tracking-[0.4em] mb-4">Our Commitment</h3>
-              <p className="text-2xl xs:text-3xl font-black uppercase tracking-tighter leading-tight">
-                To provide <span className="italic">engineering excellence</span> that scales your business, not just another bill.
-              </p>
-            </Reveal>
-            <Reveal direction="up" delay={0.2} className="w-full md:w-1/2">
-              <p className="text-gray-500 text-base md:text-lg leading-relaxed">
-                We are committed to technical precision, reliable delivery, and transparent communication. Our approach is driven by the real-world operational needs of the world's most demanding businesses.
-              </p>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* CEO Section */}
-      <section className="py-20 md:py-24 bg-white border-b border-black/5 relative overflow-hidden">
-        <AmbientBlobs color="bg-primary" size="w-96 h-96" className="top-1/2 right-0 -translate-y-1/2 translate-x-1/2" opacity="opacity-[0.03]" />
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-stretch">
-            <div className="w-full lg:w-1/2">
-              <Reveal direction="left">
-                <div className="relative h-full">
-                  <div className="aspect-[4/5] bg-gray-100 grayscale hover:grayscale-0 transition-all duration-1000 overflow-hidden border border-black/5 rounded-md h-full shadow-2xl">
-                    <img 
-                      src={CEO_IMAGE} 
-                      alt="CEO Portrait" 
-                      className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-1000"
-                    />
-                  </div>
-                  <div className="absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 bg-primary p-4 md:p-6 shadow-2xl border border-black/5 rounded-md">
-                    <div className="text-white font-black uppercase text-xl md:text-2xl italic tracking-tighter">Haroon Taj</div>
-                    <div className="text-white/70 font-bold uppercase text-[8px] md:text-[10px] tracking-[0.3em] mono">Founder & CEO</div>
-                  </div>
-                </div>
-              </Reveal>
-            </div>
-            <div className="w-full lg:w-1/2 flex flex-col justify-center space-y-8 md:space-y-10">
-              <Reveal direction="right">
-                <div className="inline-block bg-secondary text-white px-3 py-1 text-[10px] font-bold mono uppercase mb-4 tracking-[0.3em] rounded-sm">Executive Vision</div>
-                <h3 className="text-3xl xs:text-4xl md:text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-6 md:mb-8">"Most businesses are running on <span className="text-primary italic">hope</span> and spreadsheets. We engineer the cure."</h3>
-                <div className="space-y-6 md:space-y-8 text-gray-500 leading-relaxed text-base md:text-lg">
-                  <p>
-                    I spent a decade in the operational trenches. I saw firsthand how great talent was being crushed by the weight of administrative chaos. We were losing 30% of our capacity just trying to figure out what was happening in our own business.
-                  </p>
-                  <p>
-                    Exploge wasn't born in a boardroom. It was born out of frustration. We design systems for the people who actually do the work—the managers, the developers, and the directors who need a source of truth that doesn't get in their way.
-                  </p>
-                  <div className="pt-6 border-t border-black/5">
-                    <p className="font-bold text-secondary italic text-xl md:text-2xl tracking-tighter">
-                      "Our mission is to give you back your time so you can focus on what actually matters: your clients and your craft."
-                    </p>
-                  </div>
-                </div>
-              </Reveal>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Form Section */}
       <section id="contact" className="py-20 md:py-24 bg-premium-dark text-white relative overflow-hidden">
@@ -281,75 +315,72 @@ export const About: React.FC<AboutProps> = ({ onNavigate }) => {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12 md:mb-16">
               <Reveal direction="none">
-                <h2 className="text-[10px] font-bold text-primary mono uppercase tracking-[0.4em] mb-4">Partner Inquiry</h2>
-                <h3 className="text-3xl xs:text-4xl md:text-5xl font-black uppercase tracking-tighter mb-6">Direct Connection.</h3>
+                <h2 className="text-2xl text-primary sub-heading mb-2">Get in Touch</h2>
+                <h3 className="text-3xl xs:text-4xl md:text-5xl font-black tracking-tighter mb-6">Let's Start Your Journey.</h3>
                 <p className="text-gray-400 text-sm md:text-base max-w-xl mx-auto">
-                  Have a specific question about our implementation or enterprise capabilities? Our leadership team is ready to discuss your agency's future.
+                  Have a question or ready to scale? Drop us a message and we'll get back to you shortly.
                 </p>
               </Reveal>
             </div>
 
-            <div className="bg-white p-6 xs:p-8 md:p-12 border-t-8 border-primary relative overflow-hidden rounded-md">
-              <div className="absolute top-0 left-0 w-full h-1 bg-primary/20"></div>
+            <div className="bg-white p-6 xs:p-8 md:p-12 border border-black/5 relative overflow-hidden rounded-2xl shadow-2xl">
               {submitted ? (
                 <div className="py-16 md:py-20 text-center animate-in fade-in zoom-in duration-500">
                   <div className="w-16 h-16 md:w-20 md:h-20 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-6">
                     <Icons.Check className="w-8 h-8 md:w-10 md:h-10" strokeWidth={2.5} />
                   </div>
-                  <h4 className="text-secondary text-2xl md:text-3xl font-black uppercase tracking-tighter mb-2">Message Sent</h4>
-                  <p className="text-gray-500 uppercase font-bold text-[10px] md:text-xs tracking-widest">We will respond within 120 minutes.</p>
+                  <h4 className="text-secondary text-2xl md:text-3xl font-black tracking-tighter mb-2">Message Sent</h4>
+                  <p className="text-gray-500 font-bold text-[10px] md:text-xs tracking-widest uppercase">We will respond within 120 minutes.</p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Principal Name</label>
-                      <input required type="text" className="w-full bg-gray-50 border-b-2 border-gray-100 p-4 text-sm text-secondary focus:border-primary focus:outline-none transition-all placeholder:text-gray-300" placeholder="Haroon Taj" />
+                <form onSubmit={handleSubmit} className="space-y-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="space-y-3">
+                      <label className="text-[11px] font-black text-secondary/60 uppercase tracking-[0.2em]">Full Name</label>
+                      <input 
+                        required 
+                        type="text" 
+                        className="w-full bg-zinc-50 border border-zinc-200 p-4 text-sm text-secondary focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all placeholder:text-zinc-300 rounded-xl" 
+                        placeholder="Haroon Taj" 
+                      />
                     </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Professional Email</label>
-                      <input required type="email" className="w-full bg-gray-50 border-b-2 border-gray-100 p-4 text-sm text-secondary focus:border-primary focus:outline-none transition-all placeholder:text-gray-300" placeholder="principal@agency.com" />
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Inquiry Type</label>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-                      {[
-                        { name: 'Automation', icon: Icons.Zap },
-                        { name: 'Migration', icon: Icons.Workflow },
-                        { name: 'Custom Build', icon: Icons.Plus },
-                        { name: 'Consulting', icon: Icons.MessageSquare }
-                      ].map(type => (
-                        <label key={type.name} className="flex flex-col items-center gap-3 p-4 bg-gray-50 cursor-pointer hover:bg-gray-100 transition-colors border border-transparent has-[:checked]:border-primary has-[:checked]:bg-primary/5 group rounded-md">
-                          <input type="radio" name="inquiry" className="hidden" />
-                          <type.icon className="w-5 h-5 text-gray-400 group-has-[:checked]:text-primary transition-colors" />
-                          <span className="text-[10px] font-bold text-secondary uppercase tracking-widest">{type.name}</span>
-                        </label>
-                      ))}
+                    <div className="space-y-3">
+                      <label className="text-[11px] font-black text-secondary/60 uppercase tracking-[0.2em]">Email Address</label>
+                      <input 
+                        required 
+                        type="email" 
+                        className="w-full bg-zinc-50 border border-zinc-200 p-4 text-sm text-secondary focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all placeholder:text-zinc-300 rounded-xl" 
+                        placeholder="haroon@exploge.com" 
+                      />
                     </div>
                   </div>
-                  
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Detailed Context</label>
-                    <textarea rows={5} className="w-full bg-gray-50 border-b-2 border-gray-100 p-4 text-sm text-secondary focus:border-primary focus:outline-none transition-all resize-none placeholder:text-gray-300" placeholder="Briefly describe your agency size and primary operational bottleneck..."></textarea>
+
+                  <div className="space-y-3">
+                    <label className="text-[11px] font-black text-secondary/60 uppercase tracking-[0.2em]">Subject</label>
+                    <input 
+                      required 
+                      type="text" 
+                      className="w-full bg-zinc-50 border border-zinc-200 p-4 text-sm text-secondary focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all placeholder:text-zinc-300 rounded-xl" 
+                      placeholder="How can we help?" 
+                    />
                   </div>
                   
-                  <button type="submit" className="w-full bg-primary text-white font-black py-5 hover:bg-secondary transition-all duration-300 text-sm uppercase tracking-[0.3em] flex items-center justify-center gap-4 shadow-[0_10px_30px_rgba(32,188,97,0.3)] hover:shadow-none hover:-translate-y-1 group rounded-md">
-                    Send Direct Inquiry
-                    <Icons.ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                  <div className="space-y-3">
+                    <label className="text-[11px] font-black text-secondary/60 uppercase tracking-[0.2em]">Message</label>
+                    <textarea 
+                      required 
+                      rows={4} 
+                      className="w-full bg-zinc-50 border border-zinc-200 p-4 text-sm text-secondary focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all placeholder:text-zinc-300 resize-none rounded-xl" 
+                      placeholder="Tell us about your project or requirements..."
+                    ></textarea>
+                  </div>
+
+                  <button type="submit" className="w-full bg-primary text-white font-black tracking-tighter text-lg py-5 px-8 flex items-center justify-center gap-3 hover:bg-secondary transition-all duration-500 group rounded-xl shadow-xl shadow-primary/20 hover:shadow-none">
+                    Send Message
+                    <Icons.ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
                   </button>
                 </form>
               )}
-            </div>
-            
-            <div className="mt-12 text-center">
-              <button 
-                onClick={() => onNavigate('home')} 
-                className="text-[10px] font-bold text-gray-500 hover:text-white uppercase tracking-[0.4em] transition-colors"
-              >
-                Back To Home
-              </button>
             </div>
           </div>
         </div>

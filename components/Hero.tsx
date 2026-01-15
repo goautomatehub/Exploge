@@ -82,7 +82,7 @@ export const Hero: React.FC = () => {
               <Icons.HubSpot className="w-full h-full" />
             </div>
             <div className="flex flex-col">
-              <span className="text-[9px] lg:text-[10px] font-black uppercase tracking-widest text-secondary font-satoshi leading-none mb-1 lg:mb-1.5">Lead Capture</span>
+              <span className="text-[9px] lg:text-[10px] font-black tracking-widest text-secondary font-satoshi leading-none mb-1 lg:mb-1.5">Lead Capture</span>
               <div className="flex items-center gap-2">
                 <div className="w-1 h-1 lg:w-1.5 lg:h-1.5 rounded-full bg-primary" />
                 <span className="text-[8px] lg:text-[9px] font-bold text-zinc-500 font-satoshi">New lead sent to CRM</span>
@@ -110,7 +110,7 @@ export const Hero: React.FC = () => {
               ))}
             </div>
             <div className="bg-secondary px-3 py-1 lg:px-4 lg:py-1.5 rounded-full shadow-lg border border-white/5">
-              <span className="text-[7px] lg:text-[8px] font-black text-white uppercase tracking-[0.2em]">Systems Active</span>
+              <span className="text-[7px] lg:text-[8px] font-black text-white tracking-[0.2em]">Systems Active</span>
             </div>
           </motion.div>
 
@@ -123,7 +123,7 @@ export const Hero: React.FC = () => {
             className="absolute bottom-[20%] lg:bottom-[22%] left-[4%] lg:left-[8%] bg-white/70 backdrop-blur-md border border-zinc-200/50 p-4 lg:p-5 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] w-48 lg:w-56 pointer-events-auto cursor-default hidden lg:block"
           >
             <div className="flex items-center justify-between mb-3 lg:mb-4">
-              <span className="text-[9px] lg:text-[10px] font-black uppercase tracking-widest text-secondary opacity-40">Task Progress</span>
+              <span className="text-[9px] lg:text-[10px] font-black tracking-widest text-secondary opacity-40">Task Progress</span>
               <Icons.Activity className="w-3 h-3 text-primary" />
             </div>
             <div className="space-y-2 lg:space-y-3">
@@ -165,7 +165,7 @@ export const Hero: React.FC = () => {
             </div>
             <div className="text-center">
               <span className="text-sm lg:text-[18px] font-black font-urbanist tracking-tighter block leading-none text-primary mb-0.5 lg:mb-1">100% Accuracy</span>
-              <span className="text-[7px] lg:text-[8px] font-bold uppercase tracking-widest opacity-40">Zero manual errors</span>
+              <span className="text-[7px] lg:text-[8px] font-bold tracking-widest opacity-40">Zero manual errors</span>
             </div>
           </motion.div>
         </div>
@@ -175,7 +175,7 @@ export const Hero: React.FC = () => {
             {/* SaaS Style Subheading */}
             <Reveal direction="down" delay={0.1}>
               <div className="inline-flex items-center gap-2 sm:gap-3 px-4 py-2 sm:py-2.5 rounded-full border border-primary/20 bg-primary/5 text-secondary font-bold tracking-wide">
-                <span className="hidden sm:inline-block bg-primary text-white px-2.5 py-0.5 rounded-full text-[10px] md:text-xs uppercase tracking-wider font-black">RESULT</span>
+                <span className="hidden sm:inline-block bg-primary text-white px-2.5 py-0.5 rounded-full text-[10px] md:text-xs tracking-wider font-black">Result</span>
                 <span className="text-secondary sub-heading text-sm sm:text-base md:text-lg lg:text-xl">Modern Automation for Growing Businesses</span>
               </div>
             </Reveal>
@@ -223,26 +223,25 @@ export const Hero: React.FC = () => {
                       3+
                     </div>
                   </div>
-                  <span className="text-[10px] font-black uppercase text-zinc-600 tracking-widest font-satoshi">Helping Businesses Save Time</span>
+                  <span className="text-[10px] font-black text-zinc-600 tracking-widest font-satoshi">Helping Businesses Save Time</span>
                 </div>
 
                 {/* Two Centered Buttons */}
-                <div className="flex flex-col sm:flex-row items-center gap-4 md:gap-6">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 pt-4 sm:pt-6">
                   <a 
-                    href="#contact" 
+                    href="#contact"
                     onClick={(e) => scrollToSection(e, 'contact')}
-                    className="w-full sm:w-auto bg-primary text-white px-10 py-5 font-black uppercase text-center text-[10px] md:text-xs hover:bg-black transition-all duration-300 shadow-[0_10px_30px_rgba(32,188,97,0.3)] hover:shadow-none hover:-translate-y-1 flex items-center justify-center gap-3 group rounded-full"
+                    className="w-full sm:w-auto bg-primary text-white px-8 sm:px-10 py-4 sm:py-5 rounded-xl font-black tracking-widest text-xs sm:text-sm flex items-center justify-center gap-3 transition-all duration-300 shadow-[0_10px_30px_rgba(32,188,97,0.3)] hover:shadow-none hover:-translate-y-1 group"
                   >
-                    <span className="relative z-10">Start Your Project</span>
-                    <Icons.ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    Start Your Transformation
+                    <Icons.ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1.5" />
                   </a>
                   <a 
-                    href="#services" 
+                    href="#services"
                     onClick={(e) => scrollToSection(e, 'services')}
-                    className="group flex items-center gap-3 px-8 py-5 text-[10px] md:text-xs font-black uppercase text-secondary hover:text-primary transition-all border border-black/10 rounded-full hover:border-primary font-satoshi"
+                    className="w-full sm:w-auto bg-white text-secondary px-8 sm:px-10 py-4 sm:py-5 rounded-xl font-black tracking-widest text-xs sm:text-sm flex items-center justify-center gap-3 border border-zinc-200 hover:bg-zinc-50 transition-all duration-300 hover:-translate-y-1"
                   >
-                    <Icons.Zap className="w-4 h-4" />
-                    Explore Services
+                    Explore Capabilities
                   </a>
                 </div>
               </div>

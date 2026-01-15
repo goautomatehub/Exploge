@@ -3,12 +3,15 @@ import { Facebook, Linkedin } from 'lucide-react';
 
 interface FooterProps {
   onNavigate: (page: 'home' | 'about' | 'services' | 'casestudies') => void;
+  currentPage?: string;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
+export const Footer: React.FC<FooterProps> = ({ onNavigate, currentPage }) => {
+  const isAboutPage = currentPage === 'about';
+  
   return (
     <footer 
-      className="pt-56 md:pt-72 pb-10 border-t border-primary/10" 
+      className={`${isAboutPage ? 'pt-20 md:pt-24' : 'pt-56 md:pt-72'} pb-10 border-t border-primary/10`} 
       style={{ background: 'linear-gradient(to bottom, rgba(32, 188, 97, 0.08) 0%, rgba(32, 188, 97, 0) 100%)' }}
     >
       <div className="container mx-auto px-6">

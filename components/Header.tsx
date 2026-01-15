@@ -111,14 +111,14 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
               className="w-full h-full object-contain object-left"
             />
           </div>
-          <span className={`text-[5px] xs:text-[6px] md:text-[7px] lg:text-[8px] font-black uppercase tracking-[0.3em] transition-all duration-500 leading-none -mt-1 md:-mt-2 ${
+          <span className={`text-[5px] xs:text-[6px] md:text-[7px] lg:text-[8px] font-black tracking-[0.3em] transition-all duration-500 leading-none -mt-1 md:-mt-2 ${
               isLightMode ? 'text-white/50' : 'text-secondary/40'
             } ${
               isScrolled 
                 ? 'w-24 xs:w-28 md:w-36 lg:w-40 opacity-100 translate-y-0' 
                 : 'w-28 xs:w-32 sm:w-36 md:w-48 lg:w-52 opacity-0 -translate-y-2 pointer-events-none'
             } block text-left whitespace-nowrap overflow-hidden`}>
-              EXPLORATION & GROWTH
+              Exploration & Growth
             </span>
         </a>
 
@@ -128,7 +128,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
               key={link.name}
               href={link.href}
               onClick={(e) => handleLinkClick(e, link)}
-              className={`text-[10px] lg:text-[11px] font-bold uppercase tracking-[0.2em] transition-all duration-500 mono relative py-2 ${
+              className={`text-xs lg:text-sm font-bold tracking-[0.2em] transition-all duration-500 mono relative py-2 ${
                 (link.type === 'page' && currentPage === link.id) || activeSection === link.id 
                   ? 'text-primary' 
                   : isLightMode 
@@ -148,7 +148,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
           <a 
             href="#contact" 
             onClick={handleConnect}
-            className={`hidden md:flex px-6 py-3 lg:px-8 lg:py-3.5 text-[10px] lg:text-[11px] font-bold uppercase tracking-widest transition-all duration-300 mono items-center gap-3 group rounded-md ${
+            className={`hidden md:flex px-6 py-3 lg:px-8 lg:py-3.5 text-xs lg:text-sm font-bold tracking-widest transition-all duration-300 mono items-center gap-3 group rounded-md ${
               isLightMode 
                 ? 'bg-white text-black hover:bg-primary hover:text-white' 
                 : 'bg-black text-white hover:bg-primary shadow-[0_4px_15px_rgba(32,188,97,0.2)] hover:shadow-none hover:-translate-y-1'
@@ -160,9 +160,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
           
           <button 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className={`md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 border transition-colors duration-500 rounded-md ${
-              isLightMode ? 'border-white/20' : 'border-black/5'
-            }`}
+            className="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 transition-colors duration-500 rounded-md"
             aria-label="Toggle Menu"
           >
             <span className={`w-6 h-0.5 transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2 bg-black' : isLightMode ? 'bg-white' : 'bg-black'}`}></span>
@@ -179,7 +177,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
               key={link.name}
               href={link.href}
               onClick={(e) => handleLinkClick(e, link)}
-              className={`text-2xl font-black uppercase tracking-tighter flex justify-between items-center group ${
+              className={`text-2xl font-black tracking-tighter flex justify-between items-center group ${
                 (link.type === 'page' && currentPage === link.id) || activeSection === link.id ? 'text-primary' : 'text-secondary'
               }`}
             >
@@ -193,7 +191,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
             <a 
               href="#contact" 
               onClick={handleConnect}
-              className="w-full bg-primary text-white text-center py-5 font-bold uppercase tracking-widest text-xs mono flex items-center justify-center gap-4 rounded-md"
+              className="w-full bg-primary text-white text-center py-5 font-bold tracking-widest text-sm mono flex items-center justify-center gap-4 rounded-md"
             >
               Connect With Us
               <Icons.Send className="w-4 h-4" />
