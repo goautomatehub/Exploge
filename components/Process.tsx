@@ -1,6 +1,7 @@
 
-import React, { useRef } from 'react';
-import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
+import React, { useLayoutEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Reveal } from './Reveal';
 import { ClipboardList, Layers, Settings2, Rocket, CheckCircle2 } from 'lucide-react';
 import { FloatingDecorations } from './FloatingDecorations';
@@ -34,19 +35,78 @@ const steps = [
 
 export const Process: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start center", "end center"]
-  });
+  const progressRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
-  const scaleY = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    gsap.registerPlugin(ScrollTrigger);
+    const ctx = gsap.context(() => {
+      const icons = section.querySelectorAll<HTMLElement>('[data-step-icon]');
+      if (icons.length && containerRef.current) {
+        gsap.fromTo(
+          icons,
+          { opacity: 0, scale: 0.9 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.6,
+            ease: 'power2.out',
+            stagger: 0.08,
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: 'top 80%',
+              once: true
+            }
+          }
+        );
+      }
+
+      const progress = progressRef.current;
+      if (progress && containerRef.current) {
+        gsap.fromTo(
+          progress,
+          { scaleY: 0 },
+          {
+            scaleY: 1,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: 'top 70%',
+              end: 'bottom 70%',
+              scrub: 0.6
+            }
+          }
+        );
+      }
+
+      const stepContent = section.querySelectorAll<HTMLElement>('[data-step-content]');
+      if (stepContent.length && containerRef.current) {
+        gsap.fromTo(
+          stepContent,
+          { opacity: 0, y: 18 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power2.out',
+            stagger: 0.1,
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: 'top 80%',
+              once: true
+            }
+          }
+        );
+      }
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section id="process" className="pt-12 pb-16 md:py-24 bg-white relative overflow-hidden">
+    <section id="process" className="pt-12 pb-16 md:py-24 bg-white relative overflow-hidden" ref={sectionRef}>
       {/* Floating Elements */}
       <FloatingDecorations.Triangle className="top-10 left-[5%] hidden md:block" delay={0.2} />
       <FloatingDecorations.Dot className="bottom-20 right-[10%] hidden md:block" delay={0.6} />
@@ -103,18 +163,15 @@ export const Process: React.FC = () => {
                 {steps.map((step, index) => (
                   <React.Fragment key={index}>
                     {/* Icon Circle */}
-                    <motion.div 
-                      initial={{ scale: 0.8, opacity: 0 }}
-                      whileInView={{ scale: 1, opacity: 1 }}
-                      viewport={{ once: true, margin: "0px" }}
-                      transition={{ delay: index * 0.1 }}
+                    <div 
+                      data-step-icon
                       className="w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 bg-zinc-900 border-2 border-white/30 rounded-[4px] flex items-center justify-center z-10 relative overflow-hidden flex-shrink-0 shadow-lg"
                     >
                       <step.icon className="w-5 h-5 md:w-5.5 md:h-5.5 lg:w-6 lg:h-6 text-white transition-transform group-hover:scale-110 relative z-10" />
                       <div className="absolute -top-1 -right-1 bg-primary text-white text-[8px] font-bold w-5 h-5 flex items-center justify-center rounded-bl-lg">
                         0{index + 1}
                       </div>
-                    </motion.div>
+                    </div>
 
                     {/* Vertical Line Segment (Static) */}
                     {index < steps.length - 1 && (
@@ -125,9 +182,10 @@ export const Process: React.FC = () => {
 
                 {/* Animated Progress Line */}
                 <div className="absolute top-[20px] md:top-[24px] lg:top-[28px] bottom-[20px] md:bottom-[24px] lg:bottom-[28px] w-[2px] z-0">
-                  <motion.div 
-                    style={{ scaleY, originY: 0 }}
+                  <div 
+                    ref={progressRef}
                     className="absolute inset-0 bg-primary shadow-[0_0_15px_rgba(32,188,97,0.5)]"
+                    style={{ transform: 'scaleY(0)', transformOrigin: 'top' }}
                   />
                 </div>
               </div>
@@ -135,21 +193,19 @@ export const Process: React.FC = () => {
               {/* Column 2: Content */}
               <div className="flex flex-col flex-grow">
                 {steps.map((step, index) => (
-                  <div key={index} className={`${index < steps.length - 1 ? 'pb-12 md:pb-16' : 'pb-0'}`}>
-                    <Reveal direction="up" delay={index * 0.1}>
-                      <div>
-                        <h4 className="text-xl md:text-2xl lg:text-3xl font-extrabold tracking-tight mb-3 text-white transition-colors">
-                          {step.title}
-                        </h4>
-                        <p className="text-zinc-400 text-sm md:text-base leading-relaxed max-w-xl">
-                          {step.desc}
-                        </p>
-                        <div className="mt-4 flex items-center gap-2 text-[10px] font-bold mono text-primary">
-                          <CheckCircle2 className="w-3 h-3" />
-                          READY TO SCALE
-                        </div>
+                  <div key={index} className={`${index < steps.length - 1 ? 'pb-12 md:pb-16' : 'pb-0'}`} data-step-content>
+                    <div>
+                      <h4 className="text-xl md:text-2xl lg:text-3xl font-extrabold tracking-tight mb-3 text-white transition-colors">
+                        {step.title}
+                      </h4>
+                      <p className="text-zinc-400 text-sm md:text-base leading-relaxed max-w-xl">
+                        {step.desc}
+                      </p>
+                      <div className="mt-4 flex items-center gap-2 text-[10px] font-bold mono text-primary">
+                        <CheckCircle2 className="w-3 h-3" />
+                        READY TO SCALE
                       </div>
-                    </Reveal>
+                    </div>
                   </div>
                 ))}
               </div>

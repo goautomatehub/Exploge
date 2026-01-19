@@ -7,36 +7,57 @@ import { Home } from './pages/Home';
 import { About } from './pages/About';
 import { ServicesPage } from './pages/ServicesPage';
 import { CaseStudiesPage } from './pages/CaseStudiesPage';
+import ServiceDetail from './pages/ServiceDetail';
 import { PageTransition } from './components/PageTransition';
 import { AnimatePresence } from 'framer-motion';
 
-export type Page = 'home' | 'about' | 'services' | 'casestudies';
+export type Page = 'home' | 'about' | 'services' | 'casestudies' | 'service';
 
 const App: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState<Page>(() => {
-    const path = window.location.pathname.replace('/', '');
-    if (path === 'about') return 'about';
-    if (path === 'services') return 'services';
-    if (path === 'casestudies') return 'casestudies';
-    return 'home';
-  });
+  const getInitialRoute = () => {
+    const segments = window.location.pathname.split('/').filter(Boolean);
+    if (segments[0] === 'services' && segments[1]) {
+      return { page: 'service' as Page, slug: segments[1] };
+    }
+    if (segments[0] === 'about') return { page: 'about' as Page, slug: null };
+    if (segments[0] === 'services') return { page: 'services' as Page, slug: null };
+    if (segments[0] === 'casestudies') return { page: 'casestudies' as Page, slug: null };
+    return { page: 'home' as Page, slug: null };
+  };
+
+  const initialRoute = getInitialRoute();
+  const [currentPage, setCurrentPage] = useState<Page>(initialRoute.page);
+  const [currentServiceSlug, setCurrentServiceSlug] = useState<string | null>(initialRoute.slug);
 
   useEffect(() => {
     const handlePopState = () => {
-      const path = window.location.pathname.replace('/', '');
-      if (path === 'about') setCurrentPage('about');
-      else if (path === 'services') setCurrentPage('services');
-      else if (path === 'casestudies') setCurrentPage('casestudies');
-      else setCurrentPage('home');
+      const segments = window.location.pathname.split('/').filter(Boolean);
+      if (segments[0] === 'services' && segments[1]) {
+        setCurrentPage('service');
+        setCurrentServiceSlug(segments[1]);
+      } else if (segments[0] === 'about') {
+        setCurrentPage('about');
+        setCurrentServiceSlug(null);
+      } else if (segments[0] === 'services') {
+        setCurrentPage('services');
+        setCurrentServiceSlug(null);
+      } else if (segments[0] === 'casestudies') {
+        setCurrentPage('casestudies');
+        setCurrentServiceSlug(null);
+      } else {
+        setCurrentPage('home');
+        setCurrentServiceSlug(null);
+      }
     };
 
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  const navigate = (page: Page) => {
+  const navigate = (page: Page, slug?: string) => {
     setCurrentPage(page);
-    const path = page === 'home' ? '/' : `/${page}`;
+    setCurrentServiceSlug(slug ?? null);
+    const path = page === 'service' && slug ? `/services/${slug}` : page === 'home' ? '/' : `/${page}`;
     window.history.pushState({}, '', path);
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
@@ -58,7 +79,17 @@ const App: React.FC = () => {
       case 'services':
         return (
           <PageTransition key="services">
-            <ServicesPage />
+            <ServicesPage onNavigate={navigate} />
+          </PageTransition>
+        );
+      case 'service':
+        return (
+          <PageTransition key={`service-${currentServiceSlug ?? 'unknown'}`}>
+            {currentServiceSlug ? (
+              <ServiceDetail slug={currentServiceSlug} onNavigate={navigate} />
+            ) : (
+              <ServicesPage onNavigate={navigate} />
+            )}
           </PageTransition>
         );
       case 'casestudies':

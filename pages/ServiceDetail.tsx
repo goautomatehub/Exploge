@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { servicesData } from '../data/servicesData';
 import { Reveal } from '../components/Reveal';
-import { AmbientGroup } from '../components/AmbientBlobs';
-import { ArrowLeft, CheckCircle2, Zap, ArrowRight } from 'lucide-react';
+import { CheckCircle2, ArrowRight } from 'lucide-react';
 import { Page } from '../App';
 
 interface ServiceDetailProps {
@@ -22,135 +21,198 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ slug, onNavigate }) => {
 
   if (!service) return null;
 
+  const serviceImages: Record<string, string> = {
+    "workflow-automation": "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&q=80&w=1200",
+    "crm-setup": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=1200",
+    "project-management": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&q=80&w=1200",
+    "ai-sales-agents": "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1200",
+    "sales-funnels": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200",
+    "app-integrations": "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=1200",
+    "web-development": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=1200",
+    "operations-audit": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=1200"
+  };
+
+  const heroImage = serviceImages[service.slug] ?? serviceImages["workflow-automation"];
+
   return (
-    <div className="bg-premium-dark min-h-screen text-white">
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 md:pt-48 md:pb-32 relative overflow-hidden">
-        <AmbientGroup variant="dark" />
-        <div className="absolute inset-0 bg-grid opacity-[0.05]"></div>
-        
-        <div className="container mx-auto px-6 relative z-10">
-          <Reveal direction="left">
-            <button 
-              onClick={() => onNavigate('services')}
-              className="inline-flex items-center gap-2 text-primary font-bold text-[10px] uppercase tracking-[0.3em] mb-12 hover:gap-4 transition-all cursor-pointer"
-            >
-              <ArrowLeft size={14} /> Back to Services
-            </button>
-          </Reveal>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <Reveal direction="left" delay={0.1}>
-                <span className="text-primary mono text-xs font-bold uppercase tracking-[0.4em] mb-6 block">Service {service.id}</span>
-              </Reveal>
-              <Reveal direction="left" delay={0.2}>
-                <h1 className="text-4xl xs:text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.9] mb-8">
-                  {service.title.split(' ').map((word, i) => (
-                    <React.Fragment key={i}>
-                      {i === 1 ? <span className="text-primary italic">{word} </span> : word + ' '}
-                    </React.Fragment>
-                  ))}
-                </h1>
-              </Reveal>
-              <Reveal direction="left" delay={0.3}>
-                <p className="text-gray-400 text-lg md:text-xl max-w-xl leading-relaxed">
-                  {service.fullDesc}
-                </p>
-              </Reveal>
-            </div>
-
-            <Reveal direction="right" delay={0.4}>
-              <div className="relative">
-                <div className="absolute -inset-4 bg-primary/10 blur-3xl rounded-full"></div>
-                <div className="relative bg-white/5 border border-white/10 p-8 md:p-12 rounded-2xl backdrop-blur-sm">
-                  <div className="w-16 h-16 bg-primary/20 text-primary flex items-center justify-center rounded-xl mb-8">
-                    {React.cloneElement(service.icon as React.ReactElement, { size: 32 })}
-                  </div>
-                  <h3 className="text-2xl font-bold mb-6 uppercase tracking-tight">Core Benefits</h3>
-                  <ul className="space-y-4">
-                    {service.benefits.map((benefit, i) => (
-                      <li key={i} className="flex items-start gap-3 group">
-                        <CheckCircle2 className="text-primary shrink-0 mt-1 group-hover:scale-110 transition-transform" size={18} />
-                        <span className="text-gray-300 group-hover:text-white transition-colors">{benefit}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* Tools Section */}
-      <section className="py-20 bg-white/5 border-y border-white/5">
+    <div className="bg-white min-h-screen text-secondary">
+      <section className="pt-28 pb-16 md:pt-36 md:pb-24 border-b border-black/5">
         <div className="container mx-auto px-6">
           <Reveal direction="up">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-12">
-              <div className="max-w-md text-center md:text-left">
-                <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-tight mb-4">Tech Stack & Tools</h2>
-                <p className="text-gray-400">We use industry-leading tools to build and maintain your systems.</p>
-              </div>
-              <div className="flex flex-wrap justify-center gap-6 md:gap-12">
-                {service.tools.map((tool, i) => (
-                  <div key={i} className="flex flex-col items-center gap-3 grayscale hover:grayscale-0 transition-all opacity-50 hover:opacity-100">
-                    <div className="w-12 h-12 md:w-16 md:h-16 bg-white/10 rounded-full flex items-center justify-center border border-white/10">
-                      <Zap size={24} className="text-primary" />
-                    </div>
-                    <span className="text-[10px] font-bold uppercase tracking-widest">{tool}</span>
+            <div className="w-full text-center">
+              <div className="relative w-full overflow-hidden rounded-[14px] border border-black/10 bg-black px-8 py-10 md:px-12 md:py-16 shadow-[0_28px_60px_rgba(6,15,11,0.16)]">
+                <img
+                  src={heroImage}
+                  alt={service.title}
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/40 to-black/55" />
+                <div
+                  className="absolute inset-0 opacity-[0.22] mix-blend-soft-light pointer-events-none"
+                  style={{
+                    backgroundImage: 'url(https://grainy-gradients.vercel.app/noise.svg)',
+                    backgroundSize: '160px 160px'
+                  }}
+                />
+                <div className="relative max-w-3xl mx-auto min-h-[180px] md:min-h-[240px] flex flex-col items-center justify-center text-white">
+                  <h1 className="text-3xl xs:text-4xl md:text-5xl font-semibold tracking-tight text-white">
+                    {service.title}
+                  </h1>
+                  <div className="mt-4 flex items-center justify-center text-[11px] font-semibold tracking-wide text-white/70">
+                    <button onClick={() => onNavigate('home')} className="hover:text-white transition-colors">Home</button>
+                    <span className="mx-2 text-white/40">/</span>
+                    <button onClick={() => onNavigate('services')} className="hover:text-white transition-colors">Services</button>
+                    <span className="mx-2 text-white/40">/</span>
+                    <span className="text-white">{service.title}</span>
                   </div>
-                ))}
+                </div>
               </div>
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* Process Section */}
-      <section className="py-24 md:py-32">
+      <section className="py-16 md:py-20">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-20">
-            <Reveal direction="up">
-              <span className="text-primary mono text-xs font-bold uppercase tracking-[0.4em] mb-4 block">Execution Strategy</span>
-              <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter">Our Implementation <span className="text-primary italic">Process</span></h2>
-            </Reveal>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {service.process.map((step, i) => (
-              <Reveal key={i} direction="up" delay={i * 0.1}>
-                <div className="relative p-8 border border-white/10 bg-white/5 rounded-xl hover:border-primary/50 transition-colors h-full group">
-                  <span className="absolute top-4 right-6 text-4xl font-black text-white/5 group-hover:text-primary/10 transition-colors">0{i + 1}</span>
-                  <h4 className="text-xl font-bold mb-4 uppercase tracking-tight">{step.title}</h4>
-                  <p className="text-gray-400 text-sm leading-relaxed">{step.description}</p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+            <aside className="order-2 lg:order-1 lg:col-span-4 xl:col-span-3">
+              <div className="lg:sticky lg:top-28 space-y-6">
+                <div className="rounded-[14px] border border-black/10 bg-white p-6 shadow-sm">
+                  <div className="text-[11px] font-semibold tracking-[0.3em] text-secondary/50 uppercase mb-4">All Services</div>
+                  <div className="space-y-2">
+                    {servicesData.map((item) => (
+                      <button
+                        key={item.slug}
+                        onClick={() => onNavigate('service', item.slug)}
+                        className={`w-full rounded-[12px] px-4 py-3 text-left text-sm font-semibold transition-all duration-200 ${
+                          item.slug === service.slug
+                            ? 'bg-secondary text-white shadow-[0_10px_24px_rgba(0,0,0,0.15)]'
+                            : 'bg-zinc-50 text-secondary hover:bg-zinc-100'
+                        }`}
+                      >
+                        {item.title}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </Reveal>
-            ))}
+                <div className="rounded-[14px] border border-black/10 bg-white p-6 shadow-sm">
+                  <div className="text-[11px] font-semibold tracking-[0.3em] text-secondary/50 uppercase mb-3">Overview</div>
+                  <p className="text-sm text-secondary/70 leading-relaxed mb-5">{service.shortDesc}</p>
+                  <button
+                    onClick={() => onNavigate('home')}
+                    className="inline-flex items-center gap-3 px-5 py-3 rounded-[12px] bg-secondary text-white font-semibold text-xs hover:bg-black transition-colors"
+                  >
+                    Contact Us <ArrowRight size={14} />
+                  </button>
+                </div>
+              </div>
+            </aside>
+
+            <div className="order-1 lg:order-2 lg:col-span-8 xl:col-span-9 space-y-10">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {service.process.slice(0, 3).map((item, i) => (
+                  <Reveal key={item.title} direction="up" delay={i * 0.1}>
+                    <div className="border border-transparent rounded-[14px] p-6 transition-all duration-300 hover:border-black/10 hover:bg-zinc-50">
+                      <div className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center text-primary mb-4">
+                        {React.cloneElement(service.icon as React.ReactElement, { size: 18 })}
+                      </div>
+                      <h3 className="text-lg font-semibold tracking-tight mb-2 text-secondary">{item.title}</h3>
+                      <p className="text-sm text-secondary/60 leading-relaxed">{item.description}</p>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+
+              <div className="rounded-[18px] border border-black/10 bg-zinc-50 p-8 md:p-10">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                  <Reveal direction="left">
+                    <div className="relative rounded-[14px] border border-black/10 overflow-hidden bg-white shadow-[0_20px_50px_rgba(0,0,0,0.06)]">
+                      <img src={heroImage} alt={service.title} className="w-full h-72 md:h-96 object-cover" />
+                    </div>
+                  </Reveal>
+                  <Reveal direction="right">
+                    <div className="max-w-xl">
+                      <span className="text-[11px] font-semibold tracking-[0.3em] text-secondary/50 uppercase block mb-4">Service Overview</span>
+                      <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-secondary mb-4">
+                        {service.shortDesc}
+                      </h2>
+                      <p className="text-secondary/60 leading-relaxed mb-6">
+                        {service.fullDesc}
+                      </p>
+                      <button
+                        onClick={() => onNavigate('home')}
+                        className="inline-flex items-center gap-3 px-6 py-3 rounded-[14px] bg-secondary text-white font-semibold text-sm hover:bg-black transition-colors"
+                      >
+                        Contact Us <ArrowRight size={16} />
+                      </button>
+                    </div>
+                  </Reveal>
+                </div>
+              </div>
+
+              <div className="rounded-[18px] border border-black/10 bg-white p-8 md:p-10 shadow-sm">
+                <div className="flex items-center justify-between mb-6">
+                  <div>
+                    <span className="text-[11px] font-semibold tracking-[0.3em] text-secondary/50 uppercase block mb-2">Benefits</span>
+                    <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-secondary">Key Outcomes</h3>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {service.benefits.map((benefit) => (
+                    <div key={benefit} className="flex items-start gap-3 rounded-[14px] border border-black/5 bg-zinc-50 px-4 py-4">
+                      <span className="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-primary">
+                        <CheckCircle2 size={14} />
+                      </span>
+                      <span className="text-sm text-secondary/70 leading-relaxed">{benefit}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="rounded-[18px] border border-black/10 bg-white p-8 md:p-10 shadow-sm">
+                <div className="flex items-center justify-between mb-6">
+                  <div>
+                    <span className="text-[11px] font-semibold tracking-[0.3em] text-secondary/50 uppercase block mb-2">Tools</span>
+                    <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-secondary">Platforms We Use</h3>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-3">
+                  {service.tools.map((tool) => (
+                    <span
+                      key={tool}
+                      className="rounded-full border border-black/10 bg-zinc-50 px-4 py-2 text-xs font-semibold text-secondary/70"
+                    >
+                      {tool}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 md:py-32 relative overflow-hidden">
+      <section className="py-20 md:py-24">
         <div className="container mx-auto px-6">
-          <div className="bg-primary p-12 md:p-20 rounded-3xl relative overflow-hidden text-center">
-            <div className="absolute inset-0 bg-grid opacity-10"></div>
-            <div className="relative z-10 max-w-3xl mx-auto">
-              <Reveal direction="up">
-                <h2 className="text-3xl md:text-6xl font-black uppercase tracking-tighter text-white mb-8 leading-tight">
-                  Ready to implement this <br/> in your agency?
-                </h2>
-              </Reveal>
-              <Reveal direction="up" delay={0.1}>
-                <button 
-                  onClick={() => onNavigate('home')} // Assuming contact is on home page
-                  className="bg-white text-primary px-8 md:px-12 py-4 md:py-5 rounded-full font-black uppercase text-xs md:text-sm tracking-widest hover:bg-secondary hover:text-white transition-all flex items-center gap-3 mx-auto shadow-2xl cursor-pointer"
-                >
-                  Book A Strategy Call <ArrowRight size={18} />
-                </button>
-              </Reveal>
-            </div>
+          <div className="rounded-[14px] border border-black/10 bg-white p-10 md:p-14 text-center shadow-sm">
+            <Reveal direction="up">
+              <h2 className="text-2xl md:text-4xl font-semibold tracking-tight text-secondary mb-4">
+                Ready to move forward with {service.title}?
+              </h2>
+            </Reveal>
+            <Reveal direction="up" delay={0.1}>
+              <p className="text-secondary/60 mb-8 max-w-2xl mx-auto">
+                Book a quick consultation and we will map the right plan for your business.
+              </p>
+            </Reveal>
+            <Reveal direction="up" delay={0.2}>
+              <button
+                onClick={() => onNavigate('home')}
+                className="inline-flex items-center gap-3 px-8 py-3 rounded-[14px] bg-secondary text-white font-semibold text-sm hover:bg-black transition-colors"
+              >
+                Book A Strategy Call <ArrowRight size={16} />
+              </button>
+            </Reveal>
           </div>
         </div>
       </section>

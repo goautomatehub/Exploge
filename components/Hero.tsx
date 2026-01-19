@@ -1,7 +1,7 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React, { useLayoutEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Reveal } from './Reveal';
-import { NodeVisualizer } from './NodeVisualizer';
 import { AmbientGroup, AmbientBlobs } from './AmbientBlobs';
 import { Icons } from './Icons';
 import { FloatingDecorations } from './FloatingDecorations';
@@ -9,15 +9,97 @@ import { AnimatedText } from './AnimatedText';
 
 export const Hero: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
-  });
+  
+  useLayoutEffect(() => {
+    const section = containerRef.current;
+    if (!section) return;
+    gsap.registerPlugin(ScrollTrigger);
+    const ctx = gsap.context(() => {
+      const text = section.querySelector<HTMLElement>('[data-hero-text]');
+      if (text) {
+        gsap.fromTo(
+          text,
+          { opacity: 0, y: 24 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: text,
+              start: 'top 85%',
+              once: true
+            }
+          }
+        );
+        gsap.to(text, {
+          y: -60,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 0.4
+          }
+        });
+      }
 
-  // Parallax transforms for depth
-  const textY = useTransform(scrollYProgress, [0, 1], [0, -150]);
-  const blobsY = useTransform(scrollYProgress, [0, 1], [0, 100]);
-  const nodeY = useTransform(scrollYProgress, [0, 1], [0, -50]);
+      const blobs = section.querySelector<HTMLElement>('[data-hero-blobs]');
+      if (blobs) {
+        gsap.to(blobs, {
+          y: 80,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 0.5
+          }
+        });
+      }
+
+      const cards = gsap.utils.toArray<HTMLElement>('[data-hero-card]');
+      if (cards.length) {
+        gsap.fromTo(
+          cards,
+          { opacity: 0, y: 20, scale: 0.98 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.9,
+            ease: 'power2.out',
+            stagger: 0.1,
+            scrollTrigger: {
+              trigger: section,
+              start: 'top 80%',
+              once: true
+            }
+          }
+        );
+      }
+
+      const gauge = section.querySelector<SVGCircleElement>('[data-hero-gauge]');
+      if (gauge) {
+        gsap.fromTo(
+          gauge,
+          { strokeDashoffset: 150.8 },
+          {
+            strokeDashoffset: 0,
+            duration: 2,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: gauge,
+              start: 'top 85%',
+              once: true
+            }
+          }
+        );
+      }
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -47,7 +129,7 @@ export const Hero: React.FC = () => {
       <FloatingDecorations.GridDots className="top-1/2 left-[15%] hidden lg:block" delay={1.4} />
       <FloatingDecorations.Zigzag className="top-[25%] right-[5%] hidden lg:block" delay={1.7} />
 
-      <motion.div style={{ y: blobsY }} className="absolute inset-0 pointer-events-none">
+      <div data-hero-blobs className="absolute inset-0 pointer-events-none">
         <AmbientGroup />
         
         {/* Additional Greenish Blobs - Optimized for Mobile */}
@@ -56,7 +138,7 @@ export const Hero: React.FC = () => {
           <AmbientBlobs color="bg-primary" size="w-[400px] h-[400px]" className="top-1/2 -left-48" opacity="opacity-[0.15]" animation="animate-blob" />
           <AmbientBlobs color="bg-primary" size="w-[600px] h-[600px]" className="-bottom-48 right-1/4" opacity="opacity-[0.10]" animation="animate-blob-spin" />
         </div>
-      </motion.div>
+      </div>
 
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-full bg-zinc-200/50 hidden xl:block"></div>
       
@@ -71,12 +153,9 @@ export const Hero: React.FC = () => {
           <div className="absolute bottom-[15%] right-[5%] w-[300px] h-[300px] bg-primary/5 rounded-full blur-[100px] -z-10" />
 
           {/* Top Left - Lead Flow / CRM Sync - Hidden on small tablets */}
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            whileHover={{ y: -5 }}
-            className="absolute top-[12%] lg:top-[18%] left-[2%] lg:left-[4%] bg-white/70 backdrop-blur-md border border-zinc-200/50 p-3 lg:p-4 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex items-center gap-3 lg:gap-4 group pointer-events-auto cursor-default hidden xl:flex"
+          <div 
+            data-hero-card
+            className="absolute top-[12%] lg:top-[18%] left-[2%] lg:left-[4%] bg-white/70 backdrop-blur-md border border-zinc-200/50 p-3 lg:p-4 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex items-center gap-3 lg:gap-4 group pointer-events-auto cursor-default hidden xl:flex transition-transform duration-300 hover:-translate-y-1"
           >
             <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-xl bg-white shadow-sm flex items-center justify-center p-1.5 lg:p-2 border border-zinc-100">
               <Icons.HubSpot className="w-full h-full" />
@@ -88,15 +167,12 @@ export const Hero: React.FC = () => {
                 <span className="text-[8px] lg:text-[9px] font-bold text-zinc-500 font-satoshi">New lead sent to CRM</span>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Top Right - Integration Cluster */}
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            whileHover={{ y: -5 }}
-            className="absolute top-[10%] lg:top-[15%] right-[2%] lg:right-[6%] flex flex-col items-center gap-2 lg:gap-3 pointer-events-auto cursor-default"
+          <div 
+            data-hero-card
+            className="absolute top-[10%] lg:top-[15%] right-[2%] lg:right-[6%] flex flex-col items-center gap-2 lg:gap-3 pointer-events-auto cursor-default transition-transform duration-300 hover:-translate-y-1"
           >
             <div className="flex -space-x-2 lg:-space-x-3">
               {[
@@ -112,15 +188,12 @@ export const Hero: React.FC = () => {
             <div className="bg-secondary px-3 py-1 lg:px-4 lg:py-1.5 rounded-full shadow-lg border border-white/5">
               <span className="text-[7px] lg:text-[8px] font-black text-white tracking-[0.2em]">Systems Active</span>
             </div>
-          </motion.div>
+          </div>
 
           {/* Bottom Left - Automated Task Feed */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            whileHover={{ y: -5 }}
-            className="absolute bottom-[20%] lg:bottom-[22%] left-[4%] lg:left-[8%] bg-white/70 backdrop-blur-md border border-zinc-200/50 p-4 lg:p-5 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] w-48 lg:w-56 pointer-events-auto cursor-default hidden lg:block"
+          <div 
+            data-hero-card
+            className="absolute bottom-[20%] lg:bottom-[22%] left-[4%] lg:left-[8%] bg-white/70 backdrop-blur-md border border-zinc-200/50 p-4 lg:p-5 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] w-48 lg:w-56 pointer-events-auto cursor-default hidden lg:block transition-transform duration-300 hover:-translate-y-1"
           >
             <div className="flex items-center justify-between mb-3 lg:mb-4">
               <span className="text-[9px] lg:text-[10px] font-black tracking-widest text-secondary opacity-40">Task Progress</span>
@@ -140,25 +213,20 @@ export const Hero: React.FC = () => {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* Bottom Right - Efficiency Gauge */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            whileHover={{ y: -5 }}
-            className="absolute bottom-[15%] lg:bottom-[18%] right-[4%] lg:right-[10%] bg-secondary text-white p-4 lg:p-6 rounded-2xl lg:rounded-3xl shadow-2xl border border-white/5 flex flex-col items-center gap-2 lg:gap-3 pointer-events-auto cursor-default hidden lg:flex"
+          <div 
+            data-hero-card
+            className="absolute bottom-[15%] lg:bottom-[18%] right-[4%] lg:right-[10%] bg-secondary text-white p-4 lg:p-6 rounded-2xl lg:rounded-3xl shadow-2xl border border-white/5 flex flex-col items-center gap-2 lg:gap-3 pointer-events-auto cursor-default hidden lg:flex transition-transform duration-300 hover:-translate-y-1"
           >
             <div className="relative w-10 h-10 lg:w-14 lg:h-14 flex items-center justify-center">
               <svg className="w-full h-full transform -rotate-90">
                 <circle cx="28" cy="28" r="24" stroke="currentColor" strokeWidth="4" fill="transparent" className="text-white/10" />
-                <motion.circle 
+                <circle 
+                  data-hero-gauge
                   cx="28" cy="28" r="24" stroke="#20BC61" strokeWidth="4" fill="transparent"
                   strokeDasharray="150.8"
-                  initial={{ strokeDashoffset: 150.8 }}
-                  animate={{ strokeDashoffset: 0 }}
-                  transition={{ duration: 2, delay: 1.2 }}
                 />
               </svg>
               <span className="absolute text-[8px] lg:text-[10px] font-black text-primary">100%</span>
@@ -167,11 +235,11 @@ export const Hero: React.FC = () => {
               <span className="text-sm lg:text-[18px] font-black font-urbanist tracking-tighter block leading-none text-primary mb-0.5 lg:mb-1">100% Accuracy</span>
               <span className="text-[7px] lg:text-[8px] font-bold tracking-widest opacity-40">Zero manual errors</span>
             </div>
-          </motion.div>
+          </div>
         </div>
 
         <div className="flex flex-col items-center text-center max-w-6xl mx-auto">
-          <motion.div style={{ y: textY, willChange: "transform" }} className="w-full space-y-6 sm:space-y-8 md:space-y-10">
+          <div data-hero-text className="w-full space-y-6 sm:space-y-8 md:space-y-10" style={{ willChange: "transform" }}>
             {/* SaaS Style Subheading */}
             <Reveal direction="down" delay={0.1}>
               <div className="inline-flex items-center gap-2 sm:gap-3 px-4 py-2 sm:py-2.5 rounded-full border border-primary/20 bg-primary/5 text-secondary font-bold tracking-wide">
@@ -242,11 +310,12 @@ export const Hero: React.FC = () => {
                     className="w-full sm:w-auto bg-white text-secondary px-8 sm:px-10 py-4 sm:py-5 rounded-xl font-black tracking-widest text-xs sm:text-sm flex items-center justify-center gap-3 border border-zinc-200 hover:bg-zinc-50 transition-all duration-300 hover:-translate-y-1"
                   >
                     Explore Capabilities
+                    <Icons.ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1.5" />
                   </a>
                 </div>
               </div>
             </Reveal>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

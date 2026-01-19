@@ -1,13 +1,57 @@
 
-import React from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Reveal } from './Reveal';
 import { Counter } from './Counter';
 import drivenImg from './Images/assest images/driven-img.png';
 import { FloatingDecorations } from './FloatingDecorations';
 
 export const Stats: React.FC = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    gsap.registerPlugin(ScrollTrigger);
+    const ctx = gsap.context(() => {
+      if (imageRef.current) {
+        gsap.fromTo(
+          imageRef.current,
+          { opacity: 0, y: 24, scale: 0.98 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: imageRef.current,
+              start: 'top 85%',
+              once: true
+            }
+          }
+        );
+
+        gsap.to(imageRef.current, {
+          y: -30,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 0.6
+          }
+        });
+      }
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="pt-24 bg-soft overflow-hidden relative">
+    <section className="pt-24 bg-soft overflow-hidden relative" ref={sectionRef}>
       {/* Floating Elements */}
       <FloatingDecorations.Dot className="top-20 left-[10%] hidden md:block" delay={0.2} />
       <FloatingDecorations.Plus className="bottom-40 right-[5%] text-primary hidden md:block" delay={0.5} />
@@ -73,17 +117,16 @@ export const Stats: React.FC = () => {
 
         {/* Bottom Image */}
         <div className="relative mt-0 flex justify-center">
-          <Reveal direction="up" delay={0.5} className="w-full max-w-5xl">
+          <div className="w-full max-w-5xl" ref={imageRef}>
             <div className="relative">
               <img 
                 src={drivenImg} 
                 alt="Happy Users" 
                 className="w-full h-auto object-contain relative z-10"
               />
-              {/* Gradient overlay for smooth transition */}
               <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#fcfcfc] to-transparent z-20"></div>
             </div>
-          </Reveal>
+          </div>
         </div>
       </div>
     </section>

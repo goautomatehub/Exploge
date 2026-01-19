@@ -49,7 +49,7 @@ export const Pricing: React.FC = () => {
           </Reveal>
           <Reveal direction="up" delay={0.1}>
             <h2 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl font-black uppercase mb-8 leading-[0.9]">
-              Custom Built <span className="text-primary italic">Not</span> Off-The-Shelf.
+              Custom Built <span className="text-primary">Not</span> Off-The-Shelf.
             </h2>
           </Reveal>
           <Reveal direction="up" delay={0.2}>

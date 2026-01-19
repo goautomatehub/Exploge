@@ -156,7 +156,7 @@ export const ToolMarquee: React.FC = () => {
               <span className="text-2xl font-bold text-primary sub-heading mb-4 inline-block">INTEGRATIONS</span>
               <h3 className="text-4xl md:text-5xl font-black uppercase leading-[0.9]">
                 THE APPS <br /> 
-                <span className="text-primary italic">WE WORK WITH.</span>
+                <span className="text-primary">WE WORK WITH.</span>
               </h3>
             </div>
           </Reveal>
@@ -181,7 +181,7 @@ export const ToolMarquee: React.FC = () => {
                 <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
                    <div className="max-w-xl text-center md:text-left">
                       <h4 className="text-3xl md:text-5xl font-black text-white uppercase mb-6 leading-none">
-                        Need Custom <span className="text-primary italic">API Connections?</span>
+                        Need Custom <span className="text-primary">API Connections?</span>
                       </h4>
                       <p className="text-gray-400 text-lg">
                         Our engineering team builds proprietary bridges for systems that don't have native integrations. Secure, fast, and resilient.

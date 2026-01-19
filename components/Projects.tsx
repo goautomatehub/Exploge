@@ -148,7 +148,7 @@ export const Projects: React.FC = () => {
             <Reveal direction="left" delay={0.1}>
               <h2 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl font-black uppercase leading-[0.95] text-secondary">
                 Systems We've <br/> 
-                <span className="text-primary italic">Deployed.</span>
+                <span className="text-primary">Deployed.</span>
               </h2>
             </Reveal>
           </div>

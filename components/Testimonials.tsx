@@ -1,6 +1,9 @@
 
-import React, { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useCallback, useLayoutEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { motion } from 'framer-motion';
+import useEmblaCarousel from 'embla-carousel-react';
 import { Reveal } from './Reveal';
 import { Icons } from './Icons';
 import { FloatingDecorations } from './FloatingDecorations';
@@ -39,41 +42,84 @@ const testimonials = [
 ];
 
 export const Testimonials: React.FC = () => {
-  const [[page, direction], setPage] = useState([0, 0]);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start', dragFree: false });
+  const sectionRef = useRef<HTMLElement>(null);
+  const leftRef = useRef<HTMLDivElement>(null);
+  const rightRef = useRef<HTMLDivElement>(null);
 
   const totalSlides = testimonials.length;
-  const slideIndex = ((page % totalSlides) + totalSlides) % totalSlides;
+  const slideIndex = selectedIndex;
 
-  const paginate = useCallback((newDirection: number) => {
-    setPage([page + newDirection, newDirection]);
-  }, [page]);
+  const scrollPrev = useCallback(() => {
+    emblaApi?.scrollPrev();
+  }, [emblaApi]);
+  const scrollNext = useCallback(() => {
+    emblaApi?.scrollNext();
+  }, [emblaApi]);
 
   useEffect(() => {
-    if (isPaused) return;
-    const timer = setInterval(() => paginate(1), 5000);
-    return () => clearInterval(timer);
-  }, [paginate, isPaused]);
+    if (!emblaApi) return;
+    const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
+    emblaApi.on('select', onSelect);
+    onSelect();
+    return () => {
+      emblaApi.off('select', onSelect);
+    };
+  }, [emblaApi]);
 
-  const variants = {
-    enter: (direction: number) => ({
-      y: direction > 0 ? 50 : -50,
-      opacity: 0,
-      scale: 0.9,
-    }),
-    center: {
-      zIndex: 1,
-      y: 0,
-      opacity: 1,
-      scale: 1,
-    },
-    exit: (direction: number) => ({
-      zIndex: 0,
-      y: direction < 0 ? 50 : -50,
-      opacity: 0,
-      scale: 0.9,
-    })
-  };
+  useEffect(() => {
+    if (!emblaApi || isPaused) return;
+    const timer = setInterval(() => emblaApi.scrollNext(), 5000);
+    return () => clearInterval(timer);
+  }, [emblaApi, isPaused]);
+
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    gsap.registerPlugin(ScrollTrigger);
+    const ctx = gsap.context(() => {
+      if (leftRef.current) {
+        gsap.fromTo(
+          leftRef.current,
+          { opacity: 0, y: 24 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.9,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: leftRef.current,
+              start: 'top 85%',
+              once: true
+            }
+          }
+        );
+      }
+
+      if (rightRef.current) {
+        gsap.fromTo(
+          rightRef.current,
+          { opacity: 0, y: 24, scale: 0.98 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: rightRef.current,
+              start: 'top 85%',
+              once: true
+            }
+          }
+        );
+      }
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
 
   const currentTestimonial = testimonials[slideIndex];
 
@@ -84,6 +130,7 @@ export const Testimonials: React.FC = () => {
       style={{ backgroundImage: 'url(https://nextjs.sasstech.webnextpro.com/assets/images/bg/mash-gradient-bg5.png)' }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
+      ref={sectionRef}
     >
       <div className="absolute inset-0 bg-black/60 z-0"></div>
 
@@ -98,7 +145,7 @@ export const Testimonials: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-20 items-center">
           
           {/* Left Content: Headings & Description */}
-          <div className="max-w-xl">
+          <div className="max-w-xl" ref={leftRef}>
             <Reveal direction="left">
               <span className="text-2xl font-bold text-primary sub-heading mb-4 inline-block">Client Success</span>
             </Reveal>
@@ -118,7 +165,7 @@ export const Testimonials: React.FC = () => {
               <motion.button 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => paginate(-1)}
+                onClick={scrollPrev}
                 className="w-10 h-10 md:w-12 md:h-12 border border-white/10 rounded-full flex items-center justify-center hover:bg-primary hover:border-primary text-white transition-colors bg-white/5 backdrop-blur-sm"
               >
                 <Icons.ArrowRight className="w-4 h-4 md:w-5 md:h-5 rotate-180" />
@@ -127,7 +174,7 @@ export const Testimonials: React.FC = () => {
               <motion.button 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => paginate(1)}
+                onClick={scrollNext}
                 className="w-10 h-10 md:w-12 md:h-12 border border-white/10 rounded-full flex items-center justify-center hover:bg-primary hover:border-primary text-white transition-colors bg-white/5 backdrop-blur-sm"
               >
                 <Icons.ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
@@ -144,64 +191,58 @@ export const Testimonials: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Content: Single Testimonial Card */}
-          <div className="relative h-[420px] md:h-[450px] flex items-center">
-            <AnimatePresence initial={false} custom={direction} mode="popLayout">
-              <motion.div
-                key={page}
-                custom={direction}
-                variants={variants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{
-                  y: { type: "spring", stiffness: 300, damping: 30 },
-                  opacity: { duration: 0.3 },
-                  scale: { duration: 0.3 }
-                }}
-                className="w-full"
-              >
-                <div className="relative p-8 md:p-12 bg-white/10 md:bg-white/5 backdrop-blur-md md:backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden group">
-                  {/* Decorative Quote Mark */}
-                  <div className="absolute -top-4 -right-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                    <Icons.Workflow className="w-32 h-32 text-white" />
-                  </div>
-
-                  <div className="relative z-10">
-                    <div className="flex gap-1 mb-8">
-                      {[...Array(5)].map((_, star) => (
-                        <Icons.Star 
-                          key={star} 
-                          className="w-5 h-5 text-primary fill-primary" 
-                        />
-                      ))}
-                    </div>
-
-                    <p className="text-xl md:text-2xl lg:text-3xl text-white leading-tight font-light mb-6 md:mb-12 font-urbanist">
-                      "{currentTestimonial.quote}"
-                    </p>
-
-                    <div className="flex items-center gap-5 pt-8 border-t border-white/10">
-                      <div className="w-16 h-16 rounded-full border border-white/20 p-1 overflow-hidden bg-white/5">
-                        <img 
-                          src={currentTestimonial.avatar} 
-                          alt={currentTestimonial.author} 
-                          className="w-full h-full object-cover rounded-full" 
-                        />
+          {/* Right Content: Embla Carousel */}
+          <div className="relative" ref={rightRef}>
+            <div className="overflow-hidden" ref={emblaRef}>
+              <div className="flex">
+                {testimonials.map((t, i) => (
+                  <div key={i} className="min-w-0 flex-[0_0_100%] px-1">
+                    <motion.div 
+                      initial={{ opacity: 0, y: 10 }} 
+                      animate={{ opacity: 1, y: 0 }} 
+                      transition={{ duration: 0.4 }}
+                      className="h-[420px] md:h-[450px] flex items-center"
+                    >
+                      <div className="relative p-8 md:p-12 bg-white/10 md:bg-white/5 backdrop-blur-md md:backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden group w-full">
+                        <div className="absolute -top-4 -right-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                          <Icons.Workflow className="w-32 h-32 text-white" />
+                        </div>
+                        <div className="relative z-10">
+                          <div className="flex gap-1 mb-8">
+                            {[...Array(5)].map((_, star) => (
+                              <Icons.Star 
+                                key={star} 
+                                className="w-5 h-5 text-primary fill-primary" 
+                              />
+                            ))}
+                          </div>
+                          <p className="text-xl md:text-2xl lg:text-3xl text-white leading-tight font-light mb-6 md:mb-12 font-urbanist">
+                            "{t.quote}"
+                          </p>
+                          <div className="flex items-center gap-5 pt-8 border-t border-white/10">
+                            <div className="w-16 h-16 rounded-full border border-white/20 p-1 overflow-hidden bg-white/5">
+                              <img 
+                                src={t.avatar} 
+                                alt={t.author} 
+                                className="w-full h-full object-cover rounded-full" 
+                              />
+                            </div>
+                            <div>
+                              <h4 className="font-extrabold text-lg text-white leading-none mb-2">
+                                {t.author}
+                              </h4>
+                              <p className="text-xs font-bold text-primary uppercase tracking-[0.2em]">
+                                {t.role}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div>
-                        <h4 className="font-extrabold text-lg text-white leading-none mb-2">
-                          {currentTestimonial.author}
-                        </h4>
-                        <p className="text-xs font-bold text-primary uppercase tracking-[0.2em]">
-                          {currentTestimonial.role}
-                        </p>
-                      </div>
-                    </div>
+                    </motion.div>
                   </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from 'react';
-import { useInView, useMotionValue, useSpring } from 'framer-motion';
+import React, { useLayoutEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 interface CounterProps {
   value: number;
@@ -15,29 +16,34 @@ export const Counter: React.FC<CounterProps> = ({
   className = "" 
 }) => {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-  
-  const motionValue = useMotionValue(0);
-  const springValue = useSpring(motionValue, {
-    damping: 30,
-    stiffness: 100,
-  });
 
-  useEffect(() => {
-    if (isInView) {
-      motionValue.set(value);
-    }
-  }, [isInView, value, motionValue]);
+  useLayoutEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+    gsap.registerPlugin(ScrollTrigger);
+    const counter = { value: 0 };
+    const ctx = gsap.context(() => {
+      gsap.to(counter, {
+        value,
+        duration,
+        ease: 'power2.out',
+        onUpdate: () => {
+          if (ref.current) {
+            ref.current.textContent = Intl.NumberFormat('en-US').format(
+              Math.floor(counter.value)
+            );
+          }
+        },
+        scrollTrigger: {
+          trigger: element,
+          start: 'top 85%',
+          once: true
+        }
+      });
+    }, element);
 
-  useEffect(() => {
-    springValue.on("change", (latest) => {
-      if (ref.current) {
-        ref.current.textContent = Intl.NumberFormat("en-US").format(
-          Math.floor(latest)
-        );
-      }
-    });
-  }, [springValue]);
+    return () => ctx.revert();
+  }, [value, duration]);
 
   return (
     <span className={className}>

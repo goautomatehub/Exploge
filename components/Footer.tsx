@@ -2,16 +2,17 @@ import React from 'react';
 import { Facebook, Linkedin } from 'lucide-react';
 
 interface FooterProps {
-  onNavigate: (page: 'home' | 'about' | 'services' | 'casestudies') => void;
+  onNavigate: (page: 'home' | 'about' | 'services' | 'casestudies' | 'service') => void;
   currentPage?: string;
 }
 
 export const Footer: React.FC<FooterProps> = ({ onNavigate, currentPage }) => {
   const isAboutPage = currentPage === 'about';
+  const isServicePage = currentPage === 'service';
   
   return (
     <footer 
-      className={`${isAboutPage ? 'pt-20 md:pt-24' : 'pt-56 md:pt-72'} pb-10 border-t border-primary/10`} 
+      className={`${isAboutPage || isServicePage ? 'pt-20 md:pt-24' : 'pt-56 md:pt-72'} pb-10 border-t border-primary/10`} 
       style={{ background: 'linear-gradient(to bottom, rgba(32, 188, 97, 0.08) 0%, rgba(32, 188, 97, 0) 100%)' }}
     >
       <div className="container mx-auto px-6">
@@ -41,7 +42,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, currentPage }) => {
           </div>
           
           <div className="space-y-4 flex flex-col items-start text-left">
-            <h4 className="font-bold text-[10px] uppercase text-secondary">Expertise</h4>
+            <h4 className="font-semibold text-[20px] md:text-[22px] text-secondary">Expertise</h4>
             <ul className="space-y-3 text-xs md:text-sm text-gray-500">
               <li><button onClick={() => onNavigate('services')} className="hover:text-primary transition-colors">Business Automation</button></li>
               <li><button onClick={() => onNavigate('services')} className="hover:text-primary transition-colors">Web Development</button></li>
@@ -50,7 +51,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, currentPage }) => {
           </div>
           
           <div className="space-y-4 flex flex-col items-start text-left">
-            <h4 className="font-bold text-[10px] uppercase text-secondary">Company</h4>
+            <h4 className="font-semibold text-[20px] md:text-[22px] text-secondary">Company</h4>
             <ul className="space-y-3 text-xs md:text-sm text-gray-500">
               <li><button onClick={() => onNavigate('about')} className="hover:text-primary transition-colors">Haroon Taj (Founder)</button></li>
               <li><button onClick={() => onNavigate('about')} className="hover:text-primary transition-colors">Our Approach</button></li>
@@ -58,7 +59,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, currentPage }) => {
           </div>
           
           <div className="space-y-4 flex flex-col items-start text-left">
-            <h4 className="font-bold text-[10px] uppercase text-secondary">Contact</h4>
+            <h4 className="font-semibold text-[20px] md:text-[22px] text-secondary">Contact</h4>
             <ul className="space-y-3 text-xs md:text-sm text-gray-500">
               <li><a href="mailto:contact@exploge.com" className="hover:text-primary transition-colors">contact@exploge.com</a></li>
               <li><span className="text-gray-400">Pakistan</span></li>

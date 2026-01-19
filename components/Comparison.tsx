@@ -62,7 +62,7 @@ export const Comparison: React.FC = () => {
                           <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-400 flex-shrink-0"></div>
                           <div className="space-y-1">
                             <span className="text-[9px] font-bold uppercase tracking-widest text-red-500/70 block">The Old Way</span>
-                            <p className="text-zinc-500 text-sm italic leading-relaxed">{item.before}</p>
+                            <p className="text-zinc-500 text-sm leading-relaxed">{item.before}</p>
                           </div>
                         </div>
 

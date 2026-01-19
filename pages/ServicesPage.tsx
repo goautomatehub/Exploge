@@ -4,8 +4,13 @@ import { ToolMarquee } from '../components/ToolMarquee';
 import { LogoWall } from '../components/LogoWall';
 import { Reveal } from '../components/Reveal';
 import { AmbientGroup } from '../components/AmbientBlobs';
+import { Page } from '../App';
 
-export const ServicesPage: React.FC = () => {
+interface ServicesPageProps {
+  onNavigate?: (page: Page, slug?: string) => void;
+}
+
+export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
   return (
     <div className="bg-white min-h-screen">
       {/* Hero Section */}
@@ -15,11 +20,11 @@ export const ServicesPage: React.FC = () => {
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl">
             <Reveal direction="left">
-              <span className="text-primary mono text-[10px] md:text-xs font-bold uppercase tracking-[0.4em] mb-6 block">Expertise Hub</span>
+              <span className="text-primary sub-heading text-[10px] md:text-xs font-bold uppercase tracking-[0.4em] mb-6 block">Expertise Hub</span>
             </Reveal>
             <Reveal direction="left" delay={0.1}>
               <h1 className="text-3xl xs:text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter leading-[0.9] mb-8">
-                Solutions That <span className="text-primary italic">Scale</span> Your Business.
+                Solutions That <span className="text-primary">Scale</span> Your Business.
               </h1>
             </Reveal>
             <Reveal direction="up" delay={0.2}>
@@ -32,14 +37,14 @@ export const ServicesPage: React.FC = () => {
       </section>
 
       {/* Main Services */}
-      <ServicesContent />
+      <ServicesContent onNavigate={onNavigate} />
 
       {/* Technical Stack */}
       <section className="py-20 md:py-24 bg-zinc-50 relative overflow-hidden border-y border-black/5">
         <div className="container mx-auto px-6 mb-12 md:mb-16">
           <Reveal direction="up">
             <div className="text-center">
-              <span className="text-primary mono text-[10px] font-bold uppercase tracking-[0.4em] mb-4 block">The Stack</span>
+              <span className="text-primary sub-heading text-[10px] font-bold uppercase tracking-[0.4em] mb-4 block">The Stack</span>
               <h2 className="text-3xl xs:text-4xl md:text-5xl font-black uppercase tracking-tighter">Our Technical Ecosystem.</h2>
             </div>
           </Reveal>

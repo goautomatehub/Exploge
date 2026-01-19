@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Icons } from './Icons';
+import { servicesData } from '../data/servicesData';
 
 interface HeaderProps {
-  onNavigate: (page: 'home' | 'about' | 'services' | 'casestudies') => void;
-  currentPage: 'home' | 'about' | 'services' | 'casestudies';
+  onNavigate: (page: 'home' | 'about' | 'services' | 'casestudies' | 'service', slug?: string) => void;
+  currentPage: 'home' | 'about' | 'services' | 'casestudies' | 'service';
 }
 
 export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
@@ -13,8 +14,9 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
 
   const HEADER_OFFSET = 50;
 
-  // Determine if we should use light text (e.g., on About/Services/Portfolio page before scrolling)
-  const isLightMode = currentPage !== 'home' && !isScrolled && !isMenuOpen;
+  const isServicePage = currentPage === 'service';
+  const isLightMode = currentPage !== 'home' && currentPage !== 'service' && !isScrolled && !isMenuOpen;
+  const isStickyMode = isScrolled || isMenuOpen || isServicePage;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,6 +51,19 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
     { name: 'Services', href: '/services', id: 'services', type: 'page' },
   ];
 
+  const serviceImages: Record<string, string> = {
+    "workflow-automation": "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&q=80&w=800",
+    "crm-setup": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800",
+    "project-management": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&q=80&w=800",
+    "ai-sales-agents": "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800",
+    "sales-funnels": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+    "app-integrations": "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=800",
+    "web-development": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800",
+    "operations-audit": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=800"
+  };
+  const servicesLeft = servicesData.slice(0, 4);
+  const servicesRight = servicesData.slice(4);
+
   const handleLinkClick = (e: React.MouseEvent, link: typeof navLinks[0]) => {
     e.preventDefault();
     if (link.type === 'page') {
@@ -82,16 +97,21 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
     setIsMenuOpen(false);
   };
 
+  const handleServicesRoot = () => {
+    onNavigate('services');
+    setIsMenuOpen(false);
+  };
+
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled || isMenuOpen ? 'bg-white/70 backdrop-blur-md py-1.5 shadow-sm' : 'bg-transparent py-3 md:py-6'
+        isStickyMode ? 'bg-white/95 backdrop-blur-md py-2 shadow-[0_10px_30px_rgba(0,0,0,0.06)]' : 'bg-transparent py-4 md:py-6'
       }`}
     >
       {/* Bottom Border - controlled separately for instant removal on scroll up */}
       <div 
         className={`absolute bottom-0 left-0 right-0 h-[1px] bg-black/5 transition-opacity duration-150 ${
-          isScrolled || isMenuOpen ? 'opacity-100' : 'opacity-0'
+          isStickyMode ? 'opacity-100' : 'opacity-0'
         }`} 
       />
       <div className="container mx-auto px-6 flex items-center justify-between">
@@ -101,7 +121,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
           className="flex flex-col items-start group relative"
         >
           <div className={`relative transition-all duration-500 transform group-hover:scale-105 flex items-center justify-center ${
-            isScrolled 
+            isStickyMode 
               ? 'w-24 h-8 xs:w-28 h-9 md:w-36 md:h-11 lg:w-40 lg:h-12' 
               : 'w-28 h-10 xs:w-32 xs:h-11 sm:w-36 sm:h-12 md:w-48 md:h-16 lg:w-52 lg:h-20'
           }`}>
@@ -114,7 +134,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
           <span className={`text-[5px] xs:text-[6px] md:text-[7px] lg:text-[8px] font-black tracking-[0.3em] transition-all duration-500 leading-none -mt-1 md:-mt-2 ${
               isLightMode ? 'text-white/50' : 'text-secondary/40'
             } ${
-              isScrolled 
+              isStickyMode 
                 ? 'w-24 xs:w-28 md:w-36 lg:w-40 opacity-100 translate-y-0' 
                 : 'w-28 xs:w-32 sm:w-36 md:w-48 lg:w-52 opacity-0 -translate-y-2 pointer-events-none'
             } block text-left whitespace-nowrap overflow-hidden`}>
@@ -122,33 +142,109 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
             </span>
         </a>
 
-        <nav className="hidden md:flex items-center space-x-6 lg:space-x-10">
-          {navLinks.map((link) => (
-            <a 
-              key={link.name}
-              href={link.href}
-              onClick={(e) => handleLinkClick(e, link)}
-              className={`text-xs lg:text-sm font-bold tracking-[0.2em] transition-all duration-500 mono relative py-2 ${
-                (link.type === 'page' && currentPage === link.id) || activeSection === link.id 
-                  ? 'text-primary' 
-                  : isLightMode 
-                    ? 'text-white/60 hover:text-white' 
-                    : 'text-secondary/60 hover:text-primary'
-              }`}
-            >
-              {link.name}
-              <span className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-500 ${
-                (link.type === 'page' && currentPage === link.id) || activeSection === link.id ? 'w-full' : 'w-0'
-              }`}></span>
-            </a>
-          ))}
+        <nav className="hidden md:flex items-center space-x-8 lg:space-x-12">
+          {navLinks.map((link) => {
+            const isActive = (link.type === 'page' && (currentPage === link.id || (link.id === 'services' && currentPage === 'service'))) || activeSection === link.id;
+            if (link.id === 'services') {
+              return (
+                <div key={link.name} className="relative group">
+                  <button
+                    onClick={handleServicesRoot}
+                    className={`text-xs lg:text-sm font-bold tracking-[0.2em] transition-all duration-300 mono relative py-2 flex items-center gap-2 ${
+                      isActive ? 'text-primary' : isLightMode ? 'text-white/60 hover:text-white' : 'text-secondary/60 hover:text-primary'
+                    }`}
+                  >
+                    {link.name}
+                    <Icons.ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${isActive ? 'text-primary' : ''} group-hover:rotate-180`} />
+                    <span className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-500 ${
+                      isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                    }`}></span>
+                  </button>
+                  <div className="absolute left-1/2 top-full -translate-x-1/2 pt-4 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300">
+                    <div className="w-[720px] rounded-2xl border border-black/5 bg-white shadow-[0_30px_70px_rgba(0,0,0,0.12)] overflow-hidden">
+                      <div className="p-5">
+                        <div className="flex gap-6">
+                          <div className="flex-1 space-y-2">
+                            {servicesLeft.map((service) => (
+                              <button
+                                key={service.slug}
+                                onClick={() => { onNavigate('service', service.slug); }}
+                                className="group/item flex items-start gap-3 rounded-lg border border-transparent p-2 text-left transition-all duration-300 hover:border-black/5 hover:bg-zinc-50"
+                              >
+                                <div className="h-11 w-11 flex-shrink-0 overflow-hidden rounded-lg border border-black/5 bg-zinc-100">
+                                  <img
+                                    src={serviceImages[service.slug] ?? serviceImages["workflow-automation"]}
+                                    alt={service.title}
+                                    className="h-full w-full object-cover transition-transform duration-300 group-hover/item:scale-105"
+                                  />
+                                </div>
+                                <div className="space-y-0.5">
+                                  <div className="text-[13px] font-semibold text-secondary">{service.title}</div>
+                                  <div className="text-[11px] text-secondary/60 leading-snug">{service.shortDesc}</div>
+                                </div>
+                              </button>
+                            ))}
+                          </div>
+                          <div className="flex-1 space-y-2">
+                            {servicesRight.map((service) => (
+                              <button
+                                key={service.slug}
+                                onClick={() => { onNavigate('service', service.slug); }}
+                                className="group/item flex items-start gap-3 rounded-lg border border-transparent p-2 text-left transition-all duration-300 hover:border-black/5 hover:bg-zinc-50"
+                              >
+                                <div className="h-11 w-11 flex-shrink-0 overflow-hidden rounded-lg border border-black/5 bg-zinc-100">
+                                  <img
+                                    src={serviceImages[service.slug] ?? serviceImages["workflow-automation"]}
+                                    alt={service.title}
+                                    className="h-full w-full object-cover transition-transform duration-300 group-hover/item:scale-105"
+                                  />
+                                </div>
+                                <div className="space-y-0.5">
+                                  <div className="text-[13px] font-semibold text-secondary">{service.title}</div>
+                                  <div className="text-[11px] text-secondary/60 leading-snug">{service.shortDesc}</div>
+                                </div>
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="border-t border-black/5 bg-zinc-50 px-5 py-3 flex items-center justify-between">
+                        <span className="text-[11px] font-semibold text-secondary/60">Explore all automation solutions</span>
+                        <button
+                          onClick={() => onNavigate('services')}
+                          className="text-[11px] font-semibold text-secondary hover:text-primary transition-colors"
+                        >
+                          View All Services
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+            return (
+              <a 
+                key={link.name}
+                href={link.href}
+                onClick={(e) => handleLinkClick(e, link)}
+                className={`text-xs lg:text-sm font-bold tracking-[0.2em] transition-all duration-300 mono relative py-2 ${
+                  isActive ? 'text-primary' : isLightMode ? 'text-white/60 hover:text-white' : 'text-secondary/60 hover:text-primary'
+                }`}
+              >
+                {link.name}
+                <span className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-500 ${
+                  isActive ? 'w-full' : 'w-0'
+                }`}></span>
+              </a>
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-4 lg:gap-6">
           <a 
             href="#contact" 
             onClick={handleConnect}
-            className={`hidden md:flex px-6 py-3 lg:px-8 lg:py-3.5 text-xs lg:text-sm font-bold tracking-widest transition-all duration-300 mono items-center gap-3 group rounded-md ${
+            className={`hidden md:flex px-6 py-3 lg:px-8 lg:py-3.5 text-xs lg:text-sm font-bold tracking-widest transition-all duration-300 mono items-center gap-3 group rounded-full ${
               isLightMode 
                 ? 'bg-white text-black hover:bg-primary hover:text-white' 
                 : 'bg-black text-white hover:bg-primary shadow-[0_4px_15px_rgba(32,188,97,0.2)] hover:shadow-none hover:-translate-y-1'

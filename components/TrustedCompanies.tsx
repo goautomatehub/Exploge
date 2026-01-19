@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Reveal } from './Reveal';
 import { Icons } from './Icons';
 
@@ -41,8 +43,36 @@ const tools = [
 ];
 
 export const TrustedCompanies: React.FC = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const marqueeRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    if (!section || !marqueeRef.current) return;
+    gsap.registerPlugin(ScrollTrigger);
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        marqueeRef.current,
+        { opacity: 0, y: 16 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: marqueeRef.current,
+            start: 'top 85%',
+            once: true
+          }
+        }
+      );
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="py-12 md:py-20 bg-zinc-50 overflow-hidden relative">
+    <section className="py-12 md:py-20 bg-zinc-50 overflow-hidden relative" ref={sectionRef}>
       <div className="container mx-auto px-6 mb-8 md:mb-12">
         <Reveal direction="up">
           <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
@@ -53,7 +83,7 @@ export const TrustedCompanies: React.FC = () => {
         </Reveal>
       </div>
 
-      <div className="relative flex overflow-x-hidden">
+      <div className="relative flex overflow-x-hidden" ref={marqueeRef}>
         <div className="flex animate-marquee-fast whitespace-nowrap items-center py-4 w-max">
           {[...Array(2)].map((_, i) => (
             <div key={i} className="flex shrink-0 items-center">
