@@ -1,6 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React from 'react';
 
 interface AnimatedTextProps {
   text: string;
@@ -10,54 +8,16 @@ interface AnimatedTextProps {
   highlightClassName?: string;
 }
 
-export const AnimatedText: React.FC<AnimatedTextProps> = ({ 
-  text, 
-  className = "", 
-  delay = 0,
+export const AnimatedText: React.FC<AnimatedTextProps> = ({
+  text,
+  className = "",
   highlightWords = [],
   highlightClassName = "text-primary"
 }) => {
   const words = text.split(" ");
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useLayoutEffect(() => {
-    const element = containerRef.current;
-    if (!element || typeof window === 'undefined') return;
-    const targets = element.querySelectorAll<HTMLElement>('[data-word]');
-    const isMobile = window.innerWidth < 768;
-    if (isMobile) {
-      targets.forEach((target) => {
-        target.style.opacity = '1';
-        target.style.transform = 'none';
-      });
-      return;
-    }
-    gsap.registerPlugin(ScrollTrigger);
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        targets,
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.5,
-          ease: 'power2.out',
-          stagger: 0.05,
-          delay,
-          scrollTrigger: {
-            trigger: element,
-            start: 'top 85%',
-            once: true
-          }
-        }
-      );
-    }, element);
-
-    return () => ctx.revert();
-  }, [delay]);
 
   return (
-    <div ref={containerRef} className={`flex flex-wrap ${className}`}>
+    <div className={`flex flex-wrap ${className}`}>
       {words.map((word, index) => {
         const isHighlighted = highlightWords.some(h => 
           word.toLowerCase().includes(h.toLowerCase())

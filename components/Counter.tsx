@@ -1,6 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React from 'react';
 
 interface CounterProps {
   value: number;
@@ -9,45 +7,16 @@ interface CounterProps {
   className?: string;
 }
 
-export const Counter: React.FC<CounterProps> = ({ 
-  value, 
-  duration = 2, 
-  suffix = "", 
-  className = "" 
+export const Counter: React.FC<CounterProps> = ({
+  value,
+  suffix = "",
+  className = ""
 }) => {
-  const ref = useRef<HTMLSpanElement>(null);
-
-  useLayoutEffect(() => {
-    const element = ref.current;
-    if (!element) return;
-    gsap.registerPlugin(ScrollTrigger);
-    const counter = { value: 0 };
-    const ctx = gsap.context(() => {
-      gsap.to(counter, {
-        value,
-        duration,
-        ease: 'power2.out',
-        onUpdate: () => {
-          if (ref.current) {
-            ref.current.textContent = Intl.NumberFormat('en-US').format(
-              Math.floor(counter.value)
-            );
-          }
-        },
-        scrollTrigger: {
-          trigger: element,
-          start: 'top 85%',
-          once: true
-        }
-      });
-    }, element);
-
-    return () => ctx.revert();
-  }, [value, duration]);
+  const formattedValue = Intl.NumberFormat('en-US').format(value);
 
   return (
     <span className={className}>
-      <span ref={ref}>0</span>
+      <span>{formattedValue}</span>
       {suffix}
     </span>
   );

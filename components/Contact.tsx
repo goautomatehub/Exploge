@@ -1,6 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -19,9 +17,6 @@ type ContactFormValues = z.infer<typeof contactSchema>;
 
 export const Contact: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-  const leftRef = useRef<HTMLDivElement>(null);
-  const formRef = useRef<HTMLDivElement>(null);
 
   const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
@@ -40,54 +35,8 @@ export const Contact: React.FC = () => {
     setTimeout(() => setSubmitted(false), 5000);
   };
 
-  useLayoutEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-    gsap.registerPlugin(ScrollTrigger);
-    const ctx = gsap.context(() => {
-      if (leftRef.current) {
-        gsap.fromTo(
-          leftRef.current,
-          { opacity: 0, y: 24 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.9,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: leftRef.current,
-              start: 'top 85%',
-              once: true
-            }
-          }
-        );
-      }
-
-      if (formRef.current) {
-        gsap.fromTo(
-          formRef.current,
-          { opacity: 0, y: 24, scale: 0.98 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 1,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: formRef.current,
-              start: 'top 85%',
-              once: true
-            }
-          }
-        );
-      }
-    }, section);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section id="contact" className="py-8 md:pt-16 md:pb-0 overflow-visible relative z-20 -mb-40 md:-mb-52" ref={sectionRef}>
+    <section id="contact" className="py-8 md:pt-16 md:pb-0 overflow-visible relative z-20 -mb-40 md:-mb-52">
       <AmbientBlobs color="bg-primary" size="w-[400px] h-[400px]" className="-top-32 -right-32" opacity="opacity-[0.08]" animation="animate-blob" />
       <AmbientBlobs color="bg-primary" size="w-64 h-64" className="bottom-0 left-0" opacity="opacity-[0.05]" animation="animate-blob-slow" />
       
@@ -111,7 +60,7 @@ export const Contact: React.FC = () => {
           </div>
 
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center relative z-10">
-            <div className="w-full lg:w-1/2 space-y-4 md:space-y-6" ref={leftRef}>
+            <div className="w-full lg:w-1/2 space-y-4 md:space-y-6">
               <span className="text-xl font-bold text-primary sub-heading mb-2 inline-block">Get In Touch</span>
               <h3 className="text-2xl xs:text-3xl md:text-4xl lg:text-5xl font-black leading-tight tracking-tighter">
                 Let's Talk <span className="text-primary">Automation</span>.
@@ -130,7 +79,7 @@ export const Contact: React.FC = () => {
               </div>
             </div>
             
-            <div className="w-full lg:w-1/2" ref={formRef}>
+            <div className="w-full lg:w-1/2">
               <div className="bg-white p-5 md:p-6 lg:p-8 relative rounded-xl shadow-2xl">
                 {submitted ? (
                   <div className="py-12 md:py-16 lg:py-20 text-center animate-pulse">

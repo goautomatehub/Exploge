@@ -1,57 +1,13 @@
 
-import React, { useLayoutEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React from 'react';
 import { Reveal } from './Reveal';
 import { Counter } from './Counter';
 import drivenImg from './Images/assest images/driven-img.png';
 import { FloatingDecorations } from './FloatingDecorations';
 
 export const Stats: React.FC = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
-
-  useLayoutEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-    gsap.registerPlugin(ScrollTrigger);
-    const ctx = gsap.context(() => {
-      if (imageRef.current) {
-        gsap.fromTo(
-          imageRef.current,
-          { opacity: 0, y: 24, scale: 0.98 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 1,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: imageRef.current,
-              start: 'top 85%',
-              once: true
-            }
-          }
-        );
-
-        gsap.to(imageRef.current, {
-          y: -30,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 0.6
-          }
-        });
-      }
-    }, section);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section className="pt-24 bg-soft overflow-hidden relative" ref={sectionRef}>
+    <section className="pt-24 bg-soft overflow-hidden relative">
       {/* Floating Elements */}
       <FloatingDecorations.Dot className="top-20 left-[10%] hidden md:block" delay={0.2} />
       <FloatingDecorations.Plus className="bottom-40 right-[5%] text-primary hidden md:block" delay={0.5} />
@@ -117,7 +73,7 @@ export const Stats: React.FC = () => {
 
         {/* Bottom Image */}
         <div className="relative mt-0 flex justify-center">
-          <div className="w-full max-w-5xl" ref={imageRef}>
+          <div className="w-full max-w-5xl">
             <div className="relative">
               <img 
                 src={drivenImg} 

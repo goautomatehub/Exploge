@@ -1,7 +1,5 @@
 
-import React, { useLayoutEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React from 'react';
 import { Reveal } from './Reveal';
 import { ClipboardList, Layers, Settings2, Rocket, CheckCircle2 } from 'lucide-react';
 import { FloatingDecorations } from './FloatingDecorations';
@@ -34,79 +32,8 @@ const steps = [
 ];
 
 export const Process: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const progressRef = useRef<HTMLDivElement>(null);
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  useLayoutEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-    gsap.registerPlugin(ScrollTrigger);
-    const ctx = gsap.context(() => {
-      const icons = section.querySelectorAll<HTMLElement>('[data-step-icon]');
-      if (icons.length && containerRef.current) {
-        gsap.fromTo(
-          icons,
-          { opacity: 0, scale: 0.9 },
-          {
-            opacity: 1,
-            scale: 1,
-            duration: 0.6,
-            ease: 'power2.out',
-            stagger: 0.08,
-            scrollTrigger: {
-              trigger: containerRef.current,
-              start: 'top 80%',
-              once: true
-            }
-          }
-        );
-      }
-
-      const progress = progressRef.current;
-      if (progress && containerRef.current) {
-        gsap.fromTo(
-          progress,
-          { scaleY: 0 },
-          {
-            scaleY: 1,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: containerRef.current,
-              start: 'top 70%',
-              end: 'bottom 70%',
-              scrub: 0.6
-            }
-          }
-        );
-      }
-
-      const stepContent = section.querySelectorAll<HTMLElement>('[data-step-content]');
-      if (stepContent.length && containerRef.current) {
-        gsap.fromTo(
-          stepContent,
-          { opacity: 0, y: 18 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: 'power2.out',
-            stagger: 0.1,
-            scrollTrigger: {
-              trigger: containerRef.current,
-              start: 'top 80%',
-              once: true
-            }
-          }
-        );
-      }
-    }, section);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section id="process" className="pt-12 pb-16 md:py-24 bg-white relative overflow-hidden" ref={sectionRef}>
+    <section id="process" className="pt-12 pb-16 md:py-24 bg-white relative overflow-hidden">
       {/* Floating Elements */}
       <FloatingDecorations.Triangle className="top-10 left-[5%] hidden md:block" delay={0.2} />
       <FloatingDecorations.Dot className="bottom-20 right-[10%] hidden md:block" delay={0.6} />
@@ -152,7 +79,7 @@ export const Process: React.FC = () => {
           </div>
           
           {/* Right Side: Animated Steps (With Dark Background) */}
-          <div className="w-full lg:w-1/2 relative bg-secondary rounded-[14px] p-6 md:p-10 lg:p-12 text-white overflow-hidden shadow-2xl" ref={containerRef}>
+          <div className="w-full lg:w-1/2 relative bg-secondary rounded-[14px] p-6 md:p-10 lg:p-12 text-white overflow-hidden shadow-2xl">
             {/* Subtle decoration */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/10 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
@@ -183,9 +110,7 @@ export const Process: React.FC = () => {
                 {/* Animated Progress Line */}
                 <div className="absolute top-[20px] md:top-[24px] lg:top-[28px] bottom-[20px] md:bottom-[24px] lg:bottom-[28px] w-[2px] z-0">
                   <div 
-                    ref={progressRef}
                     className="absolute inset-0 bg-primary shadow-[0_0_15px_rgba(32,188,97,0.5)]"
-                    style={{ transform: 'scaleY(0)', transformOrigin: 'top' }}
                   />
                 </div>
               </div>

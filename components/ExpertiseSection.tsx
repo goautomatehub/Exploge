@@ -1,59 +1,11 @@
 
-import React, { useLayoutEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React from 'react';
 import { Icons } from './Icons';
 import { FloatingDecorations } from './FloatingDecorations';
 
 export const ExpertiseSection: React.FC = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  
-  useLayoutEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-    gsap.registerPlugin(ScrollTrigger);
-    const items = section.querySelectorAll<HTMLElement>('[data-reveal]');
-    const ctx = gsap.context(() => {
-      items.forEach((item) => {
-        const delay = Number(item.dataset.delay ?? 0);
-        gsap.fromTo(
-          item,
-          { opacity: 0, y: 24 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.9,
-            delay,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: item,
-              start: 'top 85%',
-              once: true
-            }
-          }
-        );
-      });
-
-      const parallaxTarget = section.querySelector<HTMLElement>('[data-parallax]');
-      if (parallaxTarget) {
-        gsap.to(parallaxTarget, {
-          y: -30,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 0.5
-          }
-        });
-      }
-    }, section);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section ref={sectionRef} className="pt-12 pb-16 md:py-24 bg-white overflow-hidden relative">
+    <section className="pt-12 pb-16 md:py-24 bg-white overflow-hidden relative">
       {/* Floating Elements */}
       <FloatingDecorations.Dot className="top-20 right-[5%] hidden md:block" delay={0.3} />
       <FloatingDecorations.Box className="bottom-[20%] left-[2%] hidden md:block" delay={0.7} />

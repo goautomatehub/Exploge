@@ -1,7 +1,5 @@
 
-import React, { useState, useEffect, useCallback, useLayoutEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import useEmblaCarousel from 'embla-carousel-react';
 import { Reveal } from './Reveal';
@@ -45,9 +43,6 @@ export const Testimonials: React.FC = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start', dragFree: false });
-  const sectionRef = useRef<HTMLElement>(null);
-  const leftRef = useRef<HTMLDivElement>(null);
-  const rightRef = useRef<HTMLDivElement>(null);
 
   const totalSlides = testimonials.length;
   const slideIndex = selectedIndex;
@@ -75,52 +70,6 @@ export const Testimonials: React.FC = () => {
     return () => clearInterval(timer);
   }, [emblaApi, isPaused]);
 
-  useLayoutEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-    gsap.registerPlugin(ScrollTrigger);
-    const ctx = gsap.context(() => {
-      if (leftRef.current) {
-        gsap.fromTo(
-          leftRef.current,
-          { opacity: 0, y: 24 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.9,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: leftRef.current,
-              start: 'top 85%',
-              once: true
-            }
-          }
-        );
-      }
-
-      if (rightRef.current) {
-        gsap.fromTo(
-          rightRef.current,
-          { opacity: 0, y: 24, scale: 0.98 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 1,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: rightRef.current,
-              start: 'top 85%',
-              once: true
-            }
-          }
-        );
-      }
-    }, section);
-
-    return () => ctx.revert();
-  }, []);
-
   const currentTestimonial = testimonials[slideIndex];
 
   return (
@@ -130,7 +79,6 @@ export const Testimonials: React.FC = () => {
       style={{ backgroundImage: 'url(https://nextjs.sasstech.webnextpro.com/assets/images/bg/mash-gradient-bg5.png)' }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      ref={sectionRef}
     >
       <div className="absolute inset-0 bg-black/60 z-0"></div>
 
@@ -145,7 +93,7 @@ export const Testimonials: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-20 items-center">
           
           {/* Left Content: Headings & Description */}
-          <div className="max-w-xl" ref={leftRef}>
+          <div className="max-w-xl">
             <Reveal direction="left">
               <span className="text-2xl font-bold text-primary sub-heading mb-4 inline-block">Client Success</span>
             </Reveal>
@@ -192,7 +140,7 @@ export const Testimonials: React.FC = () => {
           </div>
 
           {/* Right Content: Embla Carousel */}
-          <div className="relative" ref={rightRef}>
+          <div className="relative">
             <div className="overflow-hidden" ref={emblaRef}>
               <div className="flex">
                 {testimonials.map((t, i) => (

@@ -1,6 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React from 'react';
 import { Reveal } from './Reveal';
 import { AmbientGroup, AmbientBlobs } from './AmbientBlobs';
 import { Icons } from './Icons';
@@ -8,99 +6,6 @@ import { FloatingDecorations } from './FloatingDecorations';
 import { AnimatedText } from './AnimatedText';
 
 export const Hero: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  
-  useLayoutEffect(() => {
-    const section = containerRef.current;
-    if (!section) return;
-    gsap.registerPlugin(ScrollTrigger);
-    const ctx = gsap.context(() => {
-      const text = section.querySelector<HTMLElement>('[data-hero-text]');
-      if (text) {
-        gsap.fromTo(
-          text,
-          { opacity: 0, y: 24 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: text,
-              start: 'top 85%',
-              once: true
-            }
-          }
-        );
-        gsap.to(text, {
-          y: -60,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: 0.4
-          }
-        });
-      }
-
-      const blobs = section.querySelector<HTMLElement>('[data-hero-blobs]');
-      if (blobs) {
-        gsap.to(blobs, {
-          y: 80,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: 0.5
-          }
-        });
-      }
-
-      const cards = gsap.utils.toArray<HTMLElement>('[data-hero-card]');
-      if (cards.length) {
-        gsap.fromTo(
-          cards,
-          { opacity: 0, y: 20, scale: 0.98 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.9,
-            ease: 'power2.out',
-            stagger: 0.1,
-            scrollTrigger: {
-              trigger: section,
-              start: 'top 80%',
-              once: true
-            }
-          }
-        );
-      }
-
-      const gauge = section.querySelector<SVGCircleElement>('[data-hero-gauge]');
-      if (gauge) {
-        gsap.fromTo(
-          gauge,
-          { strokeDashoffset: 150.8 },
-          {
-            strokeDashoffset: 0,
-            duration: 2,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: gauge,
-              start: 'top 85%',
-              once: true
-            }
-          }
-        );
-      }
-    }, section);
-
-    return () => ctx.revert();
-  }, []);
-
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
     const element = document.getElementById(id);
@@ -117,7 +22,7 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section ref={containerRef} className="relative pt-24 pb-12 xs:pt-28 sm:pt-32 md:pt-40 md:pb-20 lg:pt-56 lg:pb-40 bg-zinc-50 overflow-hidden bg-grid">
+    <section className="relative pt-24 pb-12 xs:pt-28 sm:pt-32 md:pt-40 md:pb-20 lg:pt-56 lg:pb-40 bg-zinc-50 overflow-hidden bg-grid">
       {/* Background Radial Glow for Mobile - Adds depth without clutter */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(32,188,97,0.08),transparent_70%)] lg:hidden pointer-events-none" />
 
