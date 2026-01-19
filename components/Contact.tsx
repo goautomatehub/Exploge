@@ -1,14 +1,37 @@
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { AmbientBlobs } from './AmbientBlobs';
 import { Icons } from './Icons';
 import { FloatingDecorations } from './FloatingDecorations';
 
+const contactSchema = z.object({
+  name: z.string().min(2, 'Name is required'),
+  email: z.string().email('Enter a valid email'),
+  subject: z.string().min(3, 'Subject is required'),
+  message: z.string().min(10, 'Message is too short').max(1000, 'Message is too long')
+});
+
+type ContactFormValues = z.infer<typeof contactSchema>;
+
 export const Contact: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<ContactFormValues>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      subject: '',
+      message: ''
+    }
+  });
+
+  const onSubmit = (data: ContactFormValues) => {
+    void data;
     setSubmitted(true);
+    reset();
     setTimeout(() => setSubmitted(false), 5000);
   };
 
@@ -67,29 +90,65 @@ export const Contact: React.FC = () => {
                     <p className="text-gray-500 text-sm">We'll get back to you very soon.</p>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4">
+                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 md:space-y-4">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
                       <div className="space-y-1">
                         <label className="text-[10px] font-bold text-secondary/60 uppercase tracking-wider">Your Name</label>
-                        <input required type="text" className="w-full bg-zinc-50 border border-zinc-100 p-2.5 md:p-3 text-sm text-secondary focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all placeholder:text-zinc-400 rounded-lg" placeholder="John Doe" />
+                        <input 
+                          type="text" 
+                          aria-invalid={!!errors.name}
+                          className={`w-full bg-zinc-50 border p-2.5 md:p-3 text-sm text-secondary focus:outline-none transition-all placeholder:text-zinc-400 rounded-lg ${errors.name ? 'border-red-300 focus:border-red-400 focus:ring-1 focus:ring-red-300' : 'border-zinc-100 focus:border-primary focus:ring-1 focus:ring-primary'}`} 
+                          placeholder="John Doe" 
+                          {...register('name')}
+                        />
+                        {errors.name ? (
+                          <p className="text-[10px] font-semibold text-red-500">{errors.name.message}</p>
+                        ) : null}
                       </div>
                       <div className="space-y-1">
                         <label className="text-[10px] font-bold text-secondary/60 uppercase tracking-wider">Your Email</label>
-                        <input required type="email" className="w-full bg-zinc-50 border border-zinc-100 p-2.5 md:p-3 text-sm text-secondary focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all placeholder:text-zinc-400 rounded-lg" placeholder="john@agency.com" />
+                        <input 
+                          type="email" 
+                          aria-invalid={!!errors.email}
+                          className={`w-full bg-zinc-50 border p-2.5 md:p-3 text-sm text-secondary focus:outline-none transition-all placeholder:text-zinc-400 rounded-lg ${errors.email ? 'border-red-300 focus:border-red-400 focus:ring-1 focus:ring-red-300' : 'border-zinc-100 focus:border-primary focus:ring-1 focus:ring-primary'}`} 
+                          placeholder="john@agency.com" 
+                          {...register('email')}
+                        />
+                        {errors.email ? (
+                          <p className="text-[10px] font-semibold text-red-500">{errors.email.message}</p>
+                        ) : null}
                       </div>
                     </div>
                     
                     <div className="space-y-1">
                       <label className="text-[10px] font-bold text-secondary/60 uppercase tracking-wider">Subject</label>
-                      <input required type="text" className="w-full bg-zinc-50 border border-zinc-100 p-2.5 md:p-3 text-sm text-secondary focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all placeholder:text-zinc-400 rounded-lg" placeholder="How can we help?" />
+                      <input 
+                        type="text" 
+                        aria-invalid={!!errors.subject}
+                        className={`w-full bg-zinc-50 border p-2.5 md:p-3 text-sm text-secondary focus:outline-none transition-all placeholder:text-zinc-400 rounded-lg ${errors.subject ? 'border-red-300 focus:border-red-400 focus:ring-1 focus:ring-red-300' : 'border-zinc-100 focus:border-primary focus:ring-1 focus:ring-primary'}`} 
+                        placeholder="How can we help?" 
+                        {...register('subject')}
+                      />
+                      {errors.subject ? (
+                        <p className="text-[10px] font-semibold text-red-500">{errors.subject.message}</p>
+                      ) : null}
                     </div>
                     
                     <div className="space-y-1">
                       <label className="text-[10px] font-bold text-secondary/60 uppercase tracking-wider">Message</label>
-                      <textarea rows={3} className="w-full bg-zinc-50 border border-zinc-100 p-2.5 md:p-3 text-sm text-secondary focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all resize-none placeholder:text-zinc-400 rounded-lg" placeholder="Your message here..."></textarea>
+                      <textarea 
+                        rows={3} 
+                        aria-invalid={!!errors.message}
+                        className={`w-full bg-zinc-50 border p-2.5 md:p-3 text-sm text-secondary focus:outline-none transition-all resize-none placeholder:text-zinc-400 rounded-lg ${errors.message ? 'border-red-300 focus:border-red-400 focus:ring-1 focus:ring-red-300' : 'border-zinc-100 focus:border-primary focus:ring-1 focus:ring-primary'}`} 
+                        placeholder="Your message here..."
+                        {...register('message')}
+                      ></textarea>
+                      {errors.message ? (
+                        <p className="text-[10px] font-semibold text-red-500">{errors.message.message}</p>
+                      ) : null}
                     </div>
                     
-                    <button type="submit" className="w-full bg-primary text-white font-black py-3 md:py-4 hover:bg-secondary transition-all duration-300 text-[10px] md:text-xs uppercase flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:-translate-y-0.5 group rounded-lg">
+                    <button type="submit" disabled={isSubmitting} className="w-full bg-primary text-white font-black py-3 md:py-4 hover:bg-secondary transition-all duration-300 text-[10px] md:text-xs uppercase flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:-translate-y-0.5 group rounded-lg disabled:opacity-70 disabled:cursor-not-allowed">
                       Send Message
                       <Icons.ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </button>
