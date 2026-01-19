@@ -22,9 +22,17 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({
 
   useLayoutEffect(() => {
     const element = containerRef.current;
-    if (!element) return;
-    gsap.registerPlugin(ScrollTrigger);
+    if (!element || typeof window === 'undefined') return;
     const targets = element.querySelectorAll<HTMLElement>('[data-word]');
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) {
+      targets.forEach((target) => {
+        target.style.opacity = '1';
+        target.style.transform = 'none';
+      });
+      return;
+    }
+    gsap.registerPlugin(ScrollTrigger);
     const ctx = gsap.context(() => {
       gsap.fromTo(
         targets,

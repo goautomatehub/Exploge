@@ -24,9 +24,14 @@ export const Reveal: React.FC<RevealProps> = ({
 
   useLayoutEffect(() => {
     const element = elementRef.current;
-    if (!element) return;
+    if (!element || typeof window === 'undefined') return;
     const isMobile = window.innerWidth < 768;
-    const offset = isMobile ? 15 : 30;
+    if (isMobile) {
+      element.style.opacity = '1';
+      element.style.transform = 'none';
+      return;
+    }
+    const offset = 30;
     const initialX = direction === 'left' ? -offset : direction === 'right' ? offset : 0;
     const initialY = direction === 'up' ? offset : direction === 'down' ? -offset : 0;
 
@@ -39,12 +44,12 @@ export const Reveal: React.FC<RevealProps> = ({
           opacity: 1,
           x: 0,
           y: 0,
-          duration: isMobile ? duration * 0.8 : duration,
-          delay: isMobile ? delay * 0.5 : delay,
+          duration,
+          delay,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: element,
-            start: isMobile ? 'top 90%' : 'top 80%',
+            start: 'top 80%',
             once: true
           }
         }
