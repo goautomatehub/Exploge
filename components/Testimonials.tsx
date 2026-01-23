@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useLayoutEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import useEmblaCarousel from 'embla-carousel-react';
 import { Reveal } from './Reveal';
@@ -43,6 +43,9 @@ export const Testimonials: React.FC = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start', dragFree: false });
+  const sectionRef = useRef<HTMLElement>(null);
+  const leftRef = useRef<HTMLDivElement>(null);
+  const rightRef = useRef<HTMLDivElement>(null);
 
   const totalSlides = testimonials.length;
   const slideIndex = selectedIndex;
@@ -70,6 +73,48 @@ export const Testimonials: React.FC = () => {
     return () => clearInterval(timer);
   }, [emblaApi, isPaused]);
 
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    if (!section || typeof window === 'undefined') return;
+    const easing = 'cubic-bezier(0.16, 1, 0.3, 1)';
+    const left = leftRef.current;
+    const right = rightRef.current;
+
+    if (left) {
+      left.style.opacity = '0';
+      left.style.transform = 'translate3d(0, 24px, 0)';
+      left.style.transition = `opacity 0.9s ${easing}, transform 0.9s ${easing}`;
+    }
+    if (right) {
+      right.style.opacity = '0';
+      right.style.transform = 'translate3d(0, 24px, 0) scale(0.98)';
+      right.style.transition = `opacity 1s ${easing}, transform 1s ${easing}`;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          if (entry.target === left && left) {
+            left.style.opacity = '1';
+            left.style.transform = 'translate3d(0, 0, 0)';
+          }
+          if (entry.target === right && right) {
+            right.style.opacity = '1';
+            right.style.transform = 'translate3d(0, 0, 0) scale(1)';
+          }
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -20% 0px' }
+    );
+
+    if (left) observer.observe(left);
+    if (right) observer.observe(right);
+
+    return () => observer.disconnect();
+  }, []);
+
   const currentTestimonial = testimonials[slideIndex];
 
   return (
@@ -79,6 +124,7 @@ export const Testimonials: React.FC = () => {
       style={{ backgroundImage: 'url(https://nextjs.sasstech.webnextpro.com/assets/images/bg/mash-gradient-bg5.png)' }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
+      ref={sectionRef}
     >
       <div className="absolute inset-0 bg-black/60 z-0"></div>
 
@@ -93,7 +139,7 @@ export const Testimonials: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-20 items-center">
           
           {/* Left Content: Headings & Description */}
-          <div className="max-w-xl">
+          <div className="max-w-xl" ref={leftRef}>
             <Reveal direction="left">
               <span className="text-2xl font-bold text-primary sub-heading mb-4 inline-block">Client Success</span>
             </Reveal>
@@ -140,7 +186,7 @@ export const Testimonials: React.FC = () => {
           </div>
 
           {/* Right Content: Embla Carousel */}
-          <div className="relative">
+          <div className="relative" ref={rightRef}>
             <div className="overflow-hidden" ref={emblaRef}>
               <div className="flex">
                 {testimonials.map((t, i) => (

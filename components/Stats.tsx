@@ -1,13 +1,63 @@
 
-import React from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import { Reveal } from './Reveal';
 import { Counter } from './Counter';
 import drivenImg from './Images/assest images/driven-img.png';
 import { FloatingDecorations } from './FloatingDecorations';
 
 export const Stats: React.FC = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    if (!section || typeof window === 'undefined') return;
+    const image = imageRef.current;
+    if (!image) return;
+    const easing = 'cubic-bezier(0.16, 1, 0.3, 1)';
+    image.style.opacity = '0';
+    image.style.setProperty('--stats-scale', '0.98');
+    image.style.setProperty('--stats-parallax', '0px');
+    image.style.transition = `opacity 1s ${easing}, transform 1s ${easing}`;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        image.style.opacity = '1';
+        image.style.setProperty('--stats-scale', '1');
+        observer.disconnect();
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -20% 0px' }
+    );
+    observer.observe(image);
+
+    let rafId = 0;
+    const handleParallax = () => {
+      if (rafId) return;
+      rafId = window.requestAnimationFrame(() => {
+        rafId = 0;
+        const rect = section.getBoundingClientRect();
+        const viewport = window.innerHeight || 0;
+        const progress = Math.min(1, Math.max(0, (viewport - rect.top) / (rect.height + viewport)));
+        const offset = -30 * progress;
+        image.style.setProperty('--stats-parallax', `${offset}px`);
+      });
+    };
+
+    handleParallax();
+    window.addEventListener('scroll', handleParallax, { passive: true });
+    window.addEventListener('resize', handleParallax);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', handleParallax);
+      window.removeEventListener('resize', handleParallax);
+      if (rafId) window.cancelAnimationFrame(rafId);
+    };
+  }, []);
+
   return (
-    <section className="pt-24 bg-soft overflow-hidden relative">
+    <section className="pt-24 bg-soft overflow-hidden relative" ref={sectionRef}>
       {/* Floating Elements */}
       <FloatingDecorations.Dot className="top-20 left-[10%] hidden md:block" delay={0.2} />
       <FloatingDecorations.Plus className="bottom-40 right-[5%] text-primary hidden md:block" delay={0.5} />
@@ -73,7 +123,11 @@ export const Stats: React.FC = () => {
 
         {/* Bottom Image */}
         <div className="relative mt-0 flex justify-center">
-          <div className="w-full max-w-5xl">
+          <div
+            className="w-full max-w-5xl"
+            ref={imageRef}
+            style={{ transform: "translate3d(0, var(--stats-parallax, 0px), 0) scale(var(--stats-scale, 1))" }}
+          >
             <div className="relative">
               <img 
                 src={drivenImg} 

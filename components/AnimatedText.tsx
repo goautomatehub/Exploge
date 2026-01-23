@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 
 interface AnimatedTextProps {
   text: string;
@@ -8,16 +8,52 @@ interface AnimatedTextProps {
   highlightClassName?: string;
 }
 
-export const AnimatedText: React.FC<AnimatedTextProps> = ({
-  text,
-  className = "",
+export const AnimatedText: React.FC<AnimatedTextProps> = ({ 
+  text, 
+  className = "", 
+  delay = 0,
   highlightWords = [],
   highlightClassName = "text-primary"
 }) => {
   const words = text.split(" ");
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const element = containerRef.current;
+    if (!element || typeof window === 'undefined') return;
+    const targets = element.querySelectorAll<HTMLElement>('[data-word]');
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) {
+      targets.forEach((target) => {
+        target.style.opacity = '1';
+        target.style.transform = 'none';
+      });
+      return;
+    }
+    const easing = 'cubic-bezier(0.16, 1, 0.3, 1)';
+    targets.forEach((target) => {
+      target.style.opacity = '0';
+      target.style.transform = 'translate3d(0, 20px, 0)';
+    });
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        targets.forEach((target, index) => {
+          const wordDelay = delay + index * 0.05;
+          target.style.transition = `opacity 0.5s ${easing} ${wordDelay}s, transform 0.5s ${easing} ${wordDelay}s`;
+          target.style.opacity = '1';
+          target.style.transform = 'translate3d(0, 0, 0)';
+        });
+        observer.disconnect();
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -15% 0px' }
+    );
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [delay]);
 
   return (
-    <div className={`flex flex-wrap ${className}`}>
+    <div ref={containerRef} className={`flex flex-wrap ${className}`}>
       {words.map((word, index) => {
         const isHighlighted = highlightWords.some(h => 
           word.toLowerCase().includes(h.toLowerCase())

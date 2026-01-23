@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import { Reveal } from './Reveal';
 import { AmbientGroup, AmbientBlobs } from './AmbientBlobs';
 import { Icons } from './Icons';
@@ -6,6 +6,96 @@ import { FloatingDecorations } from './FloatingDecorations';
 import { AnimatedText } from './AnimatedText';
 
 export const Hero: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  useLayoutEffect(() => {
+    const section = containerRef.current;
+    if (!section || typeof window === 'undefined') return;
+    const isMobile = window.innerWidth < 768;
+    const easing = 'cubic-bezier(0.16, 1, 0.3, 1)';
+    const observers: IntersectionObserver[] = [];
+
+    const observeOnce = (target: Element, onEnter: () => void) => {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry.isIntersecting) return;
+          onEnter();
+          observer.disconnect();
+        },
+        { threshold: 0.1, rootMargin: '0px 0px -20% 0px' }
+      );
+      observer.observe(target);
+      observers.push(observer);
+    };
+
+    const text = section.querySelector<HTMLElement>('[data-hero-text]');
+    if (text) {
+      text.style.opacity = '0';
+      text.style.setProperty('--hero-text-reveal', '24px');
+      text.style.setProperty('--hero-text-parallax', '0px');
+      text.style.transition = `opacity 1s ${easing}, transform 1s ${easing}`;
+      observeOnce(text, () => {
+        text.style.opacity = '1';
+        text.style.setProperty('--hero-text-reveal', '0px');
+      });
+    }
+
+    const cards = Array.from(section.querySelectorAll<HTMLElement>('[data-hero-card]')) as HTMLElement[];
+    cards.forEach((card, index) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translate3d(0, 20px, 0) scale(0.98)';
+      card.style.transition = `opacity 0.9s ${easing} ${index * 0.1}s, transform 0.9s ${easing} ${index * 0.1}s`;
+      observeOnce(card, () => {
+        card.style.opacity = '1';
+        card.style.transform = 'translate3d(0, 0, 0) scale(1)';
+      });
+    });
+
+    const gauge = section.querySelector<SVGCircleElement>('[data-hero-gauge]');
+    if (gauge) {
+      gauge.style.strokeDashoffset = '150.8';
+      gauge.style.transition = `stroke-dashoffset 2s ${easing}`;
+      observeOnce(gauge, () => {
+        gauge.style.strokeDashoffset = '0';
+      });
+    }
+
+    const blobs = section.querySelector<HTMLElement>('[data-hero-blobs]');
+    if (blobs) {
+      blobs.style.setProperty('--hero-blobs-parallax', '0px');
+    }
+
+    let rafId = 0;
+    const handleParallax = () => {
+      if (rafId) return;
+      rafId = window.requestAnimationFrame(() => {
+        rafId = 0;
+        const rect = section.getBoundingClientRect();
+        const viewport = window.innerHeight || 0;
+        const progress = Math.min(1, Math.max(0, (viewport - rect.top) / (rect.height + viewport)));
+        if (text) {
+          const textOffset = (isMobile ? -20 : -60) * progress;
+          text.style.setProperty('--hero-text-parallax', `${textOffset}px`);
+        }
+        if (blobs) {
+          const blobOffset = (isMobile ? 30 : 80) * progress;
+          blobs.style.setProperty('--hero-blobs-parallax', `${blobOffset}px`);
+        }
+      });
+    };
+
+    handleParallax();
+    window.addEventListener('scroll', handleParallax, { passive: true });
+    window.addEventListener('resize', handleParallax);
+
+    return () => {
+      observers.forEach((observer) => observer.disconnect());
+      window.removeEventListener('scroll', handleParallax);
+      window.removeEventListener('resize', handleParallax);
+      if (rafId) window.cancelAnimationFrame(rafId);
+    };
+  }, []);
+
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
     const element = document.getElementById(id);
@@ -22,7 +112,7 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section className="relative pt-24 pb-12 xs:pt-28 sm:pt-32 md:pt-40 md:pb-20 lg:pt-56 lg:pb-40 bg-zinc-50 overflow-hidden bg-grid">
+    <section ref={containerRef} className="relative pt-24 pb-12 xs:pt-28 sm:pt-32 md:pt-40 md:pb-20 lg:pt-56 lg:pb-40 bg-zinc-50 overflow-hidden bg-grid">
       {/* Background Radial Glow for Mobile - Adds depth without clutter */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(32,188,97,0.08),transparent_70%)] lg:hidden pointer-events-none" />
 
@@ -34,7 +124,11 @@ export const Hero: React.FC = () => {
       <FloatingDecorations.GridDots className="top-1/2 left-[15%] hidden lg:block" delay={1.4} />
       <FloatingDecorations.Zigzag className="top-[25%] right-[5%] hidden lg:block" delay={1.7} />
 
-      <div data-hero-blobs className="absolute inset-0 pointer-events-none">
+      <div
+        data-hero-blobs
+        className="absolute inset-0 pointer-events-none"
+        style={{ transform: 'translate3d(0, var(--hero-blobs-parallax, 0px), 0)' }}
+      >
         <AmbientGroup />
         
         {/* Additional Greenish Blobs - Optimized for Mobile */}
@@ -144,7 +238,11 @@ export const Hero: React.FC = () => {
         </div>
 
         <div className="flex flex-col items-center text-center max-w-6xl mx-auto">
-          <div data-hero-text className="w-full space-y-6 sm:space-y-8 md:space-y-10" style={{ willChange: "transform" }}>
+          <div
+            data-hero-text
+            className="w-full space-y-6 sm:space-y-8 md:space-y-10"
+            style={{ willChange: "transform", transform: "translate3d(0, calc(var(--hero-text-reveal, 0px) + var(--hero-text-parallax, 0px)), 0)" }}
+          >
             {/* SaaS Style Subheading */}
             <Reveal direction="down" delay={0.1}>
               <div className="inline-flex items-center gap-2 sm:gap-3 px-4 py-2 sm:py-2.5 rounded-full border border-primary/20 bg-primary/5 text-secondary font-bold tracking-wide">

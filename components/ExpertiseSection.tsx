@@ -1,11 +1,66 @@
 
-import React from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import { Icons } from './Icons';
 import { FloatingDecorations } from './FloatingDecorations';
 
 export const ExpertiseSection: React.FC = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    if (!section || typeof window === 'undefined') return;
+    const easing = 'cubic-bezier(0.16, 1, 0.3, 1)';
+    const items = section.querySelectorAll<HTMLElement>('[data-reveal]');
+    items.forEach((item) => {
+      const delay = Number(item.dataset.delay ?? 0);
+      item.style.opacity = '0';
+      item.style.transform = 'translate3d(0, 24px, 0)';
+      item.style.transition = `opacity 0.9s ${easing} ${delay}s, transform 0.9s ${easing} ${delay}s`;
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const target = entry.target as HTMLElement;
+          target.style.opacity = '1';
+          target.style.transform = 'translate3d(0, 0, 0)';
+          observer.unobserve(target);
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -20% 0px' }
+    );
+
+    items.forEach((item) => observer.observe(item));
+
+    const parallaxTarget = section.querySelector<HTMLElement>('[data-parallax]');
+    let rafId = 0;
+    const handleParallax = () => {
+      if (!parallaxTarget) return;
+      if (rafId) return;
+      rafId = window.requestAnimationFrame(() => {
+        rafId = 0;
+        const rect = section.getBoundingClientRect();
+        const viewport = window.innerHeight || 0;
+        const progress = Math.min(1, Math.max(0, (viewport - rect.top) / (rect.height + viewport)));
+        parallaxTarget.style.transform = `translate3d(0, ${-30 * progress}px, 0)`;
+      });
+    };
+
+    handleParallax();
+    window.addEventListener('scroll', handleParallax, { passive: true });
+    window.addEventListener('resize', handleParallax);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', handleParallax);
+      window.removeEventListener('resize', handleParallax);
+      if (rafId) window.cancelAnimationFrame(rafId);
+    };
+  }, []);
+
   return (
-    <section className="pt-12 pb-16 md:py-24 bg-white overflow-hidden relative">
+    <section ref={sectionRef} className="pt-12 pb-16 md:py-24 bg-white overflow-hidden relative">
       {/* Floating Elements */}
       <FloatingDecorations.Dot className="top-20 right-[5%] hidden md:block" delay={0.3} />
       <FloatingDecorations.Box className="bottom-[20%] left-[2%] hidden md:block" delay={0.7} />

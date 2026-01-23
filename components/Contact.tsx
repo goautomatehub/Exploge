@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -17,6 +17,9 @@ type ContactFormValues = z.infer<typeof contactSchema>;
 
 export const Contact: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const leftRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLDivElement>(null);
 
   const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
@@ -35,8 +38,50 @@ export const Contact: React.FC = () => {
     setTimeout(() => setSubmitted(false), 5000);
   };
 
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    if (!section || typeof window === 'undefined') return;
+    const easing = 'cubic-bezier(0.16, 1, 0.3, 1)';
+    const left = leftRef.current;
+    const form = formRef.current;
+
+    if (left) {
+      left.style.opacity = '0';
+      left.style.transform = 'translate3d(0, 24px, 0)';
+      left.style.transition = `opacity 0.9s ${easing}, transform 0.9s ${easing}`;
+    }
+    if (form) {
+      form.style.opacity = '0';
+      form.style.transform = 'translate3d(0, 24px, 0) scale(0.98)';
+      form.style.transition = `opacity 1s ${easing}, transform 1s ${easing}`;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          if (entry.target === left && left) {
+            left.style.opacity = '1';
+            left.style.transform = 'translate3d(0, 0, 0)';
+          }
+          if (entry.target === form && form) {
+            form.style.opacity = '1';
+            form.style.transform = 'translate3d(0, 0, 0) scale(1)';
+          }
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -20% 0px' }
+    );
+
+    if (left) observer.observe(left);
+    if (form) observer.observe(form);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="contact" className="py-8 md:pt-16 md:pb-0 overflow-visible relative z-20 -mb-40 md:-mb-52">
+    <section id="contact" className="py-8 md:pt-16 md:pb-0 overflow-visible relative z-20 -mb-40 md:-mb-52" ref={sectionRef}>
       <AmbientBlobs color="bg-primary" size="w-[400px] h-[400px]" className="-top-32 -right-32" opacity="opacity-[0.08]" animation="animate-blob" />
       <AmbientBlobs color="bg-primary" size="w-64 h-64" className="bottom-0 left-0" opacity="opacity-[0.05]" animation="animate-blob-slow" />
       
@@ -60,7 +105,7 @@ export const Contact: React.FC = () => {
           </div>
 
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center relative z-10">
-            <div className="w-full lg:w-1/2 space-y-4 md:space-y-6">
+            <div className="w-full lg:w-1/2 space-y-4 md:space-y-6" ref={leftRef}>
               <span className="text-xl font-bold text-primary sub-heading mb-2 inline-block">Get In Touch</span>
               <h3 className="text-2xl xs:text-3xl md:text-4xl lg:text-5xl font-black leading-tight tracking-tighter">
                 Let's Talk <span className="text-primary">Automation</span>.
@@ -79,7 +124,7 @@ export const Contact: React.FC = () => {
               </div>
             </div>
             
-            <div className="w-full lg:w-1/2">
+            <div className="w-full lg:w-1/2" ref={formRef}>
               <div className="bg-white p-5 md:p-6 lg:p-8 relative rounded-xl shadow-2xl">
                 {submitted ? (
                   <div className="py-12 md:py-16 lg:py-20 text-center animate-pulse">

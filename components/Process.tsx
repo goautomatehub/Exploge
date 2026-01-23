@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import { Reveal } from './Reveal';
 import { ClipboardList, Layers, Settings2, Rocket, CheckCircle2 } from 'lucide-react';
 import { FloatingDecorations } from './FloatingDecorations';
@@ -32,8 +32,61 @@ const steps = [
 ];
 
 export const Process: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    if (!section || typeof window === 'undefined') return;
+    const container = containerRef.current;
+    if (!container) return;
+    const easing = 'cubic-bezier(0.16, 1, 0.3, 1)';
+    const icons = section.querySelectorAll<HTMLElement>('[data-step-icon]');
+    const stepContent = section.querySelectorAll<HTMLElement>('[data-step-content]');
+
+    icons.forEach((icon, index) => {
+      icon.style.opacity = '0';
+      icon.style.transform = 'scale(0.9)';
+      icon.style.transition = `opacity 0.6s ${easing} ${index * 0.08}s, transform 0.6s ${easing} ${index * 0.08}s`;
+    });
+
+    stepContent.forEach((content, index) => {
+      content.style.opacity = '0';
+      content.style.transform = 'translate3d(0, 18px, 0)';
+      content.style.transition = `opacity 0.8s ${easing} ${index * 0.1}s, transform 0.8s ${easing} ${index * 0.1}s`;
+    });
+
+    if (progressRef.current) {
+      progressRef.current.style.transform = 'scaleY(0)';
+      progressRef.current.style.transition = `transform 1s ${easing}`;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        icons.forEach((icon) => {
+          icon.style.opacity = '1';
+          icon.style.transform = 'scale(1)';
+        });
+        stepContent.forEach((content) => {
+          content.style.opacity = '1';
+          content.style.transform = 'translate3d(0, 0, 0)';
+        });
+        if (progressRef.current) {
+          progressRef.current.style.transform = 'scaleY(1)';
+        }
+        observer.disconnect();
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -20% 0px' }
+    );
+
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="process" className="pt-12 pb-16 md:py-24 bg-white relative overflow-hidden">
+    <section id="process" className="pt-12 pb-16 md:py-24 bg-white relative overflow-hidden" ref={sectionRef}>
       {/* Floating Elements */}
       <FloatingDecorations.Triangle className="top-10 left-[5%] hidden md:block" delay={0.2} />
       <FloatingDecorations.Dot className="bottom-20 right-[10%] hidden md:block" delay={0.6} />
@@ -79,7 +132,7 @@ export const Process: React.FC = () => {
           </div>
           
           {/* Right Side: Animated Steps (With Dark Background) */}
-          <div className="w-full lg:w-1/2 relative bg-secondary rounded-[14px] p-6 md:p-10 lg:p-12 text-white overflow-hidden shadow-2xl">
+          <div className="w-full lg:w-1/2 relative bg-secondary rounded-[14px] p-6 md:p-10 lg:p-12 text-white overflow-hidden shadow-2xl" ref={containerRef}>
             {/* Subtle decoration */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/10 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
@@ -110,7 +163,9 @@ export const Process: React.FC = () => {
                 {/* Animated Progress Line */}
                 <div className="absolute top-[20px] md:top-[24px] lg:top-[28px] bottom-[20px] md:bottom-[24px] lg:bottom-[28px] w-[2px] z-0">
                   <div 
+                    ref={progressRef}
                     className="absolute inset-0 bg-primary shadow-[0_0_15px_rgba(32,188,97,0.5)]"
+                    style={{ transform: 'scaleY(0)', transformOrigin: 'top' }}
                   />
                 </div>
               </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import { Reveal } from './Reveal';
 import { Icons } from './Icons';
 
@@ -41,8 +41,34 @@ const tools = [
 ];
 
 export const TrustedCompanies: React.FC = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const marqueeRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    if (!section || !marqueeRef.current || typeof window === 'undefined') return;
+    const marquee = marqueeRef.current;
+    const easing = 'cubic-bezier(0.16, 1, 0.3, 1)';
+    marquee.style.opacity = '0';
+    marquee.style.transform = 'translate3d(0, 16px, 0)';
+    marquee.style.transition = `opacity 0.9s ${easing}, transform 0.9s ${easing}`;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        marquee.style.opacity = '1';
+        marquee.style.transform = 'translate3d(0, 0, 0)';
+        observer.disconnect();
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -20% 0px' }
+    );
+    observer.observe(marquee);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="py-12 md:py-20 bg-zinc-50 overflow-hidden relative">
+    <section className="py-12 md:py-20 bg-zinc-50 overflow-hidden relative" ref={sectionRef}>
       <div className="container mx-auto px-6 mb-8 md:mb-12">
         <Reveal direction="up">
           <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
@@ -53,7 +79,7 @@ export const TrustedCompanies: React.FC = () => {
         </Reveal>
       </div>
 
-      <div className="relative flex overflow-x-hidden">
+      <div className="relative flex overflow-x-hidden" ref={marqueeRef}>
         <div className="flex animate-marquee-fast whitespace-nowrap items-center py-4 w-max">
           {[...Array(2)].map((_, i) => (
             <div key={i} className="flex shrink-0 items-center">
