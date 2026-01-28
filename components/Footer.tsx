@@ -32,10 +32,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, currentPage }) => {
               We help businesses grow by building simple and effective automation systems.
             </p>
             <div className="flex items-center gap-5">
-              <a href="#" className="text-gray-400 hover:text-primary transition-colors" aria-label="Facebook">
+              <a href="https://www.facebook.com/share/1AhWpk9Hwq/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary transition-colors" aria-label="Facebook">
                 <Facebook className="w-5 h-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-primary transition-colors" aria-label="LinkedIn">
+              <a href="https://www.linkedin.com/company/exploge/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary transition-colors" aria-label="LinkedIn">
                 <Linkedin className="w-5 h-5" />
               </a>
             </div>

@@ -11,31 +11,31 @@ const testimonials = [
     quote: "I used to spend my whole Sunday catching up on paperwork. Now, everything happens automatically, and I finally have my weekends back with my family.",
     author: "Sarah Jenkins",
     role: "Business Owner",
-    avatar: "https://i.pravatar.cc/150?u=sarah"
+    avatar: "https://randomuser.me/api/portraits/women/44.jpg"
   },
   {
     quote: "We were stuck and couldn't take on new clients because we were too busy with manual data entry. These systems allowed us to double our business without adding more stress.",
-    author: "David Miller",
+    author: "Owen Carter",
     role: "Agency Founder",
-    avatar: "https://i.pravatar.cc/150?u=david"
+    avatar: "https://randomuser.me/api/portraits/men/32.jpg"
   },
   {
     quote: "I’m not a 'tech person,' so I was worried this would be complicated. But they made it so easy to understand and use. It just works!",
-    author: "Amanda Reed",
+    author: "Nadia Collins",
     role: "E-commerce Owner",
-    avatar: "https://i.pravatar.cc/150?u=amanda"
+    avatar: "https://randomuser.me/api/portraits/women/68.jpg"
   },
   {
     quote: "Before this, we kept losing track of leads and missing emails. Now, our CRM is perfectly organized, and nothing ever falls through the cracks again.",
-    author: "Jason Park",
+    author: "Ethan Brooks",
     role: "Sales Director",
-    avatar: "https://i.pravatar.cc/150?u=jason"
+    avatar: "https://randomuser.me/api/portraits/men/54.jpg"
   },
   {
     quote: "They didn't just build tools; they built a system that helps our business grow every day. It’s the best investment we’ve made this year.",
-    author: "Michael Chen",
+    author: "Lucas Bennett",
     role: "Business Owner",
-    avatar: "https://i.pravatar.cc/150?u=michael"
+    avatar: "https://randomuser.me/api/portraits/men/71.jpg"
   }
 ];
 

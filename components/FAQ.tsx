@@ -65,7 +65,7 @@ export const FAQ: React.FC = () => {
     },
     { 
       q: "Which apps can you connect together?", 
-      a: "We can link almost any popular tool, including Gmail, Excel, Google Sheets, WhatsApp, Slack, and most CRM or social media platforms." 
+      a: "We can connect automation and CRM tools like GoHighLevel, HubSpot, Salesforce, Pipedrive, Zoho, Airtable, Monday, Asana, Make, Zapier, and n8n." 
     },
     { 
       q: "How much time will this actually save me?", 
@@ -92,12 +92,12 @@ export const FAQ: React.FC = () => {
           </Reveal>
           <Reveal direction="up" delay={0.1}>
             <h3 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter mb-6 leading-none">
-              Helpful information.
+              Clear answers for you.
             </h3>
           </Reveal>
           <Reveal direction="up" delay={0.2}>
             <p className="text-gray-400 text-sm md:text-base max-w-2xl mx-auto">
-              To keep your website helpful and easy to understand, these FAQs address the most common worries business owners have about automation.
+              These FAQs answer the most common questions business owners have about automation, so you can feel confident moving forward.
             </p>
           </Reveal>
         </div>
