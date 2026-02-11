@@ -99,7 +99,7 @@ export const Stats: React.FC = () => {
             <div className="text-center md:border-r border-zinc-100 px-8">
               <Reveal direction="up" delay={0.3}>
                 <div className="text-5xl md:text-6xl font-extrabold text-secondary mb-4 tracking-tighter">
-                  <Counter value={250} suffix="+" />
+                  <Counter value={40} suffix="+" />
                 </div>
                 <div className="text-xl sub-heading text-secondary">
                   Systems Built for Clients

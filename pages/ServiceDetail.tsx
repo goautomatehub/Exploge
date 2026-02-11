@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { servicesData } from '../data/servicesData';
 import { Reveal } from '../components/Reveal';
-import { CheckCircle2, ArrowRight } from 'lucide-react';
+import { CheckCircle2, ArrowRight, ChevronDown } from 'lucide-react';
 import { Page } from '../App';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface ServiceDetailProps {
   slug: string | null;
@@ -11,6 +12,7 @@ interface ServiceDetailProps {
 
 const ServiceDetail: React.FC<ServiceDetailProps> = ({ slug, onNavigate }) => {
   const service = servicesData.find(s => s.slug === slug);
+  const [activeFaqIndex, setActiveFaqIndex] = useState<number | null>(0);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -33,6 +35,85 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ slug, onNavigate }) => {
   };
 
   const heroImage = serviceImages[service.slug] ?? serviceImages["workflow-automation"];
+
+  const getServiceFaqs = (slug: string, title: string) => {
+    switch (slug) {
+      case 'automation-service':
+        return [
+          { q: "Do you build custom automation workflows?", a: "Yes, every automation is designed around your specific operations and business logic." },
+          { q: "Can automation integrate with my existing tools?", a: "We connect your CRM, marketing tools, and third party platforms into one synchronized system." },
+          { q: "Will automation replace manual work completely?", a: "Automation reduces repetitive tasks while keeping you in control of critical decision making." },
+          { q: "How do you ensure automation accuracy?", a: "We implement structured logic, testing phases, and monitoring to prevent workflow errors." },
+          { q: "Can automation improve conversion rates?", a: "Yes, structured follow ups and instant responses increase engagement and lead conversion." }
+        ];
+      case 'crm-setup-optimized':
+        return [
+          { q: "What does your CRM setup process include?", a: "We configure pipelines, stages, automation, user roles, dashboards, and reporting aligned with your sales process." },
+          { q: "Can you optimize my existing CRM system?", a: "Yes, we audit your current setup, remove inefficiencies, and restructure workflows for better performance." },
+          { q: "Do you customize CRM pipelines based on business model?", a: "Every pipeline is structured around your lead flow, sales cycle, and operational requirements." },
+          { q: "Will the CRM be integrated with other tools?", a: "We connect your CRM with marketing platforms, automation tools, and third party applications for seamless data flow." },
+          { q: "Can you automate follow ups and lead tracking inside the CRM?", a: "Yes, we implement automated sequences, reminders, and tracking systems to improve consistency." },
+          { q: "How do you improve CRM performance?", a: "We analyze data structure, optimize workflows, and refine automation logic to increase efficiency." }
+        ];
+      case 'self-selling-ai':
+        return [
+          { q: "What is Self Selling AI?", a: "Self Selling AI is an automated system that nurtures leads, handles objections, and moves prospects through your sales pipeline automatically." },
+          { q: "Can it integrate with my CRM and marketing tools?", a: "Yes, the system connects directly with your CRM, email platforms, and automation tools for synchronized data flow." },
+          { q: "Is the sales process customizable?", a: "We build tailored sales logic and communication flows based on your specific offer and target audience." },
+          { q: "Does it work 24/7 without manual involvement?", a: "Yes, the system operates continuously, ensuring no lead is missed or ignored." },
+          { q: "Can it handle large volumes of leads?", a: "The architecture is designed to scale with increasing traffic and data without performance loss." }
+        ];
+      case 'voice-ai-chat-bots':
+        return [
+          { q: "Can Voice AI and chatbots integrate with my CRM?", a: "Yes, we connect AI systems directly with your CRM to sync data in real time." },
+          { q: "Are the conversations customizable?", a: "We design custom scripts and conversational flows aligned with your business objectives." },
+          { q: "Can AI systems operate 24/7?", a: "Yes, Voice AI and chatbots provide continuous support without downtime." },
+          { q: "Will AI replace my support team?", a: "AI handles repetitive tasks while your team focuses on complex or high value interactions." },
+          { q: "How accurate and reliable are the AI systems?", a: "We implement structured logic, testing, and optimization to ensure consistent and reliable performance." }
+        ];
+      case 'web-development':
+        return [
+          { q: "Is your website development mobile responsive?", a: "Yes, all websites are optimized for mobile, tablet, and desktop devices." },
+          { q: "Do you focus on performance and speed optimization?", a: "We develop fast loading, performance optimized websites to ensure better user experience and search visibility." },
+          { q: "Can you integrate third party tools into the website?", a: "Yes, we connect CRMs, payment gateways, analytics tools, and other SaaS platforms seamlessly." },
+          { q: "Do you provide SEO friendly development?", a: "We follow structured coding practices and on page SEO standards during development." },
+          { q: "Is your front end development optimized for performance?", a: "We write clean HTML, structured CSS, and optimized JavaScript to ensure speed and responsiveness." },
+          { q: "Can you integrate APIs into the website?", a: "We connect external systems and services using secure API integration and server side handling." }
+        ];
+      case 'saas-integration':
+        return [
+          { q: "Which SaaS platforms can you integrate?", a: "We integrate CRMs, marketing tools, payment systems, communication platforms, and custom SaaS applications." },
+          { q: "Can you integrate my existing software stack?", a: "Yes, we connect your current tools through APIs and automation frameworks without disrupting operations." },
+          { q: "Do you build custom integrations?", a: "Yes, we develop tailored integrations designed around your specific workflows and business logic." },
+          { q: "Is real time data synchronization supported?", a: "We implement secure real time or scheduled data syncing based on your operational needs." },
+          { q: "Can integrations scale as my business grows?", a: "Yes, our integration architecture is designed to handle increasing data volume and system expansion." }
+        ];
+      case 'third-party-syncronization':
+        return [
+          { q: "Which third party automation tools do you work with?", a: "We integrate and synchronize platforms like n8n, GoHighLevel, Make, Zapier, Pabbly, and other workflow automation tools." },
+          { q: "Can you migrate automations between platforms like Zapier and n8n?", a: "Yes, we restructure and migrate workflows while maintaining logic, triggers, and data consistency." },
+          { q: "How do you ensure reliable synchronization between these tools?", a: "We implement structured triggers, webhook handling, and error monitoring to maintain workflow stability." },
+          { q: "Are these integrations scalable for growing businesses?", a: "Our automation architecture is built to handle increasing task volume and system expansion efficiently." },
+          { q: "Do you optimize existing automation setups?", a: "Yes, we audit and refine workflows inside platforms like Make, Pabbly, and GoHighLevel to improve performance and reduce inefficiencies." }
+        ];
+      case 'api-integration':
+        return [
+          { q: "What is API integration and why is it important?", a: "API integration enables different systems to communicate securely and automate data exchange without manual input." },
+          { q: "What types of APIs do you work with?", a: "We integrate REST APIs, third party services, payment gateways, CRMs, and custom built APIs." },
+          { q: "Can you develop custom API connections?", a: "Yes, we build custom endpoints and structured integrations based on your system architecture." },
+          { q: "Do you support real time data processing?", a: "We implement real time API calls and webhook based triggers for instant synchronization." },
+          { q: "How do you ensure API security?", a: "We use authentication protocols, token based access, and secure request validation methods." },
+          { q: "Can you handle complex multi system integrations?", a: "Yes, we design structured logic to connect multiple platforms into a unified workflow." }
+        ];
+      default:
+        return [
+          { q: `How long does it take to implement ${title}?`, a: "Typical implementation ranges from 2-6 weeks depending on the complexity of your current systems." },
+          { q: "Will this integrate with my existing software?", a: "Yes, we specialize in connecting diverse tech stacks through secure API and automation frameworks." }
+        ];
+    }
+  };
+
+  const serviceFaqs = getServiceFaqs(service.slug, service.title);
 
   return (
     <div className="bg-white min-h-screen text-secondary">
@@ -99,7 +180,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ slug, onNavigate }) => {
                   <div className="text-[11px] font-semibold tracking-[0.3em] text-secondary/50 uppercase mb-3">Overview</div>
                   <p className="text-sm text-secondary/70 leading-relaxed mb-5">{service.shortDesc}</p>
                   <button
-                    onClick={() => onNavigate('home')}
+                    onClick={() => onNavigate('contact')}
                     className="inline-flex items-center gap-3 px-5 py-3 rounded-[12px] bg-secondary text-white font-semibold text-xs hover:bg-black transition-colors"
                   >
                     Contact Us <ArrowRight size={14} />
@@ -140,7 +221,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ slug, onNavigate }) => {
                         {service.fullDesc}
                       </p>
                       <button
-                        onClick={() => onNavigate('home')}
+                        onClick={() => onNavigate('contact')}
                         className="inline-flex items-center gap-3 px-6 py-3 rounded-[14px] bg-secondary text-white font-semibold text-sm hover:bg-black transition-colors"
                       >
                         Contact Us <ArrowRight size={16} />
@@ -187,6 +268,47 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ slug, onNavigate }) => {
                   ))}
                 </div>
               </div>
+
+              {/* Service FAQ Section */}
+              <div className="rounded-[18px] border border-black/10 bg-white p-8 md:p-10 shadow-sm">
+                <div className="mb-8">
+                  <span className="text-[11px] font-semibold tracking-[0.3em] text-secondary/50 uppercase block mb-2">FAQ</span>
+                  <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-secondary">Common Questions</h3>
+                </div>
+                <div className="space-y-4">
+                  {serviceFaqs.map((faq, i) => (
+                    <div key={i} className="border-b border-black/5 last:border-0">
+                      <button 
+                        onClick={() => setActiveFaqIndex(activeFaqIndex === i ? null : i)}
+                        className="w-full py-5 text-left flex justify-between items-center group transition-all duration-300"
+                      >
+                        <span className={`text-base md:text-lg font-bold tracking-tight transition-colors duration-300 ${activeFaqIndex === i ? 'text-primary' : 'text-zinc-900'}`}>
+                          {faq.q}
+                        </span>
+                        <div className={`p-1.5 rounded-full border border-black/5 transition-all duration-500 ${activeFaqIndex === i ? 'bg-primary border-primary text-white rotate-180' : 'bg-white text-zinc-400'}`}>
+                          <ChevronDown size={16} />
+                        </div>
+                      </button>
+                      
+                      <AnimatePresence initial={false}>
+                        {activeFaqIndex === i && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                            className="overflow-hidden"
+                          >
+                            <div className="pb-6 text-sm md:text-base text-zinc-500 leading-relaxed">
+                              {faq.a}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -207,7 +329,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ slug, onNavigate }) => {
             </Reveal>
             <Reveal direction="up" delay={0.2}>
               <button
-                onClick={() => onNavigate('home')}
+                onClick={() => onNavigate('contact')}
                 className="inline-flex items-center gap-3 px-8 py-3 rounded-[14px] bg-secondary text-white font-semibold text-sm hover:bg-black transition-colors"
               >
                 Book A Strategy Call <ArrowRight size={16} />

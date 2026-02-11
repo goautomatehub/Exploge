@@ -1,6 +1,6 @@
 import React from 'react';
 import { Hero } from '../components/Hero';
-import { Services } from '../components/Services';
+import { HomeServices } from '../components/HomeServices';
 import { Projects } from '../components/Projects';
 import { Features } from '../components/Features';
 import { Comparison } from '../components/Comparison';
@@ -16,7 +16,7 @@ import { TrustedCompanies } from '../components/TrustedCompanies';
 import { ExpertiseSection } from '../components/ExpertiseSection';
 
 interface HomeProps {
-  onNavigate?: (page: 'home' | 'about' | 'services' | 'casestudies') => void;
+  onNavigate?: (page: 'home' | 'about' | 'services' | 'casestudies' | 'service', slug?: string) => void;
 }
 
 export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
@@ -26,7 +26,7 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       <TrustedCompanies />
       <ExpertiseSection />
       <Process />
-      <Services onNavigate={onNavigate} />
+      <HomeServices onNavigate={onNavigate} />
       <Testimonials />
       <Stats />
       <FAQ />

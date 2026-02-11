@@ -281,10 +281,10 @@ export const About: React.FC<AboutProps> = ({ onNavigate }) => {
                 {/* Social & Minimal Elements */}
                 <div className="pt-8 flex flex-col sm:flex-row sm:items-center gap-8">
                   <div className="flex items-center gap-4">
-                    <a href="#" className="w-12 h-12 rounded-full border border-black/5 flex items-center justify-center text-secondary hover:bg-primary hover:text-white hover:border-primary transition-all duration-300">
+                    <a href="https://www.linkedin.com/company/exploge/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-black/5 flex items-center justify-center text-secondary hover:bg-primary hover:text-white hover:border-primary transition-all duration-300">
                       <Icons.Linkedin className="w-5 h-5" />
                     </a>
-                    <a href="#" className="w-12 h-12 rounded-full border border-black/5 flex items-center justify-center text-secondary hover:bg-primary hover:text-white hover:border-primary transition-all duration-300">
+                    <a href="https://www.facebook.com/share/1AhWpk9Hwq/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-black/5 flex items-center justify-center text-secondary hover:bg-primary hover:text-white hover:border-primary transition-all duration-300">
                       <Icons.Facebook className="w-5 h-5" />
                     </a>
                   </div>

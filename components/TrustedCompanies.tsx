@@ -84,14 +84,14 @@ export const TrustedCompanies: React.FC = () => {
           {[...Array(2)].map((_, i) => (
             <div key={i} className="flex shrink-0 items-center">
               {tools.map((tool, idx) => (
-                <a href="#contact" key={idx} className="mx-4 xs:mx-5 md:mx-8 lg:mx-10 flex flex-col items-center justify-center gap-2 group cursor-pointer">
+                <div key={idx} className="mx-4 xs:mx-5 md:mx-8 lg:mx-10 flex flex-col items-center justify-center gap-2 group">
                   <div className="h-6 w-6 xs:h-7 xs:w-7 md:h-9 md:w-9 transition-all duration-500 flex items-center justify-center">
                     <tool.icon className="w-full h-full object-contain" />
                   </div>
                   <span className="text-[10px] md:text-xs font-bold text-zinc-400 uppercase group-hover:text-secondary transition-all duration-300 text-center">
                     {tool.name}
                   </span>
-                </a>
+                </div>
               ))}
             </div>
           ))}

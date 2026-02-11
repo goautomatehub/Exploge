@@ -3,8 +3,8 @@ import { Icons } from './Icons';
 import { servicesData } from '../data/servicesData';
 
 interface HeaderProps {
-  onNavigate: (page: 'home' | 'about' | 'services' | 'casestudies' | 'service', slug?: string) => void;
-  currentPage: 'home' | 'about' | 'services' | 'casestudies' | 'service';
+  onNavigate: (page: 'home' | 'about' | 'services' | 'casestudies' | 'service' | 'contact', slug?: string) => void;
+  currentPage: 'home' | 'about' | 'services' | 'casestudies' | 'service' | 'contact';
 }
 
 export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
@@ -52,14 +52,14 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
   ];
 
   const serviceImages: Record<string, string> = {
-    "workflow-automation": "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&q=80&w=800",
-    "crm-setup": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800",
-    "project-management": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&q=80&w=800",
-    "ai-sales-agents": "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800",
-    "sales-funnels": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
-    "app-integrations": "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=800",
+    "automation-service": "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&q=80&w=800",
+    "crm-setup-optimized": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800",
+    "voice-ai-chat-bots": "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800",
+    "self-selling-ai": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&q=80&w=800",
     "web-development": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800",
-    "operations-audit": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=800"
+    "saas-integration": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+    "third-party-syncronization": "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=800",
+    "api-integration": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=800"
   };
   const servicesLeft = servicesData.slice(0, 4);
   const servicesRight = servicesData.slice(4);
@@ -89,11 +89,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
 
   const handleConnect = (e: React.MouseEvent) => {
     e.preventDefault();
-    const targetId = 'contact';
-    const element = document.getElementById(targetId);
-    if (element) {
-      window.scrollTo({ top: element.offsetTop - HEADER_OFFSET, behavior: 'smooth' });
-    }
+    onNavigate('contact');
     setIsMenuOpen(false);
   };
 
@@ -242,7 +238,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
 
         <div className="flex items-center gap-4 lg:gap-6">
           <a 
-            href="#contact" 
+            href="/contact" 
             onClick={handleConnect}
             className={`hidden md:flex px-6 py-3 lg:px-8 lg:py-3.5 text-xs lg:text-sm font-bold tracking-widest transition-all duration-300 mono items-center gap-3 group rounded-full ${
               isLightMode 
@@ -285,7 +281,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
           ))}
           <div className="pt-6 border-t border-black/5">
             <a 
-              href="#contact" 
+              href="/contact" 
               onClick={handleConnect}
               className="w-full bg-primary text-white text-center py-5 font-bold tracking-widest text-sm mono flex items-center justify-center gap-4 rounded-md"
             >

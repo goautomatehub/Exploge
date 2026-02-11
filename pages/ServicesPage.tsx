@@ -24,7 +24,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
             </Reveal>
             <Reveal direction="left" delay={0.1}>
               <h1 className="text-3xl xs:text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter leading-[0.9] mb-8">
-                Solutions That <span className="text-primary">Scale</span> Your Business.
+                OUR <span className="text-primary">SERVICES</span>.
               </h1>
             </Reveal>
             <Reveal direction="up" delay={0.2}>
@@ -40,17 +40,9 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
       <ServicesContent onNavigate={onNavigate} />
 
       {/* Technical Stack */}
-      <section className="py-20 md:py-24 bg-zinc-50 relative overflow-hidden border-y border-black/5">
-        <div className="container mx-auto px-6 mb-12 md:mb-16">
-          <Reveal direction="up">
-            <div className="text-center">
-              <span className="text-primary sub-heading text-[10px] font-bold uppercase tracking-[0.4em] mb-4 block">The Stack</span>
-              <h2 className="text-3xl xs:text-4xl md:text-5xl font-black uppercase tracking-tighter">Our Technical Ecosystem.</h2>
-            </div>
-          </Reveal>
-        </div>
+      <section className="py-10 relative overflow-hidden">
         <ToolMarquee />
-        <div className="mt-16 md:mt-20">
+        <div className="mt-12 md:mt-16">
           <LogoWall />
         </div>
       </section>
@@ -62,7 +54,10 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
              <div className="absolute inset-0 bg-grid opacity-[0.05]"></div>
              <Reveal direction="up">
                <h3 className="text-2xl xs:text-3xl md:text-5xl font-black text-white uppercase tracking-tighter mb-8">Ready to automate your agency?</h3>
-               <button className="bg-primary text-white px-8 md:px-10 py-3 md:py-4 font-bold uppercase tracking-widest text-[10px] md:text-xs hover:bg-white hover:text-primary transition-all duration-300">
+               <button 
+                 onClick={() => onNavigate?.('contact')}
+                 className="bg-primary text-white px-8 md:px-10 py-3 md:py-4 font-bold uppercase tracking-widest text-[10px] md:text-xs hover:bg-white hover:text-primary transition-all duration-300"
+               >
                  Book Your Strategy Call
                </button>
              </Reveal>

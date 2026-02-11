@@ -10,8 +10,9 @@ import { CaseStudiesPage } from './pages/CaseStudiesPage';
 import ServiceDetail from './pages/ServiceDetail';
 import { PageTransition } from './components/PageTransition';
 import { AnimatePresence } from 'framer-motion';
+import { ContactPage } from './pages/ContactPage';
 
-export type Page = 'home' | 'about' | 'services' | 'casestudies' | 'service';
+export type Page = 'home' | 'about' | 'services' | 'casestudies' | 'service' | 'contact';
 
 const App: React.FC = () => {
   const getInitialRoute = () => {
@@ -22,6 +23,7 @@ const App: React.FC = () => {
     if (segments[0] === 'about') return { page: 'about' as Page, slug: null };
     if (segments[0] === 'services') return { page: 'services' as Page, slug: null };
     if (segments[0] === 'casestudies') return { page: 'casestudies' as Page, slug: null };
+    if (segments[0] === 'contact') return { page: 'contact' as Page, slug: null };
     return { page: 'home' as Page, slug: null };
   };
 
@@ -43,6 +45,9 @@ const App: React.FC = () => {
         setCurrentServiceSlug(null);
       } else if (segments[0] === 'casestudies') {
         setCurrentPage('casestudies');
+        setCurrentServiceSlug(null);
+      } else if (segments[0] === 'contact') {
+        setCurrentPage('contact');
         setCurrentServiceSlug(null);
       } else {
         setCurrentPage('home');
@@ -96,6 +101,12 @@ const App: React.FC = () => {
         return (
           <PageTransition key="casestudies">
             <CaseStudiesPage />
+          </PageTransition>
+        );
+      case 'contact':
+        return (
+          <PageTransition key="contact">
+            <ContactPage />
           </PageTransition>
         );
       default:

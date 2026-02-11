@@ -81,7 +81,7 @@ export const Contact: React.FC = () => {
   }, []);
 
   return (
-    <section id="contact" className="py-8 md:pt-16 md:pb-0 overflow-visible relative z-20 -mb-40 md:-mb-52" ref={sectionRef}>
+    <section id="contact" className="py-16 md:py-24 relative z-10" ref={sectionRef}>
       <AmbientBlobs color="bg-primary" size="w-[400px] h-[400px]" className="-top-32 -right-32" opacity="opacity-[0.08]" animation="animate-blob" />
       <AmbientBlobs color="bg-primary" size="w-64 h-64" className="bottom-0 left-0" opacity="opacity-[0.05]" animation="animate-blob-slow" />
       

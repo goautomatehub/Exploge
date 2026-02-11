@@ -1,35 +1,22 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Reveal } from './Reveal';
 import { FloatingDecorations } from './FloatingDecorations';
-import { 
-  Cpu, 
-  Database, 
-  Mic, 
-  BrainCircuit, 
-  Globe, 
-  Link2, 
-  RefreshCw, 
-  Code2,
-  ArrowRight 
-} from 'lucide-react';
+import { Cpu, Mic, Globe, ArrowRight } from 'lucide-react';
 
-interface ServiceCardProps {
-  id: string;
+interface HomeServiceCardProps {
   slug: string;
   title: string;
   description: string;
   icon: React.ReactNode;
-  delay: number;
   image: string;
-  tags?: string[];
+  delay: number;
   onNavigate?: (page: 'home' | 'about' | 'services' | 'casestudies' | 'service', slug?: string) => void;
 }
 
-const ServiceCard: React.FC<ServiceCardProps> = ({ id, slug, title, description, icon, delay, image, tags = ["4+ Years"], onNavigate }) => {
+const HomeServiceCard: React.FC<HomeServiceCardProps> = ({ slug, title, description, icon, image, delay, onNavigate }) => {
   return (
     <Reveal direction="up" delay={delay} className="h-full">
       <div className="bg-white border border-zinc-200 rounded-2xl overflow-hidden flex flex-col h-full group hover:shadow-xl transition-all duration-500">
-        {/* Top Section: Image with Padding and Overlay */}
         <div className="p-3 pb-0">
           <div className="relative h-[13rem] overflow-hidden rounded-[4px]">
             <img 
@@ -37,7 +24,6 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ id, slug, title, description,
               alt={title} 
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
-            {/* Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-between p-4">
               <div className="flex items-center justify-between">
                 <div className="p-1.5 bg-primary/90 text-white rounded-md backdrop-blur-sm">
@@ -54,13 +40,11 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ id, slug, title, description,
           </div>
         </div>
 
-        {/* Bottom Half: Content */}
         <div className="p-6 pt-4 flex flex-col flex-grow">
           <p className="text-zinc-600 text-sm leading-relaxed mb-6 flex-grow font-medium">
             {description}
           </p>
 
-          {/* Footer: Circular Button */}
           <div className="flex items-center justify-end pt-4 border-t border-zinc-100">
             <button 
               type="button"
@@ -77,95 +61,45 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ id, slug, title, description,
   );
 };
 
-interface ServicesProps {
+interface HomeServicesProps {
   onNavigate?: (page: 'home' | 'about' | 'services' | 'casestudies' | 'service', slug?: string) => void;
 }
 
-export const Services: React.FC<ServicesProps> = ({ onNavigate }) => {
-  const services = useMemo(() => [
-    { 
-      id: "01", 
-      slug: "automation-service",
-      title: "Automation Services", 
-      icon: <Cpu />, 
-      description: "End-to-end business automation to eliminate manual tasks and boost efficiency.",
-      image: "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format=crop&q=80&w=800"
+export const HomeServices: React.FC<HomeServicesProps> = ({ onNavigate }) => {
+  const homeServices = [
+    {
+      slug: 'automation-service',
+      title: 'Automation Services',
+      icon: <Cpu />,
+      description: 'End-to-end business automation to eliminate manual tasks and boost efficiency.',
+      image: 'https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&q=80&w=800',
     },
-    { 
-      id: "02", 
-      slug: "crm-setup-optimized",
-      title: "CRM Setup and optimized", 
-      icon: <Database />, 
-      description: "Strategic CRM configuration and optimization for maximum sales performance.",
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800"
+    {
+      slug: 'voice-ai-chat-bots',
+      title: 'Voice AI & ChatBots',
+      icon: <Mic />,
+      description: 'Intelligent AI-driven voice and chat solutions for 24/7 customer engagement.',
+      image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800',
     },
-    { 
-      id: "03", 
-      slug: "voice-ai-chat-bots",
-      title: "Voice AI and ChatBots", 
-      icon: <Mic />, 
-      description: "Intelligent AI-driven voice and chat solutions for 24/7 customer engagement.",
-      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800"
+    {
+      slug: 'web-development',
+      title: 'Web Development',
+      icon: <Globe />,
+      description: 'Modern, high-performance websites built for speed, SEO, and conversions.',
+      image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800',
     },
-    { 
-      id: "04", 
-      slug: "self-selling-ai",
-      title: "Self selling AI", 
-      icon: <BrainCircuit />, 
-      description: "Autonomous AI agents designed to handle the entire sales process from lead to close.",
-      image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&q=80&w=800"
-    },
-    { 
-      id: "05", 
-      slug: "web-development",
-      title: "Web Development", 
-      icon: <Globe />, 
-      description: "Modern, high-performance websites built for speed, SEO, and conversions.",
-      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800"
-    },
-    { 
-      id: "06", 
-      slug: "saas-integration",
-      title: "SaaS integration", 
-      icon: <Link2 />, 
-      description: "Seamlessly connecting your SaaS stack for unified data and streamlined workflows.",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"
-    },
-    { 
-      id: "07", 
-      slug: "third-party-syncronization",
-      title: "Third party Syncronization", 
-      icon: <RefreshCw />, 
-      description: "Real-time data synchronization between your internal systems and external partners.",
-      image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=800"
-    },
-    { 
-      id: "08", 
-      slug: "api-integration",
-      title: "API integration", 
-      icon: <Code2 />, 
-      description: "Custom API development and integration for advanced technical requirements.",
-      image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=800"
-    }
-  ], []);
+  ];
 
   return (
-    <section id="services" className="py-10 md:py-16 relative overflow-hidden bg-white">
-      {/* Floating Elements */}
+    <section id="home-services" className="py-20 md:py-32 relative overflow-hidden bg-white">
       <FloatingDecorations.Plus className="top-10 left-[10%] text-primary hidden md:block" delay={0.1} />
       <FloatingDecorations.Dot className="bottom-40 left-[5%] hidden md:block" delay={0.4} />
       <FloatingDecorations.Box className="top-1/2 right-[5%] hidden md:block" delay={0.7} />
       <FloatingDecorations.Circle className="top-[20%] right-[15%] hidden md:block" delay={1.0} />
       <FloatingDecorations.Triangle className="bottom-10 right-[10%] hidden md:block" delay={1.3} />
 
-      {/* Decorative Blobs - Optimized for Mobile */}
-      <div className="hidden md:block absolute top-0 -left-1/4 w-[600px] h-[600px] bg-primary/15 rounded-full blur-[140px] pointer-events-none z-0"></div>
-      <div className="hidden md:block absolute -top-40 -right-1/4 w-[700px] h-[700px] bg-primary/10 rounded-full blur-[160px] pointer-events-none z-0"></div>
-      <div className="hidden md:block absolute -bottom-40 left-1/4 w-[650px] h-[650px] bg-primary/15 rounded-full blur-[150px] pointer-events-none z-0"></div>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-primary/5 rounded-full blur-[80px] md:blur-[110px] pointer-events-none z-0"></div>
-
       <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-8 md:mb-12">
+        <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
           <Reveal direction="up">
             <div className="flex items-center justify-center gap-4 mb-4 md:mb-6">
               <span className="text-2xl font-bold text-primary sub-heading">What We Do Best</span>
@@ -177,7 +111,6 @@ export const Services: React.FC<ServicesProps> = ({ onNavigate }) => {
               Smart <span className="text-primary">Automation</span>.
             </h2>
           </Reveal>
-          
           <Reveal direction="up" delay={0.2}>
             <p className="text-zinc-500 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed font-medium">
               We remove the manual work that slows you down, so you can focus on the parts of your business you love. 
@@ -186,22 +119,36 @@ export const Services: React.FC<ServicesProps> = ({ onNavigate }) => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-stretch">
-          {services.map((service, index) => (
-            <ServiceCard 
-              key={service.id}
-              id={service.id}
+          {homeServices.map((service, index) => (
+            <HomeServiceCard 
+              key={service.slug}
               slug={service.slug}
               title={service.title}
-              delay={index * 0.1}
               description={service.description}
               icon={service.icon}
               image={service.image}
-              tags={service.tags}
+              delay={index * 0.1}
               onNavigate={onNavigate}
             />
           ))}
+
+          <Reveal direction="up" delay={0.3}>
+            <div className="h-full flex items-center justify-center p-6">
+              <button 
+                onClick={() => onNavigate?.('services')}
+                className="group flex items-center gap-4 transition-all duration-300 hover:-translate-y-1 active:scale-95"
+              >
+                <span className="text-xl md:text-2xl font-bold text-secondary tracking-tight group-hover:text-primary transition-colors">
+                  View All
+                </span>
+                <div className="flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-secondary text-white shadow-[0_0_15px_rgba(0,0,0,0.1)] group-hover:bg-primary group-hover:shadow-[0_0_20px_rgba(32,188,97,0.4)] transition-all duration-500">
+                  <ArrowRight className="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </button>
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>
-  );  
+  );
 };

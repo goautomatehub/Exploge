@@ -181,15 +181,15 @@ export const ToolMarquee: React.FC = () => {
                 <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
                    <div className="max-w-xl text-center md:text-left">
                       <h4 className="text-3xl md:text-5xl font-black text-white uppercase mb-6 leading-none">
-                        Need Custom <span className="text-primary">API Connections?</span>
+                        Ready to bridge the gap between <span className="text-primary">your systems?</span>
                       </h4>
                       <p className="text-gray-400 text-lg">
-                        Our engineering team builds proprietary bridges for systems that don't have native integrations. Secure, fast, and resilient.
+                        We build custom-coded bridges for systems that don't talk to each other. Secure, scalable, and built for your unique workflow.
                       </p>
                    </div>
                    
                    <a href="#contact" className="w-full md:w-auto bg-primary text-white px-10 py-5 font-black uppercase text-[11px] flex items-center justify-center gap-4 hover:scale-105 transition-all group-hover:shadow-[0_0_30px_rgba(32,188,97,0.3)]">
-                      Explore Custom Solutions
+                      Contact Us
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
                    </a>
                 </div>

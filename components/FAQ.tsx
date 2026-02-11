@@ -56,29 +56,33 @@ export const FAQ: React.FC = () => {
   
   const faqs = [
     { 
-      q: "What exactly is business automation?", 
-      a: "It simply means using smart tools to handle your repetitive daily tasks—like data entry or sending follow-up emails—so you don’t have to do them manually anymore." 
+      q: "Can you integrate my existing tools and platforms?", 
+      a: "We seamlessly connect your current software stack through secure API and automation frameworks." 
     },
     { 
-      q: "Do I need to be a \"tech person\" to use your systems?", 
-      a: "Not at all. We build everything to be simple and \"set-and-forget.\" If you can use an email account, you can use our systems." 
+      q: "Do you provide AI based automation solutions?", 
+      a: "Yes, we implement Voice AI, chatbots, and intelligent automation to streamline communication and sales." 
     },
     { 
-      q: "Which apps can you connect together?", 
-      a: "We can connect automation and CRM tools like GoHighLevel, HubSpot, Salesforce, Pipedrive, Zoho, Airtable, Monday, Asana, Make, Zapier, and n8n." 
+      q: "What is your approach to system optimization?", 
+      a: "We analyze workflows, eliminate inefficiencies, and rebuild processes for maximum performance." 
     },
     { 
-      q: "How much time will this actually save me?", 
-      a: "Most of our clients save between 10 to 20 hours every week. The more manual work you currently do, the more time you will get back." 
+      q: "Do you ensure secure data handling?", 
+      a: "Yes, all integrations and automations follow structured and secure data management practices." 
     },
     { 
-      q: "Is my business data safe with automation?", 
-      a: "Yes. We use secure, industry-standard connections to move your data. Your information stays private and protected at all times." 
+      q: "What makes your automation solutions different?", 
+      a: "We focus on performance driven systems that integrate CRM, AI, and APIs into one streamlined ecosystem." 
+    },
+    { 
+      q: "Can you upgrade my existing setup instead of rebuilding from scratch?", 
+      a: "Yes, we audit, restructure, and optimize current systems before recommending full rebuilds." 
     }
   ];
 
   return (
-    <section id="faq" className="pb-24 pt-16 bg-soft relative overflow-hidden">
+    <section id="faq" className="pt-16 bg-soft relative overflow-hidden">
       {/* Floating Elements */}
       <FloatingDecorations.Triangle className="top-20 left-[5%] hidden md:block" delay={0.2} />
       <FloatingDecorations.Dot className="bottom-20 right-[5%] hidden md:block" delay={0.6} />

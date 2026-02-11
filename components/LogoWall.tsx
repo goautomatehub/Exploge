@@ -45,9 +45,9 @@ const Connector = ({ start, end, delay = 0 }: { start: string, end: string, dela
 
 export const LogoWall: React.FC = () => {
   return (
-    <section className="py-24 md:py-32 bg-white overflow-hidden relative">
+    <section className="py-0 bg-white overflow-hidden relative">
       <div className="container mx-auto px-6 relative">
-        <div className="text-center mb-24">
+        <div className="text-center mb-12">
           <Reveal direction="up">
             <h2 className="text-2xl text-primary sub-heading mb-2">The Workflow</h2>
             <h3 className="text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tighter leading-none">

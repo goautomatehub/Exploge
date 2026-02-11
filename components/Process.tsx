@@ -181,10 +181,6 @@ export const Process: React.FC = () => {
                       <p className="text-zinc-400 text-sm md:text-base leading-relaxed max-w-xl">
                         {step.desc}
                       </p>
-                      <div className="mt-4 flex items-center gap-2 text-[10px] font-bold mono text-primary">
-                        <CheckCircle2 className="w-3 h-3" />
-                        READY TO SCALE
-                      </div>
                     </div>
                   </div>
                 ))}
