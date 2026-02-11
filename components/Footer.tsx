@@ -1,5 +1,7 @@
 import React from 'react';
 import { Facebook, Linkedin, Mail, MessageCircle } from 'lucide-react';
+import logoLightBg from './Exploge Logo/Exploge-header-logo-01-for-light-background.png';
+import logoDarkBg from './Exploge Logo/Exploge-header-logo-01-for-dark-background.png';
 
 interface FooterProps {
   onNavigate: (page: 'home' | 'about' | 'services' | 'casestudies' | 'service' | 'contact') => void;
@@ -18,13 +20,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, currentPage }) => {
           <div className="lg:w-1/3 space-y-6 flex flex-col items-start text-left pr-0 lg:pr-12">
             <div className="flex flex-col items-start cursor-pointer group" onClick={() => { onNavigate('home'); window.scrollTo(0,0); }}>
               <img 
-                src="/logo.svg" 
+                src={logoLightBg} 
                 alt="Exploge Logo" 
                 className="w-36 xs:w-40 md:w-48 h-auto object-contain transition-transform duration-500 group-hover:scale-105"
               />
-              <span className="text-[7px] xs:text-[8px] md:text-[9px] font-black uppercase tracking-[0.3em] text-secondary/40 leading-none mt-1 md:mt-2 w-36 xs:w-40 md:w-48 block text-left whitespace-nowrap overflow-hidden">
-                EXPLORATION & GROWTH
-              </span>
             </div>
             <p className="text-gray-500 max-w-xs text-xs md:text-sm leading-relaxed pt-2">
               We help businesses grow by building simple and effective automation systems.
@@ -51,7 +50,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, currentPage }) => {
                 <li><button onClick={() => onNavigate('services')} className="hover:text-primary transition-colors">Web Development</button></li>
                 <li><button onClick={() => onNavigate('services')} className="hover:text-primary transition-colors">API Systems</button></li>
                 <li><button onClick={() => onNavigate('services')} className="hover:text-primary transition-colors">Optimized CRM Architecture</button></li>
-                <li><button onClick={() => onNavigate('services')} className="hover:text-primary transition-colors">SaaS Data Synchronization</button></li>
               </ul>
             </div>
             

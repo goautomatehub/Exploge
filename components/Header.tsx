@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Icons } from './Icons';
 import { servicesData } from '../data/servicesData';
+import logoDarkBg from './Exploge Logo/Exploge-header-logo-01-for-dark-background.png';
+import logoLightBg from './Exploge Logo/Exploge-header-logo-01-for-light-background.png';
 
 interface HeaderProps {
   onNavigate: (page: 'home' | 'about' | 'services' | 'casestudies' | 'service' | 'contact', slug?: string) => void;
@@ -122,20 +124,17 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
               : 'w-28 h-10 xs:w-32 xs:h-11 sm:w-36 sm:h-12 md:w-48 md:h-16 lg:w-52 lg:h-20'
           }`}>
             <img 
-              src={isLightMode ? "/logo-light.svg" : "/logo.svg"} 
+              src={
+                currentPage === 'home'
+                  ? logoLightBg
+                  : (['about', 'services', 'casestudies', 'contact', 'service'].includes(currentPage)
+                      ? (isStickyMode ? logoLightBg : logoDarkBg)
+                      : logoLightBg)
+              } 
               alt="Exploge Logo" 
               className="w-full h-full object-contain object-left"
             />
           </div>
-          <span className={`text-[5px] xs:text-[6px] md:text-[7px] lg:text-[8px] font-black tracking-[0.3em] transition-all duration-500 leading-none -mt-1 md:-mt-2 ${
-              isLightMode ? 'text-white/50' : 'text-secondary/40'
-            } ${
-              isStickyMode 
-                ? 'w-24 xs:w-28 md:w-36 lg:w-40 opacity-100 translate-y-0' 
-                : 'w-28 xs:w-32 sm:w-36 md:w-48 lg:w-52 opacity-0 -translate-y-2 pointer-events-none'
-            } block text-left whitespace-nowrap overflow-hidden`}>
-              Exploration & Growth
-            </span>
         </a>
 
         <nav className="hidden md:flex items-center space-x-8 lg:space-x-12">

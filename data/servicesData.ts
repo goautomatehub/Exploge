@@ -50,7 +50,7 @@ export const servicesData: ServiceDetail[] = [
   {
     id: "02",
     slug: "crm-setup-optimized",
-    title: "CRM Setup and optimized",
+    title: "CRM Setup and Optimized",
     icon: React.createElement(Database),
     shortDesc: "Strategic CRM configuration and optimization for maximum sales performance.",
     fullDesc: "A powerful CRM is only effective if it's optimized for your specific sales cycle. We specialize in setting up and fine-tuning platforms like GoHighLevel, HubSpot, and Salesforce to ensure they act as a true engine for growth. From pipeline design to automated lead nurturing and advanced reporting, we build a CRM environment that empowers your sales team and provides clear visibility into your revenue.",
@@ -92,7 +92,7 @@ export const servicesData: ServiceDetail[] = [
   {
     id: "04",
     slug: "self-selling-ai",
-    title: "Self selling AI",
+    title: "Self Selling AI",
     icon: React.createElement(BrainCircuit),
     shortDesc: "Autonomous AI agents designed to handle the entire sales process from lead to close.",
     fullDesc: "Experience the future of sales with Self-Selling AI. We develop autonomous AI agents that don't just respond—they sell. These agents are trained on your specific products, pricing, and sales psychology to proactively engage leads, overcome objections, and drive conversions without human intervention. It's like having your top-performing sales rep working 24/7 across every digital touchpoint.",
@@ -134,7 +134,7 @@ export const servicesData: ServiceDetail[] = [
   {
     id: "06",
     slug: "saas-integration",
-    title: "SaaS integration",
+    title: "SaaS Integration",
     icon: React.createElement(Link2),
     shortDesc: "Seamlessly connecting your SaaS stack for unified data and streamlined workflows.",
     fullDesc: "Stop working in silos. Our SaaS Integration service connects all your software tools into one cohesive system. We ensure that data flows instantly between your marketing, sales, project management, and accounting tools. By creating a unified tech stack, we eliminate manual data entry and provide you with a 'single source of truth' for your entire business.",
@@ -155,7 +155,7 @@ export const servicesData: ServiceDetail[] = [
   {
     id: "07",
     slug: "third-party-syncronization",
-    title: "Third party Syncronization",
+    title: "Third Party Syncronization",
     icon: React.createElement(RefreshCw),
     shortDesc: "Real-time data synchronization between your internal systems and external partners.",
     fullDesc: "Keep your business in sync with the world. Our Third-Party Synchronization service ensures that your internal data perfectly matches external platforms, vendor systems, and marketplace listings. Whether you're syncing inventory across multiple channels or ensuring client data matches external databases, we build robust sync engines that keep your information accurate and up-to-date everywhere.",
@@ -176,7 +176,7 @@ export const servicesData: ServiceDetail[] = [
   {
     id: "08",
     slug: "api-integration",
-    title: "API integration",
+    title: "API Integration",
     icon: React.createElement(Code2),
     shortDesc: "Custom API development and integration for advanced technical requirements.",
     fullDesc: "When off-the-shelf connectors aren't enough, our API Integration service provides custom-coded solutions for your most complex technical challenges. We specialize in building and integrating custom APIs that allow your systems to communicate in ways that standard tools can't. From custom webhooks to complex middleware, we bridge the gap between any two systems with precision and security.",
