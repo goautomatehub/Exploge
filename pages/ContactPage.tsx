@@ -34,6 +34,7 @@ export const ContactPage: React.FC<ContactPageProps> = () => {
     setError(null);
     try {
       const envBase = (import.meta as any).env?.VITE_API_BASE_URL as string | undefined;
+      const fallbackEnv = (import.meta as any).env?.VITE_API_FALLBACK_URL as string | undefined;
       const apiBase = getApiBase(envBase);
 
       console.log('Form submitting to:', `${apiBase}/api/contact`);
@@ -51,6 +52,26 @@ export const ContactPage: React.FC<ContactPageProps> = () => {
         reset();
         setTimeout(() => setSubmitted(false), 5000);
       } else {
+        if (fallbackEnv) {
+          const fb = String(fallbackEnv).replace(/\/+$/, '');
+          if (fb && fb !== apiBase) {
+            const resp2 = await fetch(`${fb}/api/contact`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ ...data, sourceUrl: window.location.href })
+            });
+            let json2: any = null;
+            try {
+              json2 = await resp2.json();
+            } catch {}
+            if (resp2.ok && json2?.ok) {
+              setSubmitted(true);
+              reset();
+              setTimeout(() => setSubmitted(false), 5000);
+              return;
+            }
+          }
+        }
         if (typeof window !== 'undefined') {
           console.error('Contact page submit failed', {
             status: resp.status,
