@@ -40,8 +40,14 @@ export const ContactPage: React.FC<ContactPageProps> = () => {
         setSubmitted(true);
         reset();
         setTimeout(() => setSubmitted(false), 5000);
+      } else {
+        console.error('Submission failed:', json);
+        alert(`Failed to send message: ${json?.error || 'Unknown error'}`);
       }
-    } catch {}
+    } catch (err) {
+      console.error('Network or parsing error:', err);
+      alert('An error occurred. Please check your connection and try again.');
+    }
   };
 
   return (
