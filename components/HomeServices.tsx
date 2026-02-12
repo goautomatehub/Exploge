@@ -26,7 +26,10 @@ const HomeServiceCard: React.FC<HomeServiceCardProps> = ({ slug, title, descript
               src={image} 
               alt={title} 
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              style={objectPosition ? { objectPosition } : undefined}
+              style={{
+                objectPosition: objectPosition || 'center',
+                imageRendering: 'auto'
+              }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-between p-4">
               <div className="flex items-center justify-between">
@@ -91,7 +94,7 @@ export const HomeServices: React.FC<HomeServicesProps> = ({ onNavigate }) => {
       title: 'Web Development',
       icon: <Globe />,
       description: 'Modern, high-performance websites built for speed, SEO, and conversions.',
-      image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800',
+      image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=100&w=2000',
     },
   ];
 

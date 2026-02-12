@@ -17,6 +17,7 @@ export interface ServiceDetail {
   icon: React.ReactNode;
   shortDesc: string;
   fullDesc: string;
+  objectPosition?: string;
   benefits: string[];
   tools: string[];
   process: {
@@ -54,6 +55,7 @@ export const servicesData: ServiceDetail[] = [
     icon: React.createElement(Database),
     shortDesc: "Strategic CRM configuration and optimization for maximum sales performance.",
     fullDesc: "A powerful CRM is only effective if it's optimized for your specific sales cycle. We specialize in setting up and fine-tuning platforms like GoHighLevel, HubSpot, Salesforce, Zoho, and Monday.com to ensure they act as a true engine for growth. From pipeline design to automated lead nurturing and advanced reporting, we build a CRM environment that empowers your sales team and provides clear visibility into your revenue.",
+    objectPosition: "left center",
     benefits: [
       "Streamlined sales pipelines and lead management",
       "Automated follow-up sequences that never miss a lead",
@@ -75,6 +77,7 @@ export const servicesData: ServiceDetail[] = [
     icon: React.createElement(Mic),
     shortDesc: "Intelligent AI-driven voice and chat solutions for 24/7 customer engagement.",
     fullDesc: "Engage your customers instantly across all channels with advanced Voice AI and intelligent ChatBots. We build conversational AI solutions that handle inquiries, qualify leads, and even book appointments in real-time. Whether it's a sophisticated web-based ChatBot or a human-like voice agent, our solutions provide immediate value to your customers while significantly reducing your support overhead.",
+    objectPosition: "left center",
     benefits: [
       "Instant 24/7 customer support and lead qualification",
       "Significant reduction in manual support ticket volume",

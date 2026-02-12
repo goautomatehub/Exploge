@@ -4,7 +4,7 @@ import logoLightBg from './Exploge Logo/Exploge-header-logo-01-for-light-backgro
 import logoDarkBg from './Exploge Logo/Exploge-header-logo-01-for-dark-background.png';
 
 interface FooterProps {
-  onNavigate: (page: 'home' | 'about' | 'services' | 'casestudies' | 'service' | 'contact') => void;
+  onNavigate: (page: 'home' | 'about' | 'services' | 'casestudies' | 'service' | 'contact', slug?: string) => void;
   currentPage?: string;
 }
 
@@ -46,10 +46,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, currentPage }) => {
             <div className="space-y-4 flex flex-col items-start text-left">
               <h4 className="font-semibold text-[20px] md:text-[22px] text-secondary">Expertise</h4>
               <ul className="space-y-3 text-xs md:text-sm text-gray-500">
-                <li><button onClick={() => onNavigate('services')} className="hover:text-primary transition-colors">Business Automation</button></li>
-                <li><button onClick={() => onNavigate('services')} className="hover:text-primary transition-colors">Web Development</button></li>
-                <li><button onClick={() => onNavigate('services')} className="hover:text-primary transition-colors">API Systems</button></li>
-                <li><button onClick={() => onNavigate('services')} className="hover:text-primary transition-colors">Optimized CRM Architecture</button></li>
+                <li><button onClick={() => onNavigate('service', 'automation-service')} className="hover:text-primary transition-colors">Business Automation</button></li>
+                <li><button onClick={() => onNavigate('service', 'web-development')} className="hover:text-primary transition-colors">Web Development</button></li>
+                <li><button onClick={() => onNavigate('service', 'api-integration')} className="hover:text-primary transition-colors">API Systems</button></li>
+                <li><button onClick={() => onNavigate('service', 'crm-setup-optimized')} className="hover:text-primary transition-colors">Optimized CRM Architecture</button></li>
               </ul>
             </div>
             

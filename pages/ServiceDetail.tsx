@@ -53,7 +53,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ slug, onNavigate }) => {
     "crm-setup-optimized": crmImg,
     "voice-ai-chat-bots": voiceAiChatbotImg,
     "self-selling-ai": selfSellingAiBannerImg,
-    "web-development": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=1200",
+    "web-development": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=100&w=2000",
     "saas-integration": saasIntegrationImg,
     "third-party-syncronization": thirdPartyBannerImg,
     "api-integration": apiIntegrationBannerImg
@@ -161,6 +161,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ slug, onNavigate }) => {
                   src={heroImage}
                   alt={service.title}
                   className="absolute inset-0 h-full w-full object-cover"
+                  style={{ imageRendering: 'auto' }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/40 to-black/55" />
                 <div
@@ -248,7 +249,15 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ slug, onNavigate }) => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
                   <Reveal direction="left">
                     <div className="relative rounded-[14px] border border-black/10 overflow-hidden bg-white shadow-[0_20px_50px_rgba(0,0,0,0.06)]">
-                      <img src={overviewImage} alt={service.title} className="w-full h-72 md:h-96 object-cover" />
+                      <img 
+                        src={overviewImage} 
+                        alt={service.title} 
+                        className="w-full h-72 md:h-96 object-cover" 
+                        style={{
+                          objectPosition: service.objectPosition || 'center',
+                          imageRendering: 'auto'
+                        }}
+                      />
                     </div>
                   </Reveal>
                   <Reveal direction="right">
