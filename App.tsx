@@ -16,15 +16,26 @@ export type Page = 'home' | 'about' | 'services' | 'casestudies' | 'service' | '
 
 const App: React.FC = () => {
   const getInitialRoute = () => {
-    const segments = window.location.pathname.split('/').filter(Boolean);
-    if (segments[0] === 'services' && segments[1]) {
-      return { page: 'service' as Page, slug: segments[1] };
+    try {
+      const path = window.location.pathname;
+      const segments = path.split('/').filter(Boolean);
+      
+      // If we're on a subpath, we need to be careful about the base path
+      // This handles both /services/slug and services/slug
+      if (segments.length >= 2 && segments[segments.length - 2] === 'services') {
+        return { page: 'service' as Page, slug: segments[segments.length - 1] };
+      }
+      
+      if (segments.includes('about')) return { page: 'about' as Page, slug: null };
+      if (segments.includes('services')) return { page: 'services' as Page, slug: null };
+      if (segments.includes('casestudies')) return { page: 'casestudies' as Page, slug: null };
+      if (segments.includes('contact')) return { page: 'contact' as Page, slug: null };
+      
+      return { page: 'home' as Page, slug: null };
+    } catch (error) {
+      console.error('Error parsing initial route:', error);
+      return { page: 'home' as Page, slug: null };
     }
-    if (segments[0] === 'about') return { page: 'about' as Page, slug: null };
-    if (segments[0] === 'services') return { page: 'services' as Page, slug: null };
-    if (segments[0] === 'casestudies') return { page: 'casestudies' as Page, slug: null };
-    if (segments[0] === 'contact') return { page: 'contact' as Page, slug: null };
-    return { page: 'home' as Page, slug: null };
   };
 
   const initialRoute = getInitialRoute();
@@ -34,19 +45,19 @@ const App: React.FC = () => {
   useEffect(() => {
     const handlePopState = () => {
       const segments = window.location.pathname.split('/').filter(Boolean);
-      if (segments[0] === 'services' && segments[1]) {
+      if (segments.length >= 2 && segments[segments.length - 2] === 'services') {
         setCurrentPage('service');
-        setCurrentServiceSlug(segments[1]);
-      } else if (segments[0] === 'about') {
+        setCurrentServiceSlug(segments[segments.length - 1]);
+      } else if (segments.includes('about')) {
         setCurrentPage('about');
         setCurrentServiceSlug(null);
-      } else if (segments[0] === 'services') {
+      } else if (segments.includes('services')) {
         setCurrentPage('services');
         setCurrentServiceSlug(null);
-      } else if (segments[0] === 'casestudies') {
+      } else if (segments.includes('casestudies')) {
         setCurrentPage('casestudies');
         setCurrentServiceSlug(null);
-      } else if (segments[0] === 'contact') {
+      } else if (segments.includes('contact')) {
         setCurrentPage('contact');
         setCurrentServiceSlug(null);
       } else {
@@ -59,13 +70,20 @@ const App: React.FC = () => {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  const navigate = (page: Page, slug?: string) => {
+  const navigate = React.useCallback((page: Page, slug?: string) => {
     setCurrentPage(page);
     setCurrentServiceSlug(slug ?? null);
-    const path = page === 'service' && slug ? `/services/${slug}` : page === 'home' ? '/' : `/${page}`;
+    
+    let path = '/';
+    if (page === 'service' && slug) {
+      path = `/services/${slug}`;
+    } else if (page !== 'home') {
+      path = `/${page}`;
+    }
+    
     window.history.pushState({}, '', path);
     window.scrollTo({ top: 0, behavior: 'instant' });
-  };
+  }, []);
 
   const renderPage = () => {
     switch (currentPage) {

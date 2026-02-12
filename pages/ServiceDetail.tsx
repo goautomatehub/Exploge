@@ -21,17 +21,32 @@ interface ServiceDetailProps {
 }
 
 const ServiceDetail: React.FC<ServiceDetailProps> = ({ slug, onNavigate }) => {
-  const service = servicesData.find(s => s.slug === slug);
+  const service = servicesData.find(s => s.slug?.toLowerCase() === slug?.toLowerCase());
   const [activeFaqIndex, setActiveFaqIndex] = useState<number | null>(0);
 
   useEffect(() => {
     window.scrollTo(0, 0);
     if (!service && slug) {
+      console.warn(`Service not found for slug: ${slug}. Redirecting to services page.`);
       onNavigate('services');
     }
   }, [service, slug, onNavigate]);
 
-  if (!service) return null;
+  if (!service) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-soft">
+        <div className="text-center">
+          <h2 className="text-2xl font-semibold mb-4">Service not found</h2>
+          <button 
+            onClick={() => onNavigate('services')}
+            className="px-6 py-2 bg-primary text-white rounded-lg"
+          >
+            Back to Services
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const bannerImages: Record<string, string> = {
     "automation-service": automationServicesImg,
