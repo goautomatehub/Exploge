@@ -1,7 +1,9 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
   
-  # 0. API proxying is disabled (use a dedicated API host or server-level proxy)
+  # 0. Proxy API to Node server (requires mod_proxy & Node on :3001)
+  RewriteRule ^api$ http://127.0.0.1:3001/api [P,L]
+  RewriteRule ^api/(.*)$ http://127.0.0.1:3001/api/$1 [P,L]
   
   # 1. Root request ko dist/index.html par bhejein
   RewriteRule ^$ dist/index.html [L]
