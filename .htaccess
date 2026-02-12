@@ -10,7 +10,10 @@
   RewriteRule ^(.*)$ dist/$1 [L]
   
   # 3. SPA Routing: Agar URL koi asli file nahi hai, to dist/index.html load karein (React routing ke liye)
+  # Lekin .xml aur .txt files ko exclude karein taake wo home page par redirect na hon
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_URI} !\.xml$
+  RewriteCond %{REQUEST_URI} !\.txt$
   RewriteRule ^ dist/index.html [L]
 </IfModule>
