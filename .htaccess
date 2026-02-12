@@ -1,6 +1,8 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
   
+  # 0. API proxying is disabled (use a dedicated API host or server-level proxy)
+  
   # 1. Root request ko dist/index.html par bhejein
   RewriteRule ^$ dist/index.html [L]
   
@@ -15,7 +17,7 @@
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_URI} !\.xml$
   RewriteCond %{REQUEST_URI} !\.txt$
-  # 4. API ko SPA rewrite se exclude karein (backend ke liye /api requests ko proxy/handle karne ke liye)
+  # 4. Exclude API from SPA rewrite (for backend to proxy/handle /api requests)
   RewriteCond %{REQUEST_URI} !^/api/
   RewriteRule ^ dist/index.html [L]
 </IfModule>
