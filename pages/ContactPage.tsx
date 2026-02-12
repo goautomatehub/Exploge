@@ -38,7 +38,9 @@ export const ContactPage: React.FC<ContactPageProps> = () => {
           ? envBase.replace(/\/+$/, '')
           : window.location.hostname === 'localhost'
           ? 'http://localhost:3001'
-          : 'https://exploge.com';
+          : window.location.origin;
+
+      console.log('Form submitting to:', `${apiBase}/api/contact`);
       const resp = await fetch(`${apiBase}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
