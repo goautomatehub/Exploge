@@ -22,14 +22,15 @@ const App: React.FC = () => {
       
       // If we're on a subpath, we need to be careful about the base path
       // This handles both /services/slug and services/slug
-      if (segments.length >= 2 && segments[segments.length - 2] === 'services') {
+      if (segments.length >= 2 && segments[segments.length - 2].toLowerCase() === 'services') {
         return { page: 'service' as Page, slug: segments[segments.length - 1] };
       }
       
-      if (segments.includes('about')) return { page: 'about' as Page, slug: null };
-      if (segments.includes('services')) return { page: 'services' as Page, slug: null };
-      if (segments.includes('casestudies')) return { page: 'casestudies' as Page, slug: null };
-      if (segments.includes('contact')) return { page: 'contact' as Page, slug: null };
+      const lowerSegments = segments.map(s => s.toLowerCase());
+      if (lowerSegments.includes('about')) return { page: 'about' as Page, slug: null };
+      if (lowerSegments.includes('services')) return { page: 'services' as Page, slug: null };
+      if (lowerSegments.includes('casestudies')) return { page: 'casestudies' as Page, slug: null };
+      if (lowerSegments.includes('contact')) return { page: 'contact' as Page, slug: null };
       
       return { page: 'home' as Page, slug: null };
     } catch (error) {
@@ -45,19 +46,21 @@ const App: React.FC = () => {
   useEffect(() => {
     const handlePopState = () => {
       const segments = window.location.pathname.split('/').filter(Boolean);
-      if (segments.length >= 2 && segments[segments.length - 2] === 'services') {
+      const lowerSegments = segments.map(s => s.toLowerCase());
+
+      if (segments.length >= 2 && segments[segments.length - 2].toLowerCase() === 'services') {
         setCurrentPage('service');
         setCurrentServiceSlug(segments[segments.length - 1]);
-      } else if (segments.includes('about')) {
+      } else if (lowerSegments.includes('about')) {
         setCurrentPage('about');
         setCurrentServiceSlug(null);
-      } else if (segments.includes('services')) {
+      } else if (lowerSegments.includes('services')) {
         setCurrentPage('services');
         setCurrentServiceSlug(null);
-      } else if (segments.includes('casestudies')) {
+      } else if (lowerSegments.includes('casestudies')) {
         setCurrentPage('casestudies');
         setCurrentServiceSlug(null);
-      } else if (segments.includes('contact')) {
+      } else if (lowerSegments.includes('contact')) {
         setCurrentPage('contact');
         setCurrentServiceSlug(null);
       } else {
