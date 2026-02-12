@@ -15,5 +15,7 @@
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_URI} !\.xml$
   RewriteCond %{REQUEST_URI} !\.txt$
+  # 4. API ko SPA rewrite se exclude karein (backend ke liye /api requests ko proxy/handle karne ke liye)
+  RewriteCond %{REQUEST_URI} !^/api/
   RewriteRule ^ dist/index.html [L]
 </IfModule>
