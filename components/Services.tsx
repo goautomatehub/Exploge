@@ -17,6 +17,7 @@ import crmImg from './Images/assest images/CRM.png';
 import voiceAiChatbotImg from './Images/assest images/Voice AI Chatbot.png';
 import automationServicesImg from './Images/assest images/Automation Services.png';
 import selfSellingAiBodyImg from './Images/assest images/Self selling Ai body.png';
+import thirdPartyBannerImg from './Images/assest images/third party integration banner.png';
 import thirdPartyBodyImg from './Images/assest images/third party integration body image.png';
 import saasIntegrationImg from './Images/assest images/Saas Integration.png';
 
@@ -28,11 +29,12 @@ interface ServiceCardProps {
   icon: React.ReactNode;
   delay: number;
   image: string;
+  objectPosition?: string;
   tags?: string[];
   onNavigate?: (page: 'home' | 'about' | 'services' | 'casestudies' | 'service', slug?: string) => void;
 }
 
-const ServiceCard: React.FC<ServiceCardProps> = ({ id, slug, title, description, icon, delay, image, tags = ["4+ Years"], onNavigate }) => {
+const ServiceCard: React.FC<ServiceCardProps> = ({ id, slug, title, description, icon, delay, image, objectPosition, tags = ["4+ Years"], onNavigate }) => {
   return (
     <Reveal direction="up" delay={delay} className="h-full">
       <div className="bg-white border border-zinc-200 rounded-2xl overflow-hidden flex flex-col h-full group hover:shadow-xl transition-all duration-500">
@@ -43,6 +45,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ id, slug, title, description,
               src={image} 
               alt={title} 
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              style={objectPosition ? { objectPosition } : undefined}
             />
             {/* Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-between p-4">
@@ -74,7 +77,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ id, slug, title, description,
               onClick={() => onNavigate?.('service', slug)}
               className="flex items-center gap-2 px-4 py-2 rounded-full bg-secondary text-white text-[10px] font-bold hover:bg-zinc-800 transition-all duration-300 hover:-translate-y-0.5 active:scale-95 group/btn"
             >
-              <span className="uppercase tracking-widest">Get Started</span>
+              <span className="uppercase tracking-widest">View More</span>
               <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-1" />
             </button>
           </div>
@@ -104,7 +107,8 @@ export const Services: React.FC<ServicesProps> = ({ onNavigate }) => {
       title: "CRM Setup and Optimized", 
       icon: <Database />, 
       description: "Strategic CRM configuration and optimization for maximum sales performance.",
-      image: crmImg
+      image: crmImg,
+      objectPosition: "left center"
     },
     { 
       id: "03", 
@@ -112,7 +116,8 @@ export const Services: React.FC<ServicesProps> = ({ onNavigate }) => {
       title: "Voice AI and ChatBots", 
       icon: <Mic />, 
       description: "Intelligent AI-driven voice and chat solutions for 24/7 customer engagement.",
-      image: voiceAiChatbotImg
+      image: voiceAiChatbotImg,
+      objectPosition: "left center"
     },
     { 
       id: "04", 
@@ -144,7 +149,7 @@ export const Services: React.FC<ServicesProps> = ({ onNavigate }) => {
       title: "Third Party Synchronization", 
       icon: <RefreshCw />, 
       description: "Real-time data synchronization between your internal systems and external partners.",
-      image: thirdPartyBodyImg
+      image: thirdPartyBannerImg
     },
     { 
       id: "08", 
@@ -199,11 +204,11 @@ export const Services: React.FC<ServicesProps> = ({ onNavigate }) => {
               id={service.id}
               slug={service.slug}
               title={service.title}
-              delay={index * 0.1}
               description={service.description}
               icon={service.icon}
+              delay={index * 0.1}
               image={service.image}
-              tags={service.tags}
+              objectPosition={(service as any).objectPosition}
               onNavigate={onNavigate}
             />
           ))}

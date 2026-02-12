@@ -51,7 +51,7 @@ const HomeServiceCard: React.FC<HomeServiceCardProps> = ({ slug, title, descript
               onClick={() => onNavigate?.('service', slug)}
               className="flex items-center gap-2 px-4 py-2 rounded-full bg-secondary text-white text-[10px] font-bold hover:bg-zinc-800 transition-all duration-300 hover:-translate-y-0.5 active:scale-95 group/btn"
             >
-              <span className="uppercase tracking-widest">Get Started</span>
+              <span className="uppercase tracking-widest">View More</span>
               <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-1" />
             </button>
           </div>
