@@ -33,10 +33,11 @@ export const ContactPage: React.FC<ContactPageProps> = () => {
     setError(null);
     try {
       const envBase = (import.meta as any).env?.VITE_API_BASE_URL as string | undefined;
+      const isLocalhost = typeof window !== 'undefined' && window.location.hostname === 'localhost';
       const apiBase =
-        envBase && envBase.trim().length > 0
+        isLocalhost && envBase && envBase.trim().length > 0
           ? envBase.replace(/\/+$/, '')
-          : window.location.hostname === 'localhost'
+          : isLocalhost
           ? 'http://localhost:3001'
           : window.location.origin;
 
