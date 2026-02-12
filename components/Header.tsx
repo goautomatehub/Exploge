@@ -269,30 +269,30 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
       </div>
 
       <div className={`md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-lg border-b border-black/5 transition-all duration-500 overflow-hidden ${isMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}>
-        <nav className="flex flex-col p-8 space-y-6">
+        <nav className="flex flex-col p-6 space-y-4">
           {navLinks.map((link) => (
             <a 
               key={link.name}
               href={link.href}
               onClick={(e) => handleLinkClick(e, link)}
-              className={`text-2xl font-black tracking-tighter flex justify-between items-center group ${
+              className={`text-lg font-bold tracking-tight flex justify-between items-center group ${
                 (link.type === 'page' && currentPage === link.id) || activeSection === link.id ? 'text-primary' : 'text-secondary'
               }`}
             >
               {link.name}
-              <svg className="w-6 h-6 transform -rotate-45 opacity-20 group-hover:rotate-0 group-hover:opacity-100 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 transform -rotate-45 opacity-20 group-hover:rotate-0 group-hover:opacity-100 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
               </svg>
             </a>
           ))}
-          <div className="pt-6 border-t border-black/5">
+          <div className="pt-4 border-t border-black/5">
             <a 
               href="/contact" 
               onClick={handleConnect}
-              className="w-full bg-primary text-white text-center py-5 font-bold tracking-widest text-sm mono flex items-center justify-center gap-4 rounded-md"
+              className="w-full bg-primary text-white text-center py-3.5 font-bold tracking-widest text-xs mono flex items-center justify-center gap-3 rounded-md"
             >
               Connect With Us
-              <Icons.Send className="w-4 h-4" />
+              <Icons.Send className="w-3.5 h-3.5" />
             </a>
           </div>
         </nav>

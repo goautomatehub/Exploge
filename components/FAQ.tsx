@@ -19,13 +19,13 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, delay, isOpen, onTo
       <div className="border-b border-black/5 bg-transparent mb-0 overflow-hidden">
         <button 
           onClick={onToggle}
-          className="w-full py-8 text-left flex justify-between items-center group transition-all duration-300"
+          className="w-full py-5 md:py-8 text-left flex justify-between items-center group transition-all duration-300"
         >
-          <span className={`text-lg md:text-xl font-bold tracking-tight transition-colors duration-300 ${isOpen ? 'text-primary' : 'text-zinc-900'}`}>
+          <span className={`text-base md:text-xl font-bold tracking-tight transition-colors duration-300 ${isOpen ? 'text-primary' : 'text-zinc-900'}`}>
             {question}
           </span>
-          <div className={`p-2 rounded-full border border-black/5 transition-all duration-500 ${isOpen ? 'bg-primary border-primary text-white rotate-180' : 'bg-white text-zinc-400'}`}>
-            <Icons.ChevronDown className="w-5 h-5" />
+          <div className={`p-1.5 md:p-2 rounded-full border border-black/5 transition-all duration-500 ${isOpen ? 'bg-primary border-primary text-white rotate-180' : 'bg-white text-zinc-400'}`}>
+            <Icons.ChevronDown className="w-4 h-4 md:w-5 h-5" />
           </div>
         </button>
         
@@ -38,7 +38,7 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, delay, isOpen, onTo
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="overflow-hidden"
             >
-              <div className="pb-8 text-base text-zinc-500 leading-relaxed">
+              <div className="pb-5 md:pb-8 text-sm md:text-base text-zinc-500 leading-relaxed">
                 <div className="max-w-3xl">
                   {answer}
                 </div>
