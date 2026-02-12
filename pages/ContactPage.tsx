@@ -23,25 +23,35 @@ interface ContactPageProps {
 
 export const ContactPage: React.FC<ContactPageProps> = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
     defaultValues: { name: '', email: '', subject: '', message: '' }
   });
 
   const onSubmit = async (data: ContactFormValues) => {
+    setError(null);
     try {
-      const resp = await fetch('/api/contact', {
+      const apiBase = window.location.hostname === 'localhost' ? 'http://localhost:3001' : '';
+      const resp = await fetch(`${apiBase}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...data, sourceUrl: window.location.href })
       });
-      const json = await resp.json();
+      let json: any = null;
+      try {
+        json = await resp.json();
+      } catch {}
       if (resp.ok && json?.ok) {
         setSubmitted(true);
         reset();
         setTimeout(() => setSubmitted(false), 5000);
+      } else {
+        setError('Something went wrong while submitting. Please try again or email us directly.');
       }
-    } catch {}
+    } catch {
+      setError('Unable to submit right now. Please check your connection and try again.');
+    }
   };
 
   return (
@@ -149,6 +159,7 @@ export const ContactPage: React.FC<ContactPageProps> = () => {
                     {errors.message ? <p className="text-[10px] font-semibold text-red-500">{errors.message.message}</p> : null}
                   </div>
 
+                  {error ? <p className="text-[10px] font-semibold text-red-500">{error}</p> : null}
                   <button
                     type="submit"
                     disabled={isSubmitting}

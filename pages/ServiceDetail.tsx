@@ -191,7 +191,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ slug, onNavigate }) => {
       <section className="py-16 md:py-20">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-            <aside className="order-2 lg:order-1 lg:col-span-4 xl:col-span-3">
+            <aside className="hidden lg:block lg:col-span-4 xl:col-span-3">
               <div className="lg:sticky lg:top-28 space-y-6">
                 <div className="rounded-[14px] border border-black/10 bg-white p-6 shadow-sm">
                   <div className="text-[11px] font-semibold tracking-[0.3em] text-secondary/50 uppercase mb-4">All Services</div>
@@ -211,20 +211,25 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ slug, onNavigate }) => {
                     ))}
                   </div>
                 </div>
+
                 <div className="rounded-[14px] border border-black/10 bg-white p-6 shadow-sm">
-                  <div className="text-[11px] font-semibold tracking-[0.3em] text-secondary/50 uppercase mb-3">Overview</div>
-                  <p className="text-sm text-secondary/70 leading-relaxed mb-5">{service.shortDesc}</p>
-                  <button
-                    onClick={() => onNavigate('contact')}
-                    className="inline-flex items-center gap-3 px-5 py-3 rounded-[12px] bg-secondary text-white font-semibold text-xs hover:bg-black transition-colors"
-                  >
-                    Contact Us <ArrowRight size={14} />
-                  </button>
+                  <div className="text-[11px] font-semibold tracking-[0.3em] text-secondary/50 uppercase mb-4">Service Overview</div>
+                  <div className="space-y-4">
+                    <p className="text-sm text-secondary/60 leading-relaxed">
+                      {service.shortDesc}
+                    </p>
+                    <button
+                      onClick={() => onNavigate('contact')}
+                      className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-[12px] bg-primary text-white font-bold text-xs uppercase tracking-widest hover:bg-secondary transition-all"
+                    >
+                      Contact Us <ArrowRight size={14} />
+                    </button>
+                  </div>
                 </div>
               </div>
             </aside>
 
-            <div className="order-1 lg:order-2 lg:col-span-8 xl:col-span-9 space-y-10">
+            <div className="lg:col-span-8 xl:col-span-9 space-y-10">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {service.process.slice(0, 3).map((item, i) => (
                   <Reveal key={item.title} direction="up" delay={i * 0.1}>
@@ -349,7 +354,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ slug, onNavigate }) => {
         </div>
       </section>
 
-      <section className="py-20 md:py-24">
+      <section className="pt-0 pb-20 md:py-24">
         <div className="container mx-auto px-6">
           <div className="rounded-[14px] border border-black/10 bg-white p-10 md:p-14 text-center shadow-sm">
             <Reveal direction="up">

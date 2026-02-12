@@ -17,6 +17,7 @@ type ContactFormValues = z.infer<typeof contactSchema>;
 
 export const Contact: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLDivElement>(null);
@@ -32,19 +33,28 @@ export const Contact: React.FC = () => {
   });
 
   const onSubmit = async (data: ContactFormValues) => {
+    setError(null);
     try {
-      const resp = await fetch('/api/contact', {
+      const apiBase = window.location.hostname === 'localhost' ? 'http://localhost:3001' : '';
+      const resp = await fetch(`${apiBase}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...data, sourceUrl: window.location.href })
       });
-      const json = await resp.json();
+      let json: any = null;
+      try {
+        json = await resp.json();
+      } catch {}
       if (resp.ok && json?.ok) {
         setSubmitted(true);
         reset();
         setTimeout(() => setSubmitted(false), 5000);
+      } else {
+        setError('Something went wrong while submitting. Please try again or email us directly.');
       }
-    } catch {}
+    } catch {
+      setError('Unable to submit right now. Please check your connection and try again.');
+    }
   };
 
   useLayoutEffect(() => {
@@ -202,6 +212,9 @@ export const Contact: React.FC = () => {
                       ) : null}
                     </div>
                     
+                    {error ? (
+                      <p className="text-[10px] font-semibold text-red-500 mb-1">{error}</p>
+                    ) : null}
                     <button type="submit" disabled={isSubmitting} className="w-full bg-primary text-white font-black py-3 md:py-4 hover:bg-secondary transition-all duration-300 text-[10px] md:text-xs uppercase flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:-translate-y-0.5 group rounded-lg disabled:opacity-70 disabled:cursor-not-allowed">
                       Send Message
                       <Icons.ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
