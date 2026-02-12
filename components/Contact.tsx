@@ -35,7 +35,13 @@ export const Contact: React.FC = () => {
   const onSubmit = async (data: ContactFormValues) => {
     setError(null);
     try {
-      const apiBase = window.location.hostname === 'localhost' ? 'http://localhost:3001' : '';
+      const envBase = (import.meta as any).env?.VITE_API_BASE_URL as string | undefined;
+      const apiBase =
+        envBase && envBase.trim().length > 0
+          ? envBase.replace(/\/+$/, '')
+          : window.location.hostname === 'localhost'
+          ? 'http://localhost:3001'
+          : 'https://exploge.com';
       const resp = await fetch(`${apiBase}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -50,6 +56,13 @@ export const Contact: React.FC = () => {
         reset();
         setTimeout(() => setSubmitted(false), 5000);
       } else {
+        if (typeof window !== 'undefined') {
+          console.error('Contact form submit failed', {
+            status: resp.status,
+            statusText: resp.statusText,
+            body: json
+          });
+        }
         setError('Something went wrong while submitting. Please try again or email us directly.');
       }
     } catch {
