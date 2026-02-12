@@ -58,7 +58,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
                  onClick={() => onNavigate?.('contact')}
                  className="bg-primary text-white px-8 md:px-10 py-3 md:py-4 font-bold uppercase tracking-widest text-[10px] md:text-xs hover:bg-white hover:text-primary transition-all duration-300"
                >
-                 Book Your Strategy Call
+                 Contact Us Today
                </button>
              </Reveal>
           </div>

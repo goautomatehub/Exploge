@@ -3,6 +3,13 @@ import { Icons } from './Icons';
 import { servicesData } from '../data/servicesData';
 import logoDarkBg from './Exploge Logo/Exploge-header-logo-01-for-dark-background.png';
 import logoLightBg from './Exploge Logo/Exploge-header-logo-01-for-light-background.png';
+import apiIntegrationImg from './Images/assest images/API Integration.png';
+import crmImg from './Images/assest images/CRM.png';
+import voiceAiChatbotImg from './Images/assest images/Voice AI Chatbot.png';
+import automationServicesImg from './Images/assest images/Automation Services.png';
+import selfSellingAiBodyImg from './Images/assest images/Self selling Ai body.png';
+import thirdPartyBodyImg from './Images/assest images/third party integration body image.png';
+import saasIntegrationImg from './Images/assest images/Saas Integration.png';
 
 interface HeaderProps {
   onNavigate: (page: 'home' | 'about' | 'services' | 'casestudies' | 'service' | 'contact', slug?: string) => void;
@@ -54,14 +61,14 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
   ];
 
   const serviceImages: Record<string, string> = {
-    "automation-service": "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&q=80&w=800",
-    "crm-setup-optimized": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800",
-    "voice-ai-chat-bots": "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800",
-    "self-selling-ai": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&q=80&w=800",
+    "automation-service": automationServicesImg,
+    "crm-setup-optimized": crmImg,
+    "voice-ai-chat-bots": voiceAiChatbotImg,
+    "self-selling-ai": selfSellingAiBodyImg,
     "web-development": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800",
-    "saas-integration": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
-    "third-party-syncronization": "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=800",
-    "api-integration": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=800"
+    "saas-integration": saasIntegrationImg,
+    "third-party-syncronization": thirdPartyBodyImg,
+    "api-integration": apiIntegrationImg
   };
   const servicesLeft = servicesData.slice(0, 4);
   const servicesRight = servicesData.slice(4);

@@ -28,11 +28,20 @@ export const ContactPage: React.FC<ContactPageProps> = () => {
     defaultValues: { name: '', email: '', subject: '', message: '' }
   });
 
-  const onSubmit = (data: ContactFormValues) => {
-    void data;
-    setSubmitted(true);
-    reset();
-    setTimeout(() => setSubmitted(false), 5000);
+  const onSubmit = async (data: ContactFormValues) => {
+    try {
+      const resp = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...data, sourceUrl: window.location.href })
+      });
+      const json = await resp.json();
+      if (resp.ok && json?.ok) {
+        setSubmitted(true);
+        reset();
+        setTimeout(() => setSubmitted(false), 5000);
+      }
+    } catch {}
   };
 
   return (

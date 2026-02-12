@@ -53,14 +53,14 @@ export const servicesData: ServiceDetail[] = [
     title: "CRM Setup and Optimized",
     icon: React.createElement(Database),
     shortDesc: "Strategic CRM configuration and optimization for maximum sales performance.",
-    fullDesc: "A powerful CRM is only effective if it's optimized for your specific sales cycle. We specialize in setting up and fine-tuning platforms like GoHighLevel, HubSpot, and Salesforce to ensure they act as a true engine for growth. From pipeline design to automated lead nurturing and advanced reporting, we build a CRM environment that empowers your sales team and provides clear visibility into your revenue.",
+    fullDesc: "A powerful CRM is only effective if it's optimized for your specific sales cycle. We specialize in setting up and fine-tuning platforms like GoHighLevel, HubSpot, Salesforce, Zoho, and Monday.com to ensure they act as a true engine for growth. From pipeline design to automated lead nurturing and advanced reporting, we build a CRM environment that empowers your sales team and provides clear visibility into your revenue.",
     benefits: [
       "Streamlined sales pipelines and lead management",
       "Automated follow-up sequences that never miss a lead",
       "Advanced reporting and data-driven insights",
       "Improved lead-to-deal conversion rates"
     ],
-    tools: ["GoHighLevel", "HubSpot", "Salesforce", "Pipedrive"],
+    tools: ["GoHighLevel", "HubSpot", "Salesforce", "Pipedrive", "Monday.com", "Airtable", "Odoo", "Pabau", "Zoho", "QuickBooks"],
     process: [
       { title: "Strategy", description: "Defining your unique sales stages and data requirements." },
       { title: "Setup", description: "Configuring pipelines, custom fields, and user permissions." },
@@ -116,14 +116,14 @@ export const servicesData: ServiceDetail[] = [
     title: "Web Development",
     icon: React.createElement(Globe),
     shortDesc: "Modern, high-performance websites built for speed, SEO, and conversions.",
-    fullDesc: "Your website is the foundation of your digital presence. We build premium, custom websites that combine stunning design with technical excellence. Using modern frameworks like React and Next.js, or powerful CMS platforms like WordPress and Webflow, we ensure your site is lightning-fast, mobile-perfect, and strategically engineered to turn visitors into loyal customers.",
+    fullDesc: "Your website is the foundation of your digital presence. We build premium, custom websites that combine stunning design with technical excellence. Using powerful platforms like WordPress, GoHighLevel, and Wix, we ensure your site is lightning-fast, mobile-perfect, and strategically engineered to turn visitors into loyal customers.",
     benefits: [
       "High-speed performance and core web vitals optimization",
       "Custom designs that reflect your unique brand identity",
       "SEO-ready architecture for maximum visibility",
       "Scalable and secure web infrastructure"
     ],
-    tools: ["React/Next.js", "WordPress", "Webflow", "Tailwind CSS"],
+    tools: ["WordPress", "GoHighLevel", "Wix"],
     process: [
       { title: "Design", description: "Creating interactive prototypes and high-fidelity mockups." },
       { title: "Development", description: "Building the site with clean, optimized code." },

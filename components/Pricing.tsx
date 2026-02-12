@@ -83,7 +83,7 @@ export const Pricing: React.FC = () => {
               <div className="bg-white p-8 md:p-12 rounded-[4px] text-secondary shadow-2xl relative">
                 <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/10 -z-10 rounded-full blur-2xl"></div>
                 
-                <h3 className="text-3xl font-black uppercase mb-4">Book a Strategy Call</h3>
+                <h3 className="text-3xl font-black uppercase mb-4">Get In Touch</h3>
                 <p className="text-zinc-500 mb-8">Stop losing hours to manual work. Let's build a system that scales your agency automatically.</p>
                 
                 <ul className="space-y-4 mb-10">
@@ -104,7 +104,7 @@ export const Pricing: React.FC = () => {
                   href="#contact"
                   className="flex items-center justify-center gap-3 w-full bg-secondary text-white py-5 font-black uppercase tracking-widest text-xs hover:bg-primary transition-all duration-300 group rounded-[4px]"
                 >
-                  Schedule Your Free Audit
+                  Contact Us For A Free Audit
                   <Icons.ArrowRight className="w-4 h-4 group-hover:translate-x-1" />
                 </a>
 

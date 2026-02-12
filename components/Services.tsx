@@ -12,6 +12,13 @@ import {
   Code2,
   ArrowRight 
 } from 'lucide-react';
+import apiIntegrationImg from './Images/assest images/API Integration.png';
+import crmImg from './Images/assest images/CRM.png';
+import voiceAiChatbotImg from './Images/assest images/Voice AI Chatbot.png';
+import automationServicesImg from './Images/assest images/Automation Services.png';
+import selfSellingAiBodyImg from './Images/assest images/Self selling Ai body.png';
+import thirdPartyBodyImg from './Images/assest images/third party integration body image.png';
+import saasIntegrationImg from './Images/assest images/Saas Integration.png';
 
 interface ServiceCardProps {
   id: string;
@@ -89,15 +96,15 @@ export const Services: React.FC<ServicesProps> = ({ onNavigate }) => {
       title: "Automation Services", 
       icon: <Cpu />, 
       description: "End-to-end business automation to eliminate manual tasks and boost efficiency.",
-      image: "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format=crop&q=80&w=800"
+      image: automationServicesImg
     },
     { 
       id: "02", 
       slug: "crm-setup-optimized",
-      title: "CRM Setup and optimized", 
+      title: "CRM Setup and Optimized", 
       icon: <Database />, 
       description: "Strategic CRM configuration and optimization for maximum sales performance.",
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800"
+      image: crmImg
     },
     { 
       id: "03", 
@@ -105,15 +112,15 @@ export const Services: React.FC<ServicesProps> = ({ onNavigate }) => {
       title: "Voice AI and ChatBots", 
       icon: <Mic />, 
       description: "Intelligent AI-driven voice and chat solutions for 24/7 customer engagement.",
-      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800"
+      image: voiceAiChatbotImg
     },
     { 
       id: "04", 
       slug: "self-selling-ai",
-      title: "Self selling AI", 
+      title: "Self Selling AI", 
       icon: <BrainCircuit />, 
       description: "Autonomous AI agents designed to handle the entire sales process from lead to close.",
-      image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&q=80&w=800"
+      image: selfSellingAiBodyImg
     },
     { 
       id: "05", 
@@ -126,26 +133,26 @@ export const Services: React.FC<ServicesProps> = ({ onNavigate }) => {
     { 
       id: "06", 
       slug: "saas-integration",
-      title: "SaaS integration", 
+      title: "SaaS Integration", 
       icon: <Link2 />, 
       description: "Seamlessly connecting your SaaS stack for unified data and streamlined workflows.",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"
+      image: saasIntegrationImg
     },
     { 
       id: "07", 
       slug: "third-party-syncronization",
-      title: "Third party Syncronization", 
+      title: "Third Party Synchronization", 
       icon: <RefreshCw />, 
       description: "Real-time data synchronization between your internal systems and external partners.",
-      image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=800"
+      image: thirdPartyBodyImg
     },
     { 
       id: "08", 
       slug: "api-integration",
-      title: "API integration", 
+      title: "API Integration", 
       icon: <Code2 />, 
       description: "Custom API development and integration for advanced technical requirements.",
-      image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=800"
+      image: apiIntegrationImg
     }
   ], []);
 

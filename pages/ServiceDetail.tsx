@@ -4,6 +4,16 @@ import { Reveal } from '../components/Reveal';
 import { CheckCircle2, ArrowRight, ChevronDown } from 'lucide-react';
 import { Page } from '../App';
 import { motion, AnimatePresence } from 'framer-motion';
+import apiIntegrationImg from '../components/Images/assest images/API Integration.png';
+import apiIntegrationBannerImg from '../components/Images/assest images/API Integration banner.jpeg';
+import crmImg from '../components/Images/assest images/CRM.png';
+import voiceAiChatbotImg from '../components/Images/assest images/Voice AI Chatbot.png';
+import automationServicesImg from '../components/Images/assest images/Automation Services.png';
+import selfSellingAiBodyImg from '../components/Images/assest images/Self selling Ai body.png';
+import selfSellingAiBannerImg from '../components/Images/assest images/Self Selling AI BANNER.png';
+import thirdPartyBannerImg from '../components/Images/assest images/third party integration banner.png';
+import thirdPartyBodyImg from '../components/Images/assest images/third party integration body image.png';
+import saasIntegrationImg from '../components/Images/assest images/Saas Integration.png';
 
 interface ServiceDetailProps {
   slug: string | null;
@@ -23,18 +33,27 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ slug, onNavigate }) => {
 
   if (!service) return null;
 
-  const serviceImages: Record<string, string> = {
-    "workflow-automation": "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&q=80&w=1200",
-    "crm-setup": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=1200",
-    "project-management": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&q=80&w=1200",
-    "ai-sales-agents": "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1200",
-    "sales-funnels": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200",
-    "app-integrations": "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=1200",
+  const bannerImages: Record<string, string> = {
+    "automation-service": automationServicesImg,
+    "crm-setup-optimized": crmImg,
+    "voice-ai-chat-bots": voiceAiChatbotImg,
+    "self-selling-ai": selfSellingAiBannerImg,
     "web-development": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=1200",
-    "operations-audit": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=1200"
+    "saas-integration": saasIntegrationImg,
+    "third-party-syncronization": thirdPartyBannerImg,
+    "api-integration": apiIntegrationBannerImg
   };
 
-  const heroImage = serviceImages[service.slug] ?? serviceImages["workflow-automation"];
+  const overviewImages: Record<string, string> = {
+    ...bannerImages,
+    "api-integration": apiIntegrationImg,
+    "self-selling-ai": selfSellingAiBodyImg,
+    "third-party-syncronization": thirdPartyBodyImg,
+    "saas-integration": saasIntegrationImg
+  };
+
+  const heroImage = bannerImages[service.slug] ?? bannerImages["automation-service"];
+  const overviewImage = overviewImages[service.slug] ?? overviewImages["automation-service"];
 
   const getServiceFaqs = (slug: string, title: string) => {
     switch (slug) {
@@ -48,6 +67,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ slug, onNavigate }) => {
         ];
       case 'crm-setup-optimized':
         return [
+          { q: "Which CRM platforms do you specialize in?", a: "We work with a wide range of platforms including GoHighLevel, HubSpot, Salesforce, Monday.com, Zoho, Airtable, Odoo, Pabau, and Pipedrive." },
           { q: "What does your CRM setup process include?", a: "We configure pipelines, stages, automation, user roles, dashboards, and reporting aligned with your sales process." },
           { q: "Can you optimize my existing CRM system?", a: "Yes, we audit your current setup, remove inefficiencies, and restructure workflows for better performance." },
           { q: "Do you customize CRM pipelines based on business model?", a: "Every pipeline is structured around your lead flow, sales cycle, and operational requirements." },
@@ -73,12 +93,12 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ slug, onNavigate }) => {
         ];
       case 'web-development':
         return [
-          { q: "Is your website development mobile responsive?", a: "Yes, all websites are optimized for mobile, tablet, and desktop devices." },
-          { q: "Do you focus on performance and speed optimization?", a: "We develop fast loading, performance optimized websites to ensure better user experience and search visibility." },
-          { q: "Can you integrate third party tools into the website?", a: "Yes, we connect CRMs, payment gateways, analytics tools, and other SaaS platforms seamlessly." },
-          { q: "Do you provide SEO friendly development?", a: "We follow structured coding practices and on page SEO standards during development." },
-          { q: "Is your front end development optimized for performance?", a: "We write clean HTML, structured CSS, and optimized JavaScript to ensure speed and responsiveness." },
-          { q: "Can you integrate APIs into the website?", a: "We connect external systems and services using secure API integration and server side handling." }
+          { q: "Which platforms do you use for web development?", a: "We specialize in building high-performance websites using WordPress, GoHighLevel, and Wix." },
+          { q: "Is your website development mobile responsive?", a: "Yes, all websites are optimized for mobile, tablet, and desktop devices across all platforms." },
+          { q: "Do you focus on performance and speed optimization?", a: "We ensure fast loading, performance optimized websites to provide a better user experience and higher search visibility." },
+          { q: "Can you integrate third party tools into the website?", a: "Yes, we connect CRMs, payment gateways, analytics tools, and other SaaS platforms seamlessly into your site." },
+          { q: "Do you provide SEO friendly development?", a: "We follow SEO best practices and ensure your site is structured for maximum search engine visibility." },
+          { q: "Can you build custom funnels on GoHighLevel?", a: "Yes, we design and develop high-converting sales funnels and landing pages specifically for GoHighLevel." }
         ];
       case 'saas-integration':
         return [
@@ -208,7 +228,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ slug, onNavigate }) => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
                   <Reveal direction="left">
                     <div className="relative rounded-[14px] border border-black/10 overflow-hidden bg-white shadow-[0_20px_50px_rgba(0,0,0,0.06)]">
-                      <img src={heroImage} alt={service.title} className="w-full h-72 md:h-96 object-cover" />
+                      <img src={overviewImage} alt={service.title} className="w-full h-72 md:h-96 object-cover" />
                     </div>
                   </Reveal>
                   <Reveal direction="right">
@@ -324,7 +344,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ slug, onNavigate }) => {
             </Reveal>
             <Reveal direction="up" delay={0.1}>
               <p className="text-secondary/60 mb-8 max-w-2xl mx-auto">
-                Book a quick consultation and we will map the right plan for your business.
+                Connect with us today and we will map the right plan for your business.
               </p>
             </Reveal>
             <Reveal direction="up" delay={0.2}>
@@ -332,7 +352,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ slug, onNavigate }) => {
                 onClick={() => onNavigate('contact')}
                 className="inline-flex items-center gap-3 px-8 py-3 rounded-[14px] bg-secondary text-white font-semibold text-sm hover:bg-black transition-colors"
               >
-                Book A Strategy Call <ArrowRight size={16} />
+                Contact Us Now <ArrowRight size={16} />
               </button>
             </Reveal>
           </div>
