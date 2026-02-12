@@ -2,6 +2,8 @@ import React from 'react';
 import { Reveal } from './Reveal';
 import { FloatingDecorations } from './FloatingDecorations';
 import { Cpu, Mic, Globe, ArrowRight } from 'lucide-react';
+import automationServicesImg from './Images/assest images/Automation Services.png';
+import voiceAiChatbotImg from './Images/assest images/Voice AI Chatbot.png';
 
 interface HomeServiceCardProps {
   slug: string;
@@ -9,11 +11,12 @@ interface HomeServiceCardProps {
   description: string;
   icon: React.ReactNode;
   image: string;
+  objectPosition?: string;
   delay: number;
   onNavigate?: (page: 'home' | 'about' | 'services' | 'casestudies' | 'service', slug?: string) => void;
 }
 
-const HomeServiceCard: React.FC<HomeServiceCardProps> = ({ slug, title, description, icon, image, delay, onNavigate }) => {
+const HomeServiceCard: React.FC<HomeServiceCardProps> = ({ slug, title, description, icon, image, objectPosition, delay, onNavigate }) => {
   return (
     <Reveal direction="up" delay={delay} className="h-full">
       <div className="bg-white border border-zinc-200 rounded-2xl overflow-hidden flex flex-col h-full group hover:shadow-xl transition-all duration-500">
@@ -23,6 +26,7 @@ const HomeServiceCard: React.FC<HomeServiceCardProps> = ({ slug, title, descript
               src={image} 
               alt={title} 
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              style={objectPosition ? { objectPosition } : undefined}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-between p-4">
               <div className="flex items-center justify-between">
@@ -72,14 +76,15 @@ export const HomeServices: React.FC<HomeServicesProps> = ({ onNavigate }) => {
       title: 'Automation Services',
       icon: <Cpu />,
       description: 'End-to-end business automation to eliminate manual tasks and boost efficiency.',
-      image: 'https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&q=80&w=800',
+      image: automationServicesImg,
     },
     {
       slug: 'voice-ai-chat-bots',
       title: 'Voice AI & ChatBots',
       icon: <Mic />,
       description: 'Intelligent AI-driven voice and chat solutions for 24/7 customer engagement.',
-      image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800',
+      image: voiceAiChatbotImg,
+      objectPosition: 'left center'
     },
     {
       slug: 'web-development',
@@ -127,6 +132,7 @@ export const HomeServices: React.FC<HomeServicesProps> = ({ onNavigate }) => {
               description={service.description}
               icon={service.icon}
               image={service.image}
+              objectPosition={(service as any).objectPosition}
               delay={index * 0.1}
               onNavigate={onNavigate}
             />
