@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Reveal } from '../components/Reveal';
 import { Icons } from '../components/Icons';
+import { getApiBase } from '@/utils/api';
 
 import { AmbientGroup } from '../components/AmbientBlobs';
 import { FloatingDecorations } from '../components/FloatingDecorations';
@@ -33,13 +34,7 @@ export const ContactPage: React.FC<ContactPageProps> = () => {
     setError(null);
     try {
       const envBase = (import.meta as any).env?.VITE_API_BASE_URL as string | undefined;
-      const isLocalhost = typeof window !== 'undefined' && window.location.hostname === 'localhost';
-      const apiBase =
-        isLocalhost && envBase && envBase.trim().length > 0
-          ? envBase.replace(/\/+$/, '')
-          : isLocalhost
-          ? 'http://localhost:3001'
-          : window.location.origin;
+      const apiBase = getApiBase(envBase);
 
       console.log('Form submitting to:', `${apiBase}/api/contact`);
       const resp = await fetch(`${apiBase}/api/contact`, {

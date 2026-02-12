@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { AmbientBlobs } from './AmbientBlobs';
 import { Icons } from './Icons';
 import { FloatingDecorations } from './FloatingDecorations';
+import { getApiBase } from '@/utils/api';
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name is required'),
@@ -36,13 +37,7 @@ export const Contact: React.FC = () => {
     setError(null);
     try {
       const envBase = (import.meta as any).env?.VITE_API_BASE_URL as string | undefined;
-      const isLocalhost = typeof window !== 'undefined' && window.location.hostname === 'localhost';
-      const apiBase =
-        isLocalhost && envBase && envBase.trim().length > 0
-          ? envBase.replace(/\/+$/, '')
-          : isLocalhost
-          ? 'http://localhost:3001'
-          : window.location.origin;
+      const apiBase = getApiBase(envBase);
 
       console.log('Form submitting to:', `${apiBase}/api/contact`);
       const resp = await fetch(`${apiBase}/api/contact`, {
