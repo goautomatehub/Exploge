@@ -25,13 +25,20 @@ import unifiedJustCallImg from '../components/Images/assest images/case studies/
 import endTallyImg from '../components/Images/assest images/case studies/End Tally.png';
 import wlClickupImg from '../components/Images/assest images/case studies/White Clickup.png';
 import convClosebotImg from '../components/Images/assest images/case studies/Conversation Closebot.png';
+import misterYScreenshot from '../components/Images/assest images/case studies/screencapture-misteryfl-2026-02-24-21_53_27.png';
+import misterYBanner from '../components/Images/assest images/case studies/Screenshot 2026-02-24 221219.png';
+import unifiedClinicBanner from '../components/Images/assest images/case studies/Unified Communication System for a Clinic.png';
+import fieldServiceBanner4 from '../components/Images/assest images/case studies/End-to-End Field Service Automation 4.png';
+import whiteLabelBanner from '../components/Images/assest images/case studies/White-Label Technical Infrastructure for Agencies.png';
+import conversationalBanner from '../components/Images/assest images/case studies/Conversational AI & Voice Systems for Business.png';
+import medicalFinopsBanner from '../components/Images/assest images/case studies/Financial & Operations Sync for a Medical Clinic.png';
 
 export const caseStudies: CaseStudy[] = [
   {
     slug: 'medical-clinic-finops-sync',
     title: 'Financial & Operations Sync for a Medical Clinic',
     category: 'Automation',
-    heroImage: finQuickbookImg as unknown as string,
+    heroImage: medicalFinopsBanner as unknown as string,
     excerpt: 'Bi-directional sync across Pabau and QuickBooks, automated payroll, and enforced pre-surgery payment deadlines.',
     tags: ['Make.com', 'Pabau', 'QuickBooks Online', 'Google Sheets', 'Gmail', 'Google Chat'],
     stats: [
@@ -82,10 +89,73 @@ export const caseStudies: CaseStudy[] = [
   }
   ,
   {
+    slug: 'mistery-home-improvements',
+    title: 'Digital Transformation of Mister Y Home Improvements',
+    category: 'Web Engineering',
+    heroImage: misterYBanner as unknown as string,
+    excerpt: 'Rebuilt a generic template into a high-converting WordPress presence tailored to homeowners, with visual rebrand, structured services, and local SEO.',
+    tags: ['WordPress', 'Rank Math', 'SEO', 'UX', 'Freepik'],
+    stats: [
+      { label: 'Client Name', value: 'Eliran Halliva' },
+      { label: 'Project Name', value: 'Mister Y Home Improvements' },
+      { label: 'Platform', value: 'WordPress' },
+      { label: 'Focus', value: 'Local SEO & Conversion' }
+    ],
+    sections: [
+      {
+        id: 'overview-vision',
+        heading: 'Project Overview and Vision',
+        body: 'The development of the Mister Y Home Improvements website was a comprehensive project built entirely from the ground up. The vision was to create a professional digital hub that accurately reflects the high standards of a residential contracting business. Starting from a blank slate, the goal was to architect a site that avoids the common pitfalls of generic templates, instead focusing on a structured, industry-specific layout that provides immediate value to homeowners. This project stands as a testament to the importance of custom-built content in the home improvement sector.'
+      },
+      {
+        id: 'industry-specificity',
+        heading: 'The Challenge of Industry Specificity',
+        body: 'Building a contractor website from scratch requires a deep understanding of the target audience. The primary challenge was to ensure that every visual and textual element aligned perfectly with the services offered, such as kitchen remodeling and structural repairs. Many platforms fail because they rely on placeholder data that confuses the visitor. For this project, it was essential to eliminate any irrelevant information and focus strictly on creating a reliable, transparent, and authoritative presence for the Mister Y brand.'
+      },
+      {
+        id: 'strategic-design-dev',
+        heading: 'Strategic Design and Custom Development',
+        body: 'The design phase involved the creation of a sophisticated gold and white color palette to establish a premium brand identity. Every page was developed with a specific hierarchy in mind, ensuring that the user journey is logical and intuitive. From the custom favicon to the responsive mobile layout, the site was built to handle high-resolution imagery of renovations while maintaining fast loading speeds. This meticulous development process ensures that the website functions as a professional tool for lead generation rather than just a static brochure.'
+      },
+      {
+        id: 'screenshot',
+        heading: 'Full Home Page (After)',
+        body: 'A complete homepage built for trust and conversion — tailored for homeowners.',
+        image: misterYScreenshot as unknown as string
+      },
+      {
+        id: 'content-engineering',
+        heading: 'Content Engineering and Service Categorization',
+        body: 'A core part of the development was the engineering of a detailed services architecture. Instead of generic lists, we built out comprehensive sections for over ten specialized service areas, including bathroom renovations, flooring installation, and exterior maintenance. Each service description was written from scratch to highlight technical expertise and the specific benefits to the homeowner, such as increased property value and durability. This level of detail establishes the contractor’s authority and builds immediate trust with potential clients.'
+      },
+      {
+        id: 'full-site-brand',
+        heading: 'Full Site Development and Brand Alignment',
+        body: 'Every section of the site was handcrafted to ensure total brand consistency. The About page was developed to showcase core specialties, while the Gallery was organized into a strategic grid to display a diverse portfolio of work. We also built a transparent "Simple and Transparent Process" section that outlines the four critical stages of a project: consultation, planning, execution, and inspection. This structural clarity is designed to reduce customer friction and provide a clear roadmap for every engagement.'
+      },
+      {
+        id: 'technical-seo-framework',
+        heading: 'Technical SEO and Framework Configuration',
+        body: 'The technical infrastructure of the site was built using the Rank Math SEO framework to ensure long-term discoverability. This involved a deep configuration of site-wide metadata, including the primary site title, tagline, and focus keywords tailored to the home improvement industry. We developed unique meta descriptions for every page, focusing on high-intent search terms that drive organic traffic. This technical foundation was built to ensure that the site ranks effectively for local searches, connecting the business with homeowners in need of expert services.'
+      },
+      {
+        id: 'conversion-lead-capture',
+        heading: 'Conversion Optimization and Lead Capture',
+        body: 'The final development phase focused on turning visitors into active leads. We redesigned the contact system to be straightforward and professional, removing all unnecessary fields and focusing on essential inquiry data. The legal consent language was updated to meet professional standards, and call-to-action buttons were strategically placed throughout the site. This conversion-centric approach ensures that the website is not just a visual achievement but a functional business asset that generates measurable results.'
+      },
+      {
+        id: 'conclusion',
+        heading: 'Conclusion',
+        body: 'The completed Mister Y Home Improvements website is a robust, professional, and logically sound platform built with precision. By developing every element from scratch—from the service descriptions to the SEO configuration—we have created a digital presence that truly represents the quality of the brand. The site is now fully equipped to serve as the primary gateway for clients seeking excellence in home remodeling and repairs.'
+      }
+    ]
+  }
+  ,
+  {
     slug: 'unified-communication-clinic',
     title: 'Unified Communication System for a Clinic',
     category: 'Automation',
-    heroImage: unifiedJustCallImg as unknown as string,
+    heroImage: unifiedClinicBanner as unknown as string,
     excerpt: 'Unified communication ecosystem connecting JustCall, GoHighLevel, and Pabau with AI-driven appointment booking.',
     tags: ['JustCall', 'GoHighLevel', 'Pabau', 'Make.com', 'AI Voice', 'AI Chat'],
     stats: [
@@ -136,7 +206,7 @@ export const caseStudies: CaseStudy[] = [
     slug: 'field-service-automation',
     title: 'End-to-End Field Service Automation',
     category: 'Automation',
-    heroImage: endTallyImg as unknown as string,
+    heroImage: fieldServiceBanner4 as unknown as string,
     excerpt: 'Fully automated field service workflow replacing manual quoting, fulfillment, and billing with a unified system.',
     tags: ['Monday.com', 'Tally', 'PandaDoc', 'Stripe', 'Make.com'],
     stats: [
@@ -201,7 +271,7 @@ export const caseStudies: CaseStudy[] = [
     slug: 'white-label-technical-infrastructure',
     title: 'White-Label Technical Infrastructure for Agencies',
     category: 'Automation',
-    heroImage: wlClickupImg as unknown as string,
+    heroImage: whiteLabelBanner as unknown as string,
     excerpt: 'White-label backend partnership delivering ClickUp automation, advanced GHL CRM, and API workflows to scale delivery without hiring.',
     tags: ['ClickUp', 'GoHighLevel', 'Pabbly Connect', 'n8n', 'Zapier'],
     stats: [
@@ -250,7 +320,7 @@ export const caseStudies: CaseStudy[] = [
     slug: 'conversational-ai-voice-systems',
     title: 'Conversational AI & Voice Systems for Business',
     category: 'Automation',
-    heroImage: convClosebotImg as unknown as string,
+    heroImage: conversationalBanner as unknown as string,
     excerpt: '24/7 conversational AI and voice agents that qualify, book, and escalate with structured CRM integration.',
     tags: ['Vapi', 'Synthflow', 'CloseBot', 'ZappyChat', 'ManyChat', 'GoHighLevel'],
     stats: [

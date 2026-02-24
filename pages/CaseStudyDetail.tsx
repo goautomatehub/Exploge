@@ -20,6 +20,10 @@ import endStripeImg from '../components/Images/assest images/case studies/End St
 import endMakeImg from '../components/Images/assest images/case studies/End Make.png';
 import finQuickbookImg from '../components/Images/assest images/case studies/Financial Quickbook.png';
 import unifiedJustCallImg from '../components/Images/assest images/case studies/Unified just call.png';
+import misterYBanner from '../components/Images/assest images/case studies/Screenshot 2026-02-24 221219.png';
+import misterYHomeShot from '../components/Images/assest images/case studies/screencapture-misteryfl-2026-02-24-21_53_27.png';
+import misterYAboutShot from '../components/Images/assest images/case studies/screencapture-misteryfl-about-2026-02-24-22_25_04 (1).png';
+import misterYServicesShot from '../components/Images/assest images/case studies/screencapture-misteryfl-services-2026-02-24-22_25_27.png';
 
 interface CaseStudyDetailProps {
   slug: string | null;
@@ -63,6 +67,7 @@ const CaseStudyDetail: React.FC<CaseStudyDetailProps> = ({ slug, onNavigate }) =
   const isFieldService = caseStudy.slug === 'field-service-automation';
   const isMedicalFinops = caseStudy.slug === 'medical-clinic-finops-sync';
   const isUnifiedClinic = caseStudy.slug === 'unified-communication-clinic';
+  const isMisterY = caseStudy.slug === 'mistery-home-improvements';
   const sectionImages = caseStudy.sections.filter(s => !!s.image).map(s => s.image as string);
   const galleryBase = [caseStudy.heroImage, ...sectionImages];
   const galleryFallback = [
@@ -80,6 +85,8 @@ const CaseStudyDetail: React.FC<CaseStudyDetailProps> = ({ slug, onNavigate }) =
     ? [finQuickbookImg as unknown as string]
     : isUnifiedClinic
     ? [unifiedJustCallImg as unknown as string]
+    : isMisterY
+    ? [misterYBanner as unknown as string]
     : (galleryBase.concat(galleryFallback)).slice(0, 4);
   const showSlider = galleryImages.length > 3;
   const marqueeImages = [...galleryImages, ...galleryImages];
@@ -109,6 +116,8 @@ const CaseStudyDetail: React.FC<CaseStudyDetailProps> = ({ slug, onNavigate }) =
                 ? (finQuickbookImg as unknown as string)
                 : isUnifiedClinic
                 ? (unifiedJustCallImg as unknown as string)
+                : isMisterY
+                ? (misterYBanner as unknown as string)
                 : caseStudy.heroImage
             }
             alt={caseStudy.title}
@@ -193,6 +202,30 @@ const CaseStudyDetail: React.FC<CaseStudyDetailProps> = ({ slug, onNavigate }) =
                     </p>
                   </Reveal>
                   {(() => {
+                    if (isMisterY && section.id === 'screenshot') {
+                      const shots = [misterYHomeShot as unknown as string, misterYAboutShot as unknown as string, misterYServicesShot as unknown as string];
+                      return (
+                        <Reveal direction="up" delay={0.1}>
+                          <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {shots.map((img, i) => (
+                              <div key={`mistery-shot-${i}`} className="rounded-lg overflow-hidden h-[220px] xs:h-[260px] md:h-[300px] lg:h-[360px] bg-white">
+                                <img
+                                  src={img}
+                                  alt={`${section.heading} ${i + 1}`}
+                                  className="w-full h-full object-contain"
+                                  loading="lazy"
+                                  decoding="async"
+                                  onError={(e) => { 
+                                    const t = e.currentTarget as HTMLImageElement; 
+                                    t.src = (fallbackImage as unknown as string); 
+                                  }}
+                                />
+                              </div>
+                            ))}
+                          </div>
+                        </Reveal>
+                      );
+                    }
                     const imgSrc = isConversational
                       ? (idx === 0 ? (convBotImg as unknown as string) : idx === 1 ? (convClosebotImg as unknown as string) : undefined)
                       : isWhiteLabel
@@ -205,21 +238,21 @@ const CaseStudyDetail: React.FC<CaseStudyDetailProps> = ({ slug, onNavigate }) =
                       ? (idx === 0 ? (unifiedJustCallImg as unknown as string) : undefined)
                       : (section.image ?? undefined);
                     return imgSrc ? (
-                    <Reveal direction="up" delay={0.1}>
-                      <div className="mt-4 rounded-lg overflow-hidden aspect-[16/10]">
-                        <img
-                          src={imgSrc}
-                          alt={section.heading}
-                          className="w-full h-full object-contain"
-                          loading="lazy"
-                          decoding="async"
-                          onError={(e) => { 
-                            const t = e.currentTarget as HTMLImageElement; 
-                            t.src = (fallbackImage as unknown as string); 
-                          }}
-                        />
-                      </div>
-                    </Reveal>
+                      <Reveal direction="up" delay={0.1}>
+                        <div className="mt-4 rounded-lg overflow-hidden aspect-[16/10]">
+                          <img
+                            src={imgSrc}
+                            alt={section.heading}
+                            className="w-full h-full object-contain"
+                            loading="lazy"
+                            decoding="async"
+                            onError={(e) => { 
+                              const t = e.currentTarget as HTMLImageElement; 
+                              t.src = (fallbackImage as unknown as string); 
+                            }}
+                          />
+                        </div>
+                      </Reveal>
                     ) : null;
                   })()}
                 </article>
