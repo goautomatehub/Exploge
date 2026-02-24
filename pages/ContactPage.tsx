@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -19,7 +19,7 @@ const contactSchema = z.object({
 type ContactFormValues = z.infer<typeof contactSchema>;
 
 interface ContactPageProps {
-  onNavigate?: (page: 'home' | 'about' | 'services' | 'casestudies' | 'contact') => void;
+  onNavigate?: (page: 'home' | 'about' | 'services' | 'casestudies' | 'case' | 'contact') => void;
 }
 
 export const ContactPage: React.FC<ContactPageProps> = () => {
@@ -30,16 +30,46 @@ export const ContactPage: React.FC<ContactPageProps> = () => {
     defaultValues: { name: '', email: '', subject: '', message: '' }
   });
 
+  useEffect(() => {
+    const w = 'https://tally.so/widgets/embed.js';
+    const v = () => {
+      const anyWindow: any = window as any;
+      if (typeof anyWindow.Tally !== 'undefined') {
+        anyWindow.Tally.loadEmbeds();
+      } else {
+        document
+          .querySelectorAll('iframe[data-tally-src]:not([src])')
+          .forEach((el) => {
+            const e = el as HTMLIFrameElement;
+            const src = e.dataset.tallySrc;
+            if (src && !e.src) e.src = src;
+          });
+      }
+    };
+    const anyWindow: any = window as any;
+    if (typeof anyWindow.Tally !== 'undefined') {
+      v();
+      return;
+    }
+    if (!document.querySelector(`script[src="${w}"]`)) {
+      const s = document.createElement('script');
+      s.src = w;
+      s.onload = v;
+      s.onerror = v;
+      document.body.appendChild(s);
+    } else {
+      v();
+    }
+  }, []);
+
   const onSubmit = async (data: ContactFormValues) => {
     setError(null);
     try {
       const envBase = (import.meta as any).env?.VITE_API_BASE_URL as string | undefined;
       const apiBase = getApiBase(envBase);
-      const isProd = (import.meta as any).env?.PROD as boolean | undefined;
-      const url = isProd && !envBase ? '/contact.php' : `${apiBase}/api/contact`;
 
-      console.log('Form submitting to:', url);
-      const resp = await fetch(url, {
+      console.log('Form submitting to:', `${apiBase}/api/contact`);
+      const resp = await fetch(`${apiBase}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...data, sourceUrl: window.location.href })
@@ -113,77 +143,21 @@ export const ContactPage: React.FC<ContactPageProps> = () => {
                 </div>
               </div>
 
-              {submitted ? (
-                <div className="py-16 md:py-20 text-center">
-                  <div className="w-16 h-16 md:w-20 md:h-20 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-6">
-                    <Icons.Check className="w-8 h-8 md:w-10 md:h-10" />
-                  </div>
-                  <h4 className="text-secondary text-2xl md:text-3xl font-black tracking-tighter mb-2">Message Sent</h4>
-                  <p className="text-gray-500 font-bold text-[10px] md:text-xs tracking-widest uppercase">We will respond within 120 minutes.</p>
+              <div className="space-y-6">
+                <div className="rounded-xl overflow-hidden">
+                  <iframe
+                    data-tally-src={"https://tally.so/embed/rj67WN?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"}
+                    src={"https://tally.so/embed/rj67WN?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"}
+                    loading="lazy"
+                    width="100%"
+                    height="484"
+                    frameBorder={0}
+                    marginHeight={0}
+                    marginWidth={0}
+                    title="Contact Us"
+                  />
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="text-[11px] font-black text-secondary/60 uppercase tracking-[0.2em]">Full Name</label>
-                      <input
-                        type="text"
-                        aria-invalid={!!errors.name}
-                        className={`w-full bg-zinc-50 border p-3 text-sm text-secondary placeholder:text-zinc-400 rounded-lg focus:outline-none transition-all ${errors.name ? 'border-red-300 focus:border-red-400 focus:ring-1 focus:ring-red-300' : 'border-zinc-200 focus:border-primary focus:ring-1 focus:ring-primary'}`}
-                        placeholder="John Doe"
-                        {...register('name')}
-                      />
-                      {errors.name ? <p className="text-[10px] font-semibold text-red-500">{errors.name.message}</p> : null}
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[11px] font-black text-secondary/60 uppercase tracking-[0.2em]">Email</label>
-                      <input
-                        type="email"
-                        aria-invalid={!!errors.email}
-                        className={`w-full bg-zinc-50 border p-3 text-sm text-secondary placeholder:text-zinc-400 rounded-lg focus:outline-none transition-all ${errors.email ? 'border-red-300 focus:border-red-400 focus:ring-1 focus:ring-red-300' : 'border-zinc-200 focus:border-primary focus:ring-1 focus:ring-primary'}`}
-                        placeholder="john@company.com"
-                        {...register('email')}
-                      />
-                      {errors.email ? <p className="text-[10px] font-semibold text-red-500">{errors.email.message}</p> : null}
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <label className="text-[11px] font-black text-secondary/60 uppercase tracking-[0.2em]">Subject</label>
-                    <input
-                      type="text"
-                      aria-invalid={!!errors.subject}
-                      className={`w-full bg-zinc-50 border p-3 text-sm text-secondary placeholder:text-zinc-400 rounded-lg focus:outline-none transition-all ${errors.subject ? 'border-red-300 focus:border-red-400 focus:ring-1 focus:ring-red-300' : 'border-zinc-200 focus:border-primary focus:ring-1 focus:ring-primary'}`}
-                      placeholder="How can we help?"
-                      {...register('subject')}
-                    />
-                    {errors.subject ? <p className="text-[10px] font-semibold text-red-500">{errors.subject.message}</p> : null}
-                  </div>
-
-                  <div className="space-y-2">
-                    <label className="text-[11px] font-black text-secondary/60 uppercase tracking-[0.2em]">Message</label>
-                    <textarea
-                      rows={4}
-                      aria-invalid={!!errors.message}
-                      className={`w-full bg-zinc-50 border p-3 text-sm text-secondary resize-none placeholder:text-zinc-400 rounded-lg focus:outline-none transition-all ${errors.message ? 'border-red-300 focus:border-red-400 focus:ring-1 focus:ring-red-300' : 'border-zinc-200 focus:border-primary focus:ring-1 focus:ring-primary'}`}
-                      placeholder="Your message here..."
-                      {...register('message')}
-                    ></textarea>
-                    {errors.message ? <p className="text-[10px] font-semibold text-red-500">{errors.message.message}</p> : null}
-                  </div>
-
-                  {error ? <p className="text-[10px] font-semibold text-red-500">{error}</p> : null}
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-primary text-white font-black py-4 hover:bg-secondary transition-all duration-300 text-[10px] md:text-xs uppercase flex items-center justify-center gap-2 rounded-lg disabled:opacity-70 disabled:cursor-not-allowed"
-                  >
-                    Send Message
-                    <Icons.ArrowRight className="w-4 h-4" />
-                  </button>
-                  <p className="text-[9px] text-zinc-400 text-center uppercase tracking-widest">By submitting, you agree to our terms.</p>
-                </form>
-              )}
+              </div>
             </div>
           </div>
         </div>

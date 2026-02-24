@@ -91,7 +91,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ id, slug, title, description,
 };
 
 interface ServicesProps {
-  onNavigate?: (page: 'home' | 'about' | 'services' | 'casestudies' | 'service', slug?: string) => void;
+  onNavigate?: (page: 'home' | 'about' | 'services' | 'casestudies' | 'service' | 'case', slug?: string) => void;
 }
 
 export const Services: React.FC<ServicesProps> = ({ onNavigate }) => {

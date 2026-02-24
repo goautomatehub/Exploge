@@ -58,7 +58,7 @@ const HomeServiceCard: React.FC<HomeServiceCardProps> = ({ slug, title, descript
               onClick={() => onNavigate?.('service', slug)}
               className="flex items-center gap-2 px-4 py-2 rounded-full bg-secondary text-white text-[10px] font-bold hover:bg-zinc-800 transition-all duration-300 hover:-translate-y-0.5 active:scale-95 group/btn"
             >
-              <span className="uppercase tracking-widest">View More</span>
+              <span className="capitalize">View More</span>
               <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-1" />
             </button>
           </div>
@@ -69,7 +69,7 @@ const HomeServiceCard: React.FC<HomeServiceCardProps> = ({ slug, title, descript
 };
 
 interface HomeServicesProps {
-  onNavigate?: (page: 'home' | 'about' | 'services' | 'casestudies' | 'service', slug?: string) => void;
+  onNavigate?: (page: 'home' | 'about' | 'services' | 'casestudies' | 'service' | 'case', slug?: string) => void;
 }
 
 export const HomeServices: React.FC<HomeServicesProps> = ({ onNavigate }) => {
@@ -147,7 +147,7 @@ export const HomeServices: React.FC<HomeServicesProps> = ({ onNavigate }) => {
                 onClick={() => onNavigate?.('services')}
                 className="group flex items-center gap-4 transition-all duration-300 hover:-translate-y-1 active:scale-95"
               >
-                <span className="text-xl md:text-2xl font-bold text-secondary tracking-tight group-hover:text-primary transition-colors">
+                <span className="normal-case text-xl md:text-2xl font-bold text-secondary tracking-tight group-hover:text-primary transition-colors">
                   View All
                 </span>
                 <div className="flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-secondary text-white shadow-[0_0_15px_rgba(0,0,0,0.1)] group-hover:bg-primary group-hover:shadow-[0_0_20px_rgba(32,188,97,0.4)] transition-all duration-500">

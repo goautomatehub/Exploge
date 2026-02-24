@@ -1,18 +1,33 @@
 import React from 'react';
 import { Projects as ProjectsContent } from '../components/Projects';
-import { Comparison } from '../components/Comparison';
 import { Reveal } from '../components/Reveal';
 import { AmbientGroup } from '../components/AmbientBlobs';
 
-export const CaseStudiesPage: React.FC = () => {
+interface CaseStudiesPageProps {
+  onNavigate?: (page: 'home' | 'about' | 'services' | 'casestudies' | 'service' | 'contact' | 'case', slug?: string) => void;
+}
+
+export const CaseStudiesPage: React.FC<CaseStudiesPageProps> = ({ onNavigate }) => {
   return (
     <div className="bg-white min-h-screen">
-      {/* Hero Section */}
       <section className="pt-28 pb-20 md:pt-48 md:pb-32 bg-premium-dark text-white relative overflow-hidden">
         <AmbientGroup variant="dark" />
         <div className="absolute inset-0 bg-grid opacity-[0.05]"></div>
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl">
+            <Reveal direction="up">
+              <div className="flex flex-wrap items-center gap-3 text-[14px] font-normal capitalize text-white/70 font-urbanist mb-6">
+                <a
+                  href="#"
+                  onClick={(e) => { e.preventDefault(); onNavigate?.('home'); }}
+                  className="hover:text-white transition-colors"
+                >
+                  Home
+                </a>
+                <span className="opacity-40">/</span>
+                <span className="line-clamp-1">Case Studies</span>
+              </div>
+            </Reveal>
             <Reveal direction="left">
               <span className="text-primary sub-heading text-[10px] md:text-xs font-bold uppercase tracking-[0.4em] mb-6 block">Proof of Work</span>
             </Reveal>
@@ -30,22 +45,20 @@ export const CaseStudiesPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Projects Grid */}
-      <ProjectsContent />
+      <ProjectsContent onOpenCase={slug => onNavigate?.('case', slug)} />
 
-      {/* Comparison - Value Proof */}
-      <div className="bg-zinc-50 border-y border-black/5">
-        <Comparison />
-      </div>
 
-      {/* Call to Action */}
       <section className="py-20 md:py-24 bg-white relative overflow-hidden">
         <div className="container mx-auto px-6 relative z-10">
           <div className="bg-primary rounded-md p-6 xs:p-8 md:p-16 lg:p-20 text-center relative overflow-hidden shadow-2xl">
              <div className="absolute inset-0 bg-grid opacity-[0.1]"></div>
              <Reveal direction="up">
                <h3 className="text-2xl xs:text-3xl md:text-4xl lg:text-5xl font-black text-white uppercase tracking-tighter mb-8">Ready to be our next success story?</h3>
-               <button className="bg-secondary text-white px-8 md:px-10 py-3 md:py-4 font-bold uppercase tracking-widest text-[10px] md:text-xs hover:bg-white hover:text-secondary transition-all duration-300">
+               <button
+                 type="button"
+                 onClick={() => onNavigate?.('contact')}
+                 className="bg-secondary text-white px-8 md:px-10 py-3 md:py-4 font-bold uppercase tracking-widest text-[10px] md:text-xs hover:bg-white hover:text-secondary transition-all duration-300"
+               >
                  Start Your Transformation
                </button>
              </Reveal>

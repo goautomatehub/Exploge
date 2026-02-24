@@ -175,7 +175,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ slug, onNavigate }) => {
                   <h1 className="text-3xl xs:text-4xl md:text-5xl font-semibold tracking-tight text-white">
                     {service.title}
                   </h1>
-                  <div className="mt-4 flex items-center justify-center text-[11px] font-semibold tracking-wide text-white/70">
+                  <div className="mt-4 flex items-center justify-center text-[14px] font-semibold tracking-wide text-white/70">
                     <button onClick={() => onNavigate('home')} className="hover:text-white transition-colors">Home</button>
                     <span className="mx-2 text-white/40">/</span>
                     <button onClick={() => onNavigate('services')} className="hover:text-white transition-colors">Services</button>

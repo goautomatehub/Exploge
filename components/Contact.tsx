@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -33,16 +33,46 @@ export const Contact: React.FC = () => {
     }
   });
 
+  useEffect(() => {
+    const w = 'https://tally.so/widgets/embed.js';
+    const v = () => {
+      const anyWindow: any = window as any;
+      if (typeof anyWindow.Tally !== 'undefined') {
+        anyWindow.Tally.loadEmbeds();
+      } else {
+        document
+          .querySelectorAll('iframe[data-tally-src]:not([src])')
+          .forEach((el) => {
+            const e = el as HTMLIFrameElement;
+            const src = e.dataset.tallySrc;
+            if (src && !e.src) e.src = src;
+          });
+      }
+    };
+    const anyWindow: any = window as any;
+    if (typeof anyWindow.Tally !== 'undefined') {
+      v();
+      return;
+    }
+    if (!document.querySelector(`script[src="${w}"]`)) {
+      const s = document.createElement('script');
+      s.src = w;
+      s.onload = v;
+      s.onerror = v;
+      document.body.appendChild(s);
+    } else {
+      v();
+    }
+  }, []);
+
   const onSubmit = async (data: ContactFormValues) => {
     setError(null);
     try {
       const envBase = (import.meta as any).env?.VITE_API_BASE_URL as string | undefined;
       const apiBase = getApiBase(envBase);
-      const isProd = (import.meta as any).env?.PROD as boolean | undefined;
-      const url = isProd && !envBase ? '/contact.php' : `${apiBase}/api/contact`;
 
-      console.log('Form submitting to:', url);
-      const resp = await fetch(url, {
+      console.log('Form submitting to:', `${apiBase}/api/contact`);
+      const resp = await fetch(`${apiBase}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...data, sourceUrl: window.location.href })
@@ -158,85 +188,19 @@ export const Contact: React.FC = () => {
             
             <div className="w-full lg:w-1/2" ref={formRef}>
               <div className="bg-white p-5 md:p-6 lg:p-8 relative rounded-xl shadow-2xl">
-                {submitted ? (
-                  <div className="py-12 md:py-16 lg:py-20 text-center animate-pulse">
-                    <div className="w-16 h-16 md:w-18 md:h-18 lg:w-20 lg:h-20 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-6">
-                      <Icons.Check className="w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10" />
-                    </div>
-                    <h4 className="text-secondary text-xl md:text-2xl font-bold mb-2">Message Sent</h4>
-                    <p className="text-gray-500 text-sm">We'll get back to you very soon.</p>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 md:space-y-4">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
-                      <div className="space-y-1">
-                        <label className="text-[10px] font-bold text-secondary/60 uppercase tracking-wider">Your Name</label>
-                        <input 
-                          type="text" 
-                          aria-invalid={!!errors.name}
-                          className={`w-full bg-zinc-50 border p-2.5 md:p-3 text-sm text-secondary focus:outline-none transition-all placeholder:text-zinc-400 rounded-lg ${errors.name ? 'border-red-300 focus:border-red-400 focus:ring-1 focus:ring-red-300' : 'border-zinc-100 focus:border-primary focus:ring-1 focus:ring-primary'}`} 
-                          placeholder="John Doe" 
-                          {...register('name')}
-                        />
-                        {errors.name ? (
-                          <p className="text-[10px] font-semibold text-red-500">{errors.name.message}</p>
-                        ) : null}
-                      </div>
-                      <div className="space-y-1">
-                        <label className="text-[10px] font-bold text-secondary/60 uppercase tracking-wider">Your Email</label>
-                        <input 
-                          type="email" 
-                          aria-invalid={!!errors.email}
-                          className={`w-full bg-zinc-50 border p-2.5 md:p-3 text-sm text-secondary focus:outline-none transition-all placeholder:text-zinc-400 rounded-lg ${errors.email ? 'border-red-300 focus:border-red-400 focus:ring-1 focus:ring-red-300' : 'border-zinc-100 focus:border-primary focus:ring-1 focus:ring-primary'}`} 
-                          placeholder="john@agency.com" 
-                          {...register('email')}
-                        />
-                        {errors.email ? (
-                          <p className="text-[10px] font-semibold text-red-500">{errors.email.message}</p>
-                        ) : null}
-                      </div>
-                    </div>
-                    
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-bold text-secondary/60 uppercase tracking-wider">Subject</label>
-                      <input 
-                        type="text" 
-                        aria-invalid={!!errors.subject}
-                        className={`w-full bg-zinc-50 border p-2.5 md:p-3 text-sm text-secondary focus:outline-none transition-all placeholder:text-zinc-400 rounded-lg ${errors.subject ? 'border-red-300 focus:border-red-400 focus:ring-1 focus:ring-red-300' : 'border-zinc-100 focus:border-primary focus:ring-1 focus:ring-primary'}`} 
-                        placeholder="How can we help?" 
-                        {...register('subject')}
-                      />
-                      {errors.subject ? (
-                        <p className="text-[10px] font-semibold text-red-500">{errors.subject.message}</p>
-                      ) : null}
-                    </div>
-                    
-                    <div className="space-y-1">
-                      <label className="text-[10px] font-bold text-secondary/60 uppercase tracking-wider">Message</label>
-                      <textarea 
-                        rows={3} 
-                        aria-invalid={!!errors.message}
-                        className={`w-full bg-zinc-50 border p-2.5 md:p-3 text-sm text-secondary focus:outline-none transition-all resize-none placeholder:text-zinc-400 rounded-lg ${errors.message ? 'border-red-300 focus:border-red-400 focus:ring-1 focus:ring-red-300' : 'border-zinc-100 focus:border-primary focus:ring-1 focus:ring-primary'}`} 
-                        placeholder="Your message here..."
-                        {...register('message')}
-                      ></textarea>
-                      {errors.message ? (
-                        <p className="text-[10px] font-semibold text-red-500">{errors.message.message}</p>
-                      ) : null}
-                    </div>
-                    
-                    {error ? (
-                      <p className="text-[10px] font-semibold text-red-500 mb-1">{error}</p>
-                    ) : null}
-                    <button type="submit" disabled={isSubmitting} className="w-full bg-primary text-white font-black py-3 md:py-4 hover:bg-secondary transition-all duration-300 text-[10px] md:text-xs uppercase flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:-translate-y-0.5 group rounded-lg disabled:opacity-70 disabled:cursor-not-allowed">
-                      Send Message
-                      <Icons.ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                    </button>
-                    <p className="text-[8px] md:text-[9px] text-zinc-400 text-center uppercase tracking-widest">
-                      By submitting, you agree to our terms.
-                    </p>
-                  </form>
-                )}
+                <div className="space-y-4">
+                  <iframe
+                    data-tally-src={"https://tally.so/embed/rj67WN?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"}
+                    src={"https://tally.so/embed/rj67WN?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"}
+                    loading="lazy"
+                    width="100%"
+                    height="484"
+                    frameBorder={0}
+                    marginHeight={0}
+                    marginWidth={0}
+                    title="Contact Us"
+                  />
+                </div>
               </div>
             </div>
           </div>

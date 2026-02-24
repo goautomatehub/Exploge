@@ -12,8 +12,8 @@ import thirdPartyBodyImg from './Images/assest images/third party integration bo
 import saasIntegrationImg from './Images/assest images/Saas Integration.png';
 
 interface HeaderProps {
-  onNavigate: (page: 'home' | 'about' | 'services' | 'casestudies' | 'service' | 'contact', slug?: string) => void;
-  currentPage: 'home' | 'about' | 'services' | 'casestudies' | 'service' | 'contact';
+  onNavigate: (page: 'home' | 'about' | 'services' | 'casestudies' | 'service' | 'case' | 'contact', slug?: string) => void;
+  currentPage: 'home' | 'about' | 'services' | 'casestudies' | 'service' | 'case' | 'contact';
 }
 
 export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
@@ -24,7 +24,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
   const HEADER_OFFSET = 50;
 
   const isServicePage = currentPage === 'service';
-  const isLightMode = currentPage !== 'home' && currentPage !== 'service' && !isScrolled && !isMenuOpen;
+  const isLightMode = ['about', 'services', 'casestudies', 'case', 'contact'].includes(currentPage) && !isScrolled && !isMenuOpen;
   const isStickyMode = isScrolled || isMenuOpen || isServicePage;
 
   useEffect(() => {
@@ -58,6 +58,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
     { name: 'Home', href: '/', id: 'home', type: 'page' },
     { name: 'About', href: '/about', id: 'about', type: 'page' },
     { name: 'Services', href: '/services', id: 'services', type: 'page' },
+    { name: 'Case Studies', href: '/case-studies', id: 'casestudies', type: 'page' },
   ];
 
   const serviceImages: Record<string, string> = {
@@ -127,14 +128,14 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
         >
           <div className={`relative transition-all duration-500 transform group-hover:scale-105 flex items-center justify-center ${
             isStickyMode 
-              ? 'w-24 h-8 xs:w-28 h-9 md:w-36 md:h-11 lg:w-40 lg:h-12' 
-              : 'w-28 h-10 xs:w-32 xs:h-11 sm:w-36 sm:h-12 md:w-48 md:h-16 lg:w-52 lg:h-20'
+              ? 'w-28 h-9 xs:w-32 h-10 md:w-36 md:h-11 lg:w-40 lg:h-12' 
+              : 'w-32 h-11 xs:w-40 xs:h-14 sm:w-44 sm:h-16 md:w-48 md:h-16 lg:w-52 lg:h-20'
           }`}>
             <img 
               src={
                 currentPage === 'home'
                   ? logoLightBg
-                  : (['about', 'services', 'casestudies', 'contact', 'service'].includes(currentPage)
+                  : (['about', 'services', 'casestudies', 'contact', 'service', 'case'].includes(currentPage)
                       ? (isStickyMode ? logoLightBg : logoDarkBg)
                       : logoLightBg)
               } 
@@ -146,22 +147,28 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
 
         <nav className="hidden md:flex items-center space-x-8 lg:space-x-12">
           {navLinks.map((link) => {
-            const isActive = (link.type === 'page' && (currentPage === link.id || (link.id === 'services' && currentPage === 'service'))) || activeSection === link.id;
+            const isCasePage = currentPage === 'case';
+            const isCaseStudiesLink = link.id === 'casestudies';
+            const isActive = (link.type === 'page' && (currentPage === link.id || (link.id === 'services' && currentPage === 'service') || (isCaseStudiesLink && isCasePage))) || activeSection === link.id;
             if (link.id === 'services') {
               return (
-                <div key={link.name} className="relative group">
-                  <button
-                    onClick={handleServicesRoot}
-                    className={`text-xs lg:text-sm font-bold tracking-[0.2em] transition-all duration-300 mono relative py-2 flex items-center gap-2 ${
-                      isActive ? 'text-primary' : isLightMode ? 'text-white/60 hover:text-white' : 'text-secondary/60 hover:text-primary'
+                <div key={link.name} className="relative group flex items-center">
+                  <a
+                    href={link.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleServicesRoot();
+                    }}
+                    className={`text-xs lg:text-sm font-bold transition-all duration-300 mono relative py-2 flex items-center gap-1.5 ${
+                      isActive ? 'text-primary' : isLightMode ? 'text-white hover:text-white/80' : 'text-secondary/60 hover:text-primary'
                     }`}
                   >
                     {link.name}
-                    <Icons.ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${isActive ? 'text-primary' : ''} group-hover:rotate-180`} />
+                    <Icons.ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 transform-gpu ${isActive ? 'text-primary' : ''} group-hover:rotate-180`} />
                     <span className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-500 ${
                       isActive ? 'w-full' : 'w-0 group-hover:w-full'
                     }`}></span>
-                  </button>
+                  </a>
                   <div className="absolute left-1/2 top-full -translate-x-1/2 pt-4 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300">
                     <div className="w-[720px] rounded-2xl border border-black/5 bg-white shadow-[0_30px_70px_rgba(0,0,0,0.12)] overflow-hidden">
                       <div className="p-5">
@@ -214,9 +221,10 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
                         <span className="text-[11px] font-semibold text-secondary/60">Explore all automation solutions</span>
                         <button
                           onClick={() => onNavigate('services')}
-                          className="text-[11px] font-semibold text-secondary hover:text-primary transition-colors"
+                          className="bg-primary text-white text-[11px] font-bold px-3 py-1.5 rounded-full hover:bg-black transition-all duration-300 flex items-center gap-1.5 shadow-sm hover:shadow-md"
                         >
-                          View All Services
+                          View All
+                          <Icons.ArrowRight className="w-3 h-3" />
                         </button>
                       </div>
                     </div>
@@ -229,8 +237,8 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleLinkClick(e, link)}
-                className={`text-xs lg:text-sm font-bold tracking-[0.2em] transition-all duration-300 mono relative py-2 ${
-                  isActive ? 'text-primary' : isLightMode ? 'text-white/60 hover:text-white' : 'text-secondary/60 hover:text-primary'
+                className={`text-xs lg:text-sm font-bold transition-all duration-300 mono relative py-2 ${
+                  isActive ? 'text-primary' : isLightMode ? 'text-white hover:text-white/80' : 'text-secondary/60 hover:text-primary'
                 }`}
               >
                 {link.name}
@@ -246,7 +254,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
           <a 
             href="/contact" 
             onClick={handleConnect}
-            className={`hidden md:flex px-6 py-3 lg:px-8 lg:py-3.5 text-xs lg:text-sm font-bold tracking-widest transition-all duration-300 mono items-center gap-3 group rounded-full ${
+            className={`hidden md:flex px-6 py-3 lg:px-8 lg:py-3.5 text-xs lg:text-sm font-bold transition-all duration-300 mono items-center gap-3 group rounded-full ${
               isLightMode 
                 ? 'bg-white text-black hover:bg-primary hover:text-white' 
                 : 'bg-black text-white hover:bg-primary shadow-[0_4px_15px_rgba(32,188,97,0.2)] hover:shadow-none hover:-translate-y-1'
@@ -275,7 +283,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
               key={link.name}
               href={link.href}
               onClick={(e) => handleLinkClick(e, link)}
-              className={`text-lg font-bold tracking-tight flex justify-between items-center group ${
+              className={`text-lg font-bold flex justify-between items-center group ${
                 (link.type === 'page' && currentPage === link.id) || activeSection === link.id ? 'text-primary' : 'text-secondary'
               }`}
             >
@@ -289,7 +297,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
             <a 
               href="/contact" 
               onClick={handleConnect}
-              className="w-full bg-primary text-white text-center py-3.5 font-bold tracking-widest text-xs mono flex items-center justify-center gap-3 rounded-md"
+              className="w-full bg-primary text-white text-center py-3.5 font-bold text-xs mono flex items-center justify-center gap-3 rounded-md"
             >
               Connect With Us
               <Icons.Send className="w-3.5 h-3.5" />

@@ -308,8 +308,8 @@ export const Hero: React.FC = () => {
                     <Icons.ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1.5" />
                   </a>
                   <a 
-                    href="#services"
-                    onClick={(e) => scrollToSection(e, 'services')}
+                    href="#home-services"
+                    onClick={(e) => scrollToSection(e, 'home-services')}
                     className="w-full sm:w-auto bg-white text-secondary px-8 sm:px-10 py-4 sm:py-5 rounded-xl font-black tracking-widest text-xs sm:text-sm flex items-center justify-center gap-3 border border-zinc-200 hover:bg-zinc-50 transition-all duration-300 hover:-translate-y-1"
                   >
                     Explore Capabilities

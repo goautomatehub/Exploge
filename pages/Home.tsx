@@ -16,7 +16,7 @@ import { TrustedCompanies } from '../components/TrustedCompanies';
 import { ExpertiseSection } from '../components/ExpertiseSection';
 
 interface HomeProps {
-  onNavigate?: (page: 'home' | 'about' | 'services' | 'casestudies' | 'service', slug?: string) => void;
+  onNavigate?: (page: 'home' | 'about' | 'services' | 'casestudies' | 'service' | 'case', slug?: string) => void;
 }
 
 export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
@@ -27,6 +27,12 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       <ExpertiseSection />
       <Process />
       <HomeServices onNavigate={onNavigate} />
+      <Projects 
+        onOpenCase={slug => onNavigate?.('case', slug)} 
+        limit={3}
+        showViewAll
+        onViewAll={() => onNavigate?.('casestudies')}
+      />
       <Testimonials />
       <Stats />
       <FAQ />

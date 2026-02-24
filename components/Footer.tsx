@@ -4,7 +4,7 @@ import logoLightBg from './Exploge Logo/Exploge-header-logo-01-for-light-backgro
 import logoDarkBg from './Exploge Logo/Exploge-header-logo-01-for-dark-background.png';
 
 interface FooterProps {
-  onNavigate: (page: 'home' | 'about' | 'services' | 'casestudies' | 'service' | 'contact', slug?: string) => void;
+  onNavigate: (page: 'home' | 'about' | 'services' | 'casestudies' | 'service' | 'case' | 'contact', slug?: string) => void;
   currentPage?: string;
 }
 

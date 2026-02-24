@@ -27,6 +27,9 @@
             font-size: 18px;
             line-height: 1.7;
         }
+        *, *::before, *::after {
+            letter-spacing: normal !important;
+        }
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Urbanist', sans-serif;
         }
@@ -39,6 +42,31 @@
         .text-primary { color: #20bc61; }
         .bg-primary { background-color: #20bc61; }
         .border-primary { border-color: #20bc61; }
+        
+        button, a[class*="bg-"] {
+            font-size: 18px !important;
+            font-weight: 500 !important;
+            text-transform: capitalize !important;
+            border-radius: 4px !important;
+        }
+        button.bg-primary:not(:hover), a.bg-primary:not(:hover),
+        button.bg-secondary:not(:hover), a.bg-secondary:not(:hover),
+        button.bg-black:not(:hover), a.bg-black:not(:hover) {
+            color: #ffffff !important;
+        }
+        button.bg-white, a.bg-white {
+            color: #000000 !important;
+        }
+        button svg, a[class*="bg-"] svg {
+            color: inherit !important;
+        }
+        .marquee-container { overflow: hidden; }
+        .marquee-track { animation: marqueeScroll var(--marquee-duration, 8s) linear infinite; will-change: transform; }
+        .marquee-container:hover .marquee-track { animation-play-state: paused; }
+        @keyframes marqueeScroll {
+          from { transform: translateX(0%); }
+          to { transform: translateX(-50%); }
+        }
         
         /* Soft Zinc Background to avoid pure white glare */
         .bg-soft { background-color: #fcfcfc; }
@@ -84,9 +112,16 @@
             will-change: transform;
         }
 
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #f8f9fa; }
-        ::-webkit-scrollbar-thumb { background: #000000; border-radius: 0px; }
+        :root {
+            --scrollbar-track: #f8f9fa;
+            --scrollbar-thumb: #ced4da;
+            --scrollbar-thumb-hover: #adb5bd;
+        }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+        ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 9999px; border: 2px solid var(--scrollbar-track); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover); }
+        html { scrollbar-width: thin; scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track); }
 
         @keyframes blob-float {
             0%, 100% { transform: translate(0, 0) scale(1); }
