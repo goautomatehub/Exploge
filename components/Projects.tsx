@@ -106,7 +106,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onOpenCase })
 
 export const Projects: React.FC<ProjectsProps> = ({ onOpenCase, limit, showViewAll = false, onViewAll }) => {
   const allProjects = caseStudies;
-  const visibleProjects = typeof limit === 'number' ? allProjects.slice(0, Math.max(0, limit)) : allProjects;
+  const orderedProjects = allProjects.slice().sort((a, b) => {
+    if (a.slug === 'mistery-home-improvements') return 1;
+    if (b.slug === 'mistery-home-improvements') return -1;
+    return 0;
+  });
+  const visibleProjects = typeof limit === 'number' ? orderedProjects.slice(0, Math.max(0, limit)) : orderedProjects;
 
   return (
     <section id="projects" className="py-24 md:py-32 bg-white relative overflow-hidden">

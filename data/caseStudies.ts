@@ -90,16 +90,16 @@ export const caseStudies: CaseStudy[] = [
   ,
   {
     slug: 'mistery-home-improvements',
-    title: 'Digital Transformation of Mister Y Home Improvements',
-    category: 'Web Engineering',
+    title: 'Mister Y Home Improvements Website Development',
+    category: 'WordPress',
     heroImage: misterYBanner as unknown as string,
-    excerpt: 'Rebuilt a generic template into a high-converting WordPress presence tailored to homeowners, with visual rebrand, structured services, and local SEO.',
-    tags: ['WordPress', 'Rank Math', 'SEO', 'UX', 'Freepik'],
+    excerpt: 'Building a professional digital platform from scratch for Mister Y Home Improvements. This case study covers custom development, branding, and SEO architecture designed to drive business growth.',
+    tags: ['WordPress'],
     stats: [
       { label: 'Client Name', value: 'Eliran Halliva' },
       { label: 'Project Name', value: 'Mister Y Home Improvements' },
       { label: 'Platform', value: 'WordPress' },
-      { label: 'Focus', value: 'Local SEO & Conversion' }
+      { label: 'Focus', value: 'Lead Capture & UX' }
     ],
     sections: [
       {
@@ -134,9 +134,9 @@ export const caseStudies: CaseStudy[] = [
         body: 'Every section of the site was handcrafted to ensure total brand consistency. The About page was developed to showcase core specialties, while the Gallery was organized into a strategic grid to display a diverse portfolio of work. We also built a transparent "Simple and Transparent Process" section that outlines the four critical stages of a project: consultation, planning, execution, and inspection. This structural clarity is designed to reduce customer friction and provide a clear roadmap for every engagement.'
       },
       {
-        id: 'technical-seo-framework',
-        heading: 'Technical SEO and Framework Configuration',
-        body: 'The technical infrastructure of the site was built using the Rank Math SEO framework to ensure long-term discoverability. This involved a deep configuration of site-wide metadata, including the primary site title, tagline, and focus keywords tailored to the home improvement industry. We developed unique meta descriptions for every page, focusing on high-intent search terms that drive organic traffic. This technical foundation was built to ensure that the site ranks effectively for local searches, connecting the business with homeowners in need of expert services.'
+        id: 'technical-foundation',
+        heading: 'Technical Foundation and Configuration',
+        body: 'The technical infrastructure of the site was configured for reliability, maintainability, and performance. We established clear site-wide metadata, coherent information architecture, and a responsive component system. The build emphasizes fast loading, clean structure, and scalability, ensuring the website remains robust as content and services evolve.'
       },
       {
         id: 'conversion-lead-capture',
