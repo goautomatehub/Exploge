@@ -8,11 +8,44 @@
     <meta name="description" content="We help businesses grow by building simple and effective automation systems. End-to-end business automation to eliminate manual tasks and boost efficiency." />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260212">
     <link rel="shortcut icon" href="/favicon.svg?v=20260212">
+    <link rel="canonical" href="https://exploge.com/">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700;800;900&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Exploge",
+      "url": "https://exploge.com",
+      "logo": "/favicon.svg"
+    }
+    </script>
+    <script>
+      (function () {
+        function setCanonical() {
+          try {
+            var link = document.querySelector('link[rel="canonical"]');
+            var href = location.origin + location.pathname;
+            if (!link) {
+              link = document.createElement('link');
+              link.rel = 'canonical';
+              document.head.appendChild(link);
+            }
+            link.href = href;
+          } catch (e) {}
+        }
+        setCanonical();
+        var _ps = history.pushState;
+        history.pushState = function () {
+          _ps.apply(history, arguments);
+          setCanonical();
+        };
+        window.addEventListener('popstate', setCanonical);
+      })();
+    </script>
     <style>
         html, body {
             max-width: 100%;
